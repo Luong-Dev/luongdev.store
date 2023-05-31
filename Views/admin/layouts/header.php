@@ -27,7 +27,7 @@
                             <a class="nav-link" aria-current="page" href="index.php?act=admin">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="index.php?act=admin_categories">Danh mục</a>
+                            <a class="nav-link" href="index.php?act=admin_product_categories">Danh mục</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="index.php?act=admin_products">Hàng hóa</a>

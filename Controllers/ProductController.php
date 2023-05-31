@@ -234,7 +234,7 @@ function productDetailUserControl()
         if ($product) {
             $categories = getCategoriesInProduct();
             $categoryId = $product['category_id'];
-            $top10RelatedProducts = get10RelatedProducts($categoryId,$id);
+            $top10RelatedProducts = get10RelatedProducts($categoryId, $id);
 
 
             global $arrStatus;

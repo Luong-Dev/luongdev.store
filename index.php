@@ -4,7 +4,7 @@ session_start();
 // var_dump($_SESSION['user']);
 
 include_once "./Controllers/MainController.php";
-include_once "./Controllers/CategoryProductController.php";
+include_once "./Controllers/ProductCategoryController.php";
 include_once "./Controllers/ProductController.php";
 include_once "./Controllers/CartController.php";
 include_once "./Controllers/AccountController.php";
@@ -22,24 +22,28 @@ if (isset($_GET['act'])) {
                 homeAdminControl();
                 break;
 
-            case 'admin_categories':
-                categoriesControl();
+            case 'admin_product_categories':
+                productCategoriesControl();
                 break;
 
-            case 'admin_categories_create':
-                createCategoryControl();
+            case 'admin_product_categories_create':
+                createProductCategoryControl();
                 break;
 
-            case 'admin_categories_delete':
-                deleteCategoryControl();
+                // case 'admin_product_categories_store':
+                //     storeProductCategoryControl();
+                //     break;
+
+            case 'admin_product_categories_delete':
+                deleteProductCategoryControl();
                 break;
 
-            case 'admin_categories_edit':
-                editCategoryControl();
+            case 'admin_product_categories_edit':
+                editProductCategoryControl();
                 break;
 
-            case 'admin_categories_update':
-                updateCategoryControl();
+            case 'admin_product_categories_update':
+                updateProductCategoryControl();
                 break;
 
             case 'admin_products':
