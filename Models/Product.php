@@ -9,15 +9,15 @@ include_once "./Models/Db.php";
 //     return pdo_query($sql);
 // }
 
-function getProducts($categoryId = 0, $productSearch = "")
+function getProducts($productCategoryId = 0, $productSearch = "")
 {
     $sql = "SELECT * FROM `products` WHERE 1 ";
 
     if ($productSearch != "") {
         $sql .= "AND `name` LIKE '%$productSearch%'";
     }
-    if ($categoryId != 0) {
-        $sql .= "AND `category_id` = $categoryId";
+    if ($productCategoryId != 0) {
+        $sql .= "AND `product_category_id` = $productCategoryId";
     }
     $sql .= " ORDER BY id DESC";
 
@@ -56,10 +56,10 @@ function deleteProduct($id)
 // user
 function getCategoriesInProduct()
 {
-    $sql = "SELECT CG.id, CG.name , CG.description, CG.image_url,CG.image_alt, COUNT(PD.category_id) AS 'quantity_product' FROM `categories` AS CG
+    $sql = "SELECT CG.id, CG.name ,COUNT(PD.category_id) AS 'quantity_product' FROM `categories` AS CG
     LEFT JOIN products AS PD ON CG.id = PD.category_id
     GROUP BY CG.id
-    ORDER BY id DESC";
+    ORDER BY CG.id DESC";
 
     return pdo_query($sql);
 }

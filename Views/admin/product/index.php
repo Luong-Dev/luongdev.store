@@ -8,8 +8,8 @@
                 <div class="col-md-3">
                     <select name="categorySearch" class="form-select" aria-label="Default select example">
                         <option value="0" selected style="display: none;">Danh mục</option>
-                        <?php if (isset($categories) && $categories) : ?>
-                            <?php foreach ($categories as $category) : ?>
+                        <?php if (isset($productCategories) && $productCategories) : ?>
+                            <?php foreach ($productCategories as $category) : ?>
                                 <option value="<?= isset($category['id']) && $category['id'] ? $category['id'] : "" ?>"><?= isset($category['name']) && $category['name'] ? $category['name'] : "" ?></option>
                             <?php endforeach; ?>
                         <?php endif; ?>
@@ -22,13 +22,15 @@
             </form>
         </div>
     </div>
-    <div class="mb-3">
-        <p class="text-success">
-            <?= (isset($message['success']) && $message['success']) ? $message['success'] : ""; ?>
-        </p>
-        <p class="text-danger">
-            <?= (isset($message['error']) && $message['error']) ? $message['error'] : ""; ?>
-        </p>
+    <div class="mt-3 notify">
+        <?php if (isset($_SESSION['notify']['success'])) : ?>
+            <div class="alert alert-success" role="alert"><?= $_SESSION['notify']['success'] ?></div>
+            <?php unset($_SESSION['notify']['success']) ?>
+        <?php endif; ?>
+        <?php if (isset($_SESSION['notify']['error'])) : ?>
+            <div class="alert alert-danger" role="alert"><?= $_SESSION['notify']['error'] ?></div>
+            <?php unset($_SESSION['notify']['error']) ?>
+        <?php endif; ?>
     </div>
     <div class="table">
         <table class="table table-striped table-hover">
@@ -38,12 +40,11 @@
                     <th>Mã SP</th>
                     <th>Tên sản phẩm</th>
                     <th>Loại sản phẩm</th>
-                    <th>Hình ảnh</th>
-                    <th>Mô tả ngắn</th>
-                    <!-- còn mô tả dài khi hover vào sẽ ra -->
+                    <!-- <th>Hình ảnh</th> -->
+                    <!-- <th>Mô tả ngắn</th> -->
                     <th>Giá thường</th>
                     <th>Giá sale</th>
-                    <th>Ngày nhập</th>
+                    <!-- <th>Ngày nhập</th> -->
                     <th>Trạng thái</th>
                     <th>Lượt xem</th>
                     <th>Thao tác</th>
@@ -63,8 +64,8 @@
                             <td><?= (isset($id) && $id) ? $id : ""; ?></td>
                             <td><?= (isset($name) && $name) ? $name : ""; ?></td>
                             <td>
-                                <?php if (isset($categories) && $categories) : ?>
-                                    <?php foreach ($categories as $category) : ?>
+                                <?php if (isset($productCategories) && $productCategories) : ?>
+                                    <?php foreach ($productCategories as $category) : ?>
                                         <?= (isset($category_id) && $category_id && $category_id == $category['id']) ? $category['name'] : ""; ?>
                                     <?php endforeach; ?>
                                 <?php endif; ?>
@@ -95,7 +96,7 @@
                     <?php endforeach; ?>
                 <?php else : ?>
                     <tr>
-                        <td colspan="12" class="text-danger">Chưa có sản phẩm nào!</td>
+                        <td colspan="12" class="text-danger text-center fw-bold fs-2">Chưa có sản phẩm nào!</td>
                     </tr>
                 <?php endif; ?>
 

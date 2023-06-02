@@ -1,25 +1,25 @@
 <?php
 include_once "./Models/Product.php";
 
+// Admin
+const AR_STATUS = ['Còn hàng', 'Sắp có hàng', 'Ngưng bán', 'Hết hàng'];
+// define('AR_STATUS', array('Còn hàng', 'Sắp có hàng', 'Ngưng bán', 'Hết hàng'));
 
-// admin
-$arrStatus = ['Còn hàng', 'Sắp có hàng', 'Ngưng bán', 'Hết hàng'];
 function productsControl()
 {
     include "./Views/admin/layouts/header.php";
     $products = getProducts();
-    $categories = getCategoriesInProduct();
-    global $arrStatus;
+    $productCategories = getProductCategories();
 
-    if (isset($_POST['btn-top-search'])) {
-        // if(isset($_POST[''])){
+    // if (isset($_POST['btn-top-search'])) {
+    //     // if(isset($_POST[''])){
 
-        // }
-        $categorySearch = $_POST['categorySearch'];
-        $productSearch = $_POST['productSearch'];
-        // var_dump($categorySearch, $productSearch);
-        $products = getProducts($categorySearch, $productSearch);
-    }
+    //     // }
+    //     $categorySearch = $_POST['categorySearch'];
+    //     $productSearch = $_POST['productSearch'];
+    //     // var_dump($categorySearch, $productSearch);
+    //     $products = getProducts($categorySearch, $productSearch);
+    // }
 
     include "./Views/admin/product/index.php";
     include "./Views/admin/layouts/footer.php";
@@ -28,36 +28,36 @@ function productsControl()
 function createProductControl()
 {
     include "./Views/admin/layouts/header.php";
-    $categories = getCategoriesInProduct();
-    global $arrStatus;
+    $productCategories = getProductCategories();;
     if (isset($_POST['add-new']) && $_POST['add-new']) {
-        // xét tồn tại các post, xét điều kiện validate, nghiên cứu làm 1 file validate riêng
-        $code = $_POST['code'];
-        $categoryId = (int)$_POST['categoryId'];
+        // xét tồn tại các post
+        $module = $_POST['module'];
+        $productCategoryId = (int)$_POST['productCategoryId'];
         $name = $_POST['name'];
         $regularPrice = (int)$_POST['regularPrice'];
         $salePrice = (int)$_POST['salePrice'];
+        $size = (int)$_POST['size'];
+        $color = $_POST['color'];
+        $trademark = $_POST['trademark'];
         $shortDescription = $_POST['shortDescription'];
         $longDescription = $_POST['longDescription'];
         $status = (int)$_POST['status'];
+        $importTime = $_POST['importTime'];
 
+        // file
         $targetDir = "./resources/uploads/images/product/";
         $fileName = $_FILES['imageUpload']['name'];
         $fileTmpName = $_FILES['imageUpload']['tmp_name'];
-
         if ($fileName != "") {
             $imageUrl = $targetDir . $fileName;
         } else {
             $imageUrl = "";
         }
         move_uploaded_file($fileTmpName, $imageUrl);
-
-        $imageAlt = $_POST['imageAlt'];
-        $importTime = $_POST['importTime'];
         // $importTime = date('Y-m-d');
         // var_dump($fileTmpName);
-        // var_dump($code, $name, $regularPrice, $salePrice, $imageUrl, $imageAlt, $importTime, $shortDescription, $longDescription, $status, $categoryId);
-        postProduct($code, $name, $regularPrice, $salePrice, $imageUrl, $imageAlt, $importTime, $shortDescription, $longDescription, $status, $categoryId);
+        // var_dump($module, $name, $regularPrice, $salePrice, $imageUrl, $imageAlt, $importTime, $shortDescription, $longDescription, $status, $productCategoryId);
+        postProduct($module, $name, $regularPrice, $salePrice, $imageUrl, $imageAlt, $importTime, $shortDescription, $longDescription, $status, $productCategoryId);
         $message['success'] = "Thêm thành công!";
     }
     include "./Views/admin/product/create.php";
@@ -102,15 +102,14 @@ function editProductControl()
         $id = $_GET['id'];
         $product = getProduct($id);
         if ($product) {
-            $categories = getCategoriesInProduct();
-            global $arrStatus;
+            $productCategories = getProductCategories();;
             include "./Views/admin/product/edit.php";
         } else {
             echo "<script>
                         alert('Không tồn tại danh mục có id này');
                     </script>";
             $products = getProducts();
-            $categories = getCategoriesInProduct();
+            $productCategories = getProductCategories();
             include "./Views/admin/category/index.php";
         }
     } else {
@@ -118,7 +117,7 @@ function editProductControl()
                 alert('Không tồn tại danh mục có id này');
             </script>";
         $products = getProducts();
-        $categories = getCategoriesInProduct();
+        $productCategories = getProductCategories();
         include "./Views/admin/products/index.php";
     }
     include "./Views/admin/layouts/footer.php";
@@ -197,7 +196,7 @@ function updateProductControl()
 //                 </script>";
 //         }
 //     }
-//     $categories = getCategoriesInProduct();
+//     $productCategories = getProductCategories();
 //     include "./Views/admin/category/detail.php";
 //     include "./Views/admin/layouts/footer.php";
 // }
@@ -210,14 +209,14 @@ function productUserControl()
         $categoryId = $_GET['category'];
         $productSearch = "";
 
-        $categories = getCategoriesInProduct();
+        $productCategories = getProductCategories();
         $products = getProductsInUser($categoryId, $productSearch);
     } else {
         // echo "<script>
         //         alert('Không tồn tại danh mục có id này');
         //     </script>";
         // $products = getProducts();
-        // $categories = getCategoriesInProduct();
+        // $productCategories = getProductCategories();
         // include "./Views/admin/products/index.php";
     }
     include "./Views/user/product/index.php";
@@ -232,12 +231,12 @@ function productDetailUserControl()
         $id = $_GET['id'];
         $product = getProduct($id);
         if ($product) {
-            $categories = getCategoriesInProduct();
+            $productCategories = getProductCategories();
             $categoryId = $product['category_id'];
             $top10RelatedProducts = get10RelatedProducts($categoryId, $id);
 
 
-            global $arrStatus;
+
             include "./Views/user/product/productDetail.php";
         } else {
             echo "<script>

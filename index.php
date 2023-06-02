@@ -3,6 +3,7 @@
 session_start();
 // var_dump($_SESSION['user']);
 
+include_once "./Controllers/Controller.php";
 include_once "./Controllers/MainController.php";
 include_once "./Controllers/ProductCategoryController.php";
 include_once "./Controllers/ProductController.php";
@@ -22,6 +23,7 @@ if (isset($_GET['act'])) {
                 homeAdminControl();
                 break;
 
+                // product_category
             case 'admin_product_categories':
                 productCategoriesControl();
                 break;
@@ -46,6 +48,7 @@ if (isset($_GET['act'])) {
                 updateProductCategoryControl();
                 break;
 
+                // product
             case 'admin_products':
                 productsControl();
                 break;

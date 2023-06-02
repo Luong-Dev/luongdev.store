@@ -16,7 +16,7 @@ include_once "./Models/ProductCategory.php";
 
 //     include "./Views/admin/layouts/footer.php";
 // }
-const URL_PR_CT = 'index?act=admin_product_categories';
+const URL_P_C = 'index?act=admin_product_categories';
 
 function productCategoriesControl()
 {
@@ -37,7 +37,7 @@ function createProductCategoryControl()
         $name = $_POST['name'];
         postProductCategory($name);
         $_SESSION['notify']['success'] = "Thêm mới thành công danh mục: $name";
-        header("location: " . URL_PR_CT);
+        header("location: " . URL_P_C);
         exit("Test Exit");
     }
 
@@ -55,14 +55,14 @@ function deleteProductCategoryControl()
         if ($check) {
             $_SESSION['notify']['success'] = 'Xóa thành công danh mục: ' . $check['name'];
             deleteProductCategory($id);
-            header("location: " . URL_PR_CT);
+            header("location: " . URL_P_C);
         } else {
             $_SESSION['notify']['error'] = "Không tồn tại danh mục";
-            header("location: " . URL_PR_CT);
+            header("location: " . URL_P_C);
         }
     } else {
         $_SESSION['notify']['error'] = "Không tồn tại danh mục";
-        header("location: " . URL_PR_CT);
+        header("location: " . URL_P_C);
     }
 }
 
@@ -77,11 +77,11 @@ function editProductCategoryControl()
             include "./Views/admin/productCategory/edit.php";
         } else {
             $_SESSION['notify']['error'] = "Không tồn tại danh mục";
-            header("location: " . URL_PR_CT);
+            header("location: " . URL_P_C);
         }
     } else {
         $_SESSION['notify']['error'] = "Không tồn tại danh mục";
-        header("location: " . URL_PR_CT);
+        header("location: " . URL_P_C);
     }
 
     include "./Views/admin/layouts/footer.php";
@@ -94,6 +94,6 @@ function updateProductCategoryControl()
         $name = $_POST['name'];
         $_SESSION['notify']['success'] = 'Cập nhật thành công danh mục: ' . $name;
         putProductCategory($name, $id);
-        header("location: " . URL_PR_CT);
+        header("location: " . URL_P_C);
     }
 }
