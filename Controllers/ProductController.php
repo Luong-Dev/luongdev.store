@@ -3,8 +3,6 @@ include_once "./Models/Product.php";
 
 // Admin
 const URL_P = 'index?act=admin_products';
-const AR_STATUS = ['Còn hàng', 'Sắp có hàng', 'Ngưng bán', 'Hết hàng'];
-// define('AR_STATUS', array('Còn hàng', 'Sắp có hàng', 'Ngưng bán', 'Hết hàng'));
 
 function productsControl()
 {
@@ -12,16 +10,11 @@ function productsControl()
 
     $products = getProducts();
     $productCategories = getProductCategories();
-
-    // if (isset($_POST['btn-top-search'])) {
-    //     // if(isset($_POST[''])){
-
-    //     // }
-    //     $categorySearch = $_POST['categorySearch'];
-    //     $productSearch = $_POST['productSearch'];
-    //     // var_dump($categorySearch, $productSearch);
-    //     $products = getProducts($categorySearch, $productSearch);
-    // }
+    if (isset($_POST['btn-top-search'])) {
+        $productCategorySearch = $_POST['productCategorySearch'];
+        $productSearch = $_POST['productSearch'];
+        $products = getProducts($productCategorySearch, $productSearch);
+    }
 
     include "./Views/admin/product/index.php";
     include "./Views/admin/layouts/footer.php";
@@ -144,6 +137,28 @@ function updateProductControl()
         $_SESSION['notify']['success'] = 'Cập nhật thành công sản phẩm: ' . $name;
         header("location: " . URL_P);
     }
+}
+
+function detailProductControl()
+{
+    include "./Views/admin/layouts/header.php";
+
+    if (isset($_GET['id']) && is_numeric($_GET['id'])) {
+        $id = $_GET['id'];
+        $product = getProduct($id);
+        if ($product) {
+            $productCategories = getProductCategories();
+            include "./Views/admin/product/detail.php";
+        } else {
+            $_SESSION['notify']['error'] = "Sản phẩm không tồn tại";
+            header("location: " . URL_P);
+        }
+    } else {
+        $_SESSION['notify']['error'] = "Sản phẩm không tồn tại";
+        header("location: " . URL_P);
+    }
+
+    include "./Views/admin/layouts/footer.php";
 }
 
 // function detailCategoryControl()

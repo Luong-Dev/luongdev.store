@@ -1,6 +1,7 @@
 <div class="container">
     <?php
     extract($product);
+    $detail = "index.php?act=admin_products_detail&id=" . $id;
     ?>
     <h1 class="mb-5">Cập nhật sản phẩm: "<?= isset($name) ? $name : "" ?>"</h1>
     <form action="index.php?act=admin_products_update" class="form" method="POST" enctype="multipart/form-data">
@@ -37,7 +38,7 @@
                     <label for="exampleShortDescription" class="form-label">Mô tả ngắn:</label>
                     <textarea name="shortDescription" id="exampleShortDescription" cols="30" rows="1" class="form-control"><?= isset($short_description)  ? $short_description : "" ?></textarea>
                 </div>
-                <div class="">
+                <div class="mb-3">
                     <label for="exampleLongDescription" class="form-label">Mô tả chi tiết:</label>
                     <textarea name="longDescription" id="exampleLongDescription" cols="30" rows="5" class="form-control"><?= isset($long_description) ? $long_description : "" ?></textarea>
                 </div>
@@ -56,16 +57,14 @@
                         <?php endif; ?>
                     </select>
                 </div>
-                <div class="mb-3">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label for="exampleRegularPrice" class="form-label">Giá thường: <span class="text-danger fw-bold">*</span></label>
-                            <input value="<?= isset($regular_price) ? $regular_price : ""; ?>" name="regularPrice" type="number" class="form-control" id="exampleRegularPrice">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="exampleSalePrice" class="form-label">Giá sale: </label>
-                            <input value="<?= isset($sale_price) ? $sale_price : ""; ?>" name="salePrice" type="number" class="form-control" id="exampleSalePrice">
-                        </div>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="exampleRegularPrice" class="form-label">Giá thường: <span class="text-danger fw-bold">*</span></label>
+                        <input value="<?= isset($regular_price) ? $regular_price : "" ?>" name="regularPrice" type="number" class="form-control" id="exampleRegularPrice">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="exampleSalePrice" class="form-label">Giá sale: </label>
+                        <input value="<?= isset($sale_price) ? $sale_price : "" ?>" name="salePrice" type="number" class="form-control" id="exampleSalePrice">
                     </div>
                 </div>
                 <div class="mb-3">
@@ -74,7 +73,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="exampleImportTime" class="form-label">Thời gian nhập hàng:</label>
-                    <input value="<?= isset($created_at) ? $created_at : ""; ?>" type="date" name="importTime" id="exampleImportTime" class="form-control">
+                    <input value="<?= isset($created_at) ? $created_at : "" ?>" type="date" name="importTime" id="exampleImportTime" class="form-control">
                 </div>
                 <div class="mb-3">
                     <label for="exampleImageUpload" class="form-label">Hình ảnh:</label>
@@ -91,11 +90,10 @@
             </div>
         </div>
         <div class="mb-3">
-            <input type="hidden" name="idData" class="form-control" value="<?= isset($id) ? $id : ""; ?>">
-            <input type="submit" name="update" value="Cập nhật" class="btn btn-primary"></input>
-            <!-- onclick="return confirm('Bạn có muốn cập nhật không')"  -->
+            <input type="hidden" name="idData" class="form-control" value="<?= isset($id) ? $id : "" ?>">
+            <input type="submit" name="update" value="Cập nhật" onclick="return confirm('Bạn có muốn cập nhật không')" class="btn btn-primary"></input>
             <input type="reset" class="btn btn-outline-danger" value="Nhập lại"></input>
-            <!-- <a href="<?= $detail ?>" class="btn btn-outline-dark">Xem lại chi tiết</a> -->
+            <a href="<?= isset($detail) ? $detail : "" ?>" class="btn btn-outline-dark">Chi tiết</a>
             <a href="index.php?act=admin_products" class="btn btn-outline-success">Danh sách</a>
         </div>
     </form>

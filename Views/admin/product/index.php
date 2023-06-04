@@ -1,16 +1,16 @@
 <div class="container">
     <div class="mb-5 row flex align-items-center">
-        <div class="col-md-5">
+        <div class="col-lg-5">
             <h1 class="">Danh sách sản phẩm</h1>
         </div>
-        <div class="col-md-7">
+        <div class="col-lg-7">
             <form class="d-flex row" action="index.php?act=admin_products" method="post">
                 <div class="col-md-3">
-                    <select name="categorySearch" class="form-select" aria-label="Default select example">
-                        <option value="0" selected style="display: none;">Danh mục</option>
+                    <select name="productCategorySearch" class="form-select" aria-label="Default select example">
+                        <option value="" selected style="display: none;">Danh mục</option>
                         <?php if (isset($productCategories) && $productCategories) : ?>
-                            <?php foreach ($productCategories as $category) : ?>
-                                <option value="<?= isset($category['id']) ? $category['id'] : "" ?>"><?= isset($category['name']) ? $category['name'] : "" ?></option>
+                            <?php foreach ($productCategories as $productCategory) : ?>
+                                <option value="<?= isset($productCategory['id']) ? $productCategory['id'] : "" ?>"><?= isset($productCategory['name']) ? $productCategory['name'] : "" ?></option>
                             <?php endforeach; ?>
                         <?php endif; ?>
                     </select>
@@ -54,6 +54,7 @@
                         if (isset($id)) {
                             $update = "index.php?act=admin_products_edit&id=" . $id;
                             $delete = "index.php?act=admin_products_delete&id=" . $id;
+                            $detail = "index.php?act=admin_products_detail&id=" . $id;
                         }
                     ?>
                         <tr>
@@ -78,7 +79,8 @@
                             </td>
                             <td><?= isset($view_number) ? $view_number : "" ?></td>
                             <td>
-                                <a href="<?= isset($update) ? $update : "" ?>" class="btn btn-success btn-sm">Chi tiết, Sửa</a>
+                                <a href="<?= isset($detail) ? $detail : "" ?>" class="btn btn-primary btn-sm">Chi tiết</a>
+                                <a href="<?= isset($update) ? $update : "" ?>" class="btn btn-outline-success btn-sm">Sửa</a>
                                 <a href="<?= isset($delete) ? $delete : "" ?>" onclick="return confirm('Bạn có muốn xóa không')" class="btn btn-outline-danger btn-sm">Xóa</a>
                             </td>
                         </tr>

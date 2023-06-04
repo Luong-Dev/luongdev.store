@@ -17,7 +17,7 @@ if (isset($_SESSION['user'])) {
 
 if (isset($_GET['act'])) {
     $act = $_GET['act'];
-    if (isset($_SESSION['user']) && ($_SESSION['user']['role'] == 1 || $_SESSION['user']['role'] == 2)) {
+    if (isset($_SESSION['user']) && ($_SESSION['user']['role'] == 2 || $_SESSION['user']['role'] == 1)) {
         switch ($act) {
             case 'admin':
                 homeAdminControl();
@@ -68,6 +68,37 @@ if (isset($_GET['act'])) {
             case 'admin_products_update':
                 updateProductControl();
                 break;
+
+            case 'admin_products_detail':
+                detailProductControl();
+                break;
+
+                // Account
+            case 'admin_accounts':
+                accountsControl();
+                break;
+
+                // case 'admin_accounts_create':
+                //     createAccountControl();
+                //     break;
+
+                // case 'admin_accounts_delete':
+                //     deleteAccountControl();
+                //     break;
+
+                // case 'admin_accounts_edit':
+                //     editAccountControl();
+                //     break;
+
+                // case 'admin_accounts_update':
+                //     updateAccountControl();
+                //     break;
+
+                // case 'admin_accounts_detail':
+                //     detailAccountControl();
+                //     break;
+
+
 
             case '':
                 homeUserControl();

@@ -2,14 +2,14 @@
 include_once "./Models/Db.php";
 
 // admin
-function getProducts($productCategoryId = 0, $productSearch = "")
+function getProducts($productCategoryId = "", $productSearch = "")
 {
     $sql = "SELECT * FROM `products` WHERE 1 ";
 
     if ($productSearch != "") {
         $sql .= "AND `name` LIKE '%$productSearch%'";
     }
-    if ($productCategoryId != 0) {
+    if ($productCategoryId != "") {
         $sql .= "AND `product_category_id` = $productCategoryId";
     }
     $sql .= " ORDER BY name";
@@ -31,15 +31,6 @@ function postProduct($module, $name, $image, $shortDescription, $longDescription
 
     return  pdo_execute($sql, $module, $name, $image, $shortDescription, $longDescription, $regularPrice, $salePrice, $size, $color, $quantity, $importTime, $status, $productCategoryId);
 }
-
-
-// function putProduct($code, $name, $regularPrice, $salePrice, $imageUrl, $imageAlt, $importTime, $shortDescription, $longDescription, $status, $categoryId, $id)
-// {
-//     $sql = "UPDATE `products` SET `code`='$code',`name`='$name',`regular_price`=$regularPrice,`sale_price`=$salePrice,`image_url`='$imageUrl',`image_alt`='$imageAlt'
-//     ,`import_time`='$importTime',`short_description`='$shortDescription',`long_description`='$longDescription',`status`= $status,`category_id`= $categoryId WHERE id = " . $id;
-
-//     pdo_execute($sql);
-// }
 
 function putProduct($module, $name, $image = "", $shortDescription, $longDescription, $regularPrice, $salePrice, $size, $color, $quantity,  $status, $importTime, $productCategoryId, $id)
 {

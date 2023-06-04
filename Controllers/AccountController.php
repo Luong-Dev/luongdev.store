@@ -1,6 +1,22 @@
 <?php
 include_once "./Models/Account.php";
 
+// admin
+function accountsControl()
+{
+    include "./Views/admin/layouts/header.php";
+
+    $accounts = getAccounts();
+
+    include "./Views/admin/account/index.php";
+    include "./Views/admin/layouts/footer.php";
+}
+
+
+
+
+
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
