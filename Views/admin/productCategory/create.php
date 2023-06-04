@@ -10,11 +10,11 @@
     </div>
     <form action="index.php?act=admin_product_categories_create" class="form" method="POST">
         <div class="mb-3">
-            <label for="exampleId" class="form-label">Mã loại</label>
+            <label for="exampleId" class="form-label">Mã loại:</label>
             <input type="text" name="id" class="form-control" id="exampleId" value="Auto" disabled>
         </div>
         <div class="mb-3">
-            <label for="exampleName" class="form-label">Tên danh mục <span class="text-danger">*</span></label>
+            <label for="exampleName" class="form-label">Tên danh mục: <span class="text-danger fw-bold">*</span></label>
             <input autofocus type="text" name="name" class="form-control" id="exampleName" aria-describedby="emailHelp">
         </div>
         <div class="mb-3">

@@ -10,7 +10,7 @@
                         <option value="0" selected style="display: none;">Danh mục</option>
                         <?php if (isset($productCategories) && $productCategories) : ?>
                             <?php foreach ($productCategories as $category) : ?>
-                                <option value="<?= isset($category['id']) && $category['id'] ? $category['id'] : "" ?>"><?= isset($category['name']) && $category['name'] ? $category['name'] : "" ?></option>
+                                <option value="<?= isset($category['id']) ? $category['id'] : "" ?>"><?= isset($category['name']) ? $category['name'] : "" ?></option>
                             <?php endforeach; ?>
                         <?php endif; ?>
                     </select>
@@ -37,14 +37,11 @@
             <thead class="table-primary">
                 <tr>
                     <th><input class="form-check-input" type="checkbox"></th>
-                    <th>Mã SP</th>
+                    <th>ID</th>
                     <th>Tên sản phẩm</th>
                     <th>Loại sản phẩm</th>
-                    <!-- <th>Hình ảnh</th> -->
-                    <!-- <th>Mô tả ngắn</th> -->
                     <th>Giá thường</th>
                     <th>Giá sale</th>
-                    <!-- <th>Ngày nhập</th> -->
                     <th>Trạng thái</th>
                     <th>Lượt xem</th>
                     <th>Thao tác</th>
@@ -54,43 +51,35 @@
                 <?php if (isset($products) && !empty($products)) : ?>
                     <?php foreach ($products as $key => $product) :
                         extract($product);
-                        if (isset($id) && $id) {
+                        if (isset($id)) {
                             $update = "index.php?act=admin_products_edit&id=" . $id;
                             $delete = "index.php?act=admin_products_delete&id=" . $id;
                         }
                     ?>
                         <tr>
                             <td><input class="form-check-input" type="checkbox"></td>
-                            <td><?= (isset($id) && $id) ? $id : ""; ?></td>
-                            <td><?= (isset($name) && $name) ? $name : ""; ?></td>
+                            <td><?= isset($id)  ? $id : "" ?></td>
+                            <td><?= isset($name) ? $name : "" ?></td>
                             <td>
                                 <?php if (isset($productCategories) && $productCategories) : ?>
-                                    <?php foreach ($productCategories as $category) : ?>
-                                        <?= (isset($category_id) && $category_id && $category_id == $category['id']) ? $category['name'] : ""; ?>
+                                    <?php foreach ($productCategories as $productCategory) : ?>
+                                        <?= isset($product_category_id) && $product_category_id == $productCategory['id'] ? $productCategory['name'] : "" ?>
                                     <?php endforeach; ?>
                                 <?php endif; ?>
                             </td>
+                            <td><?= isset($regular_price) ? $regular_price : ""; ?></td>
+                            <td><?= isset($sale_price) ? $sale_price : "" ?></td>
                             <td>
-                                <img src="<?= (isset($image_url) && $image_url) ? $image_url : ""; ?>" alt="<?= (isset($image_alt) && $image_alt) ? $image_alt : ""; ?>" style="width: 30px; height: 25px;">
-                            </td>
-                            <!-- <?= (isset($name) && $name) ? $name : ""; ?> -->
-                            <!-- <?= (isset($long_description) && $long_description != "") ? $long_description : "Không có mô tả!" ?> -->
-                            <td><?= (isset($short_description) && $short_description != "") ? $short_description : "Không có mô tả!" ?></td>
-                            <td><?= (isset($regular_price) && $regular_price) ? $regular_price : ""; ?></td>
-                            <td><?= (isset($sale_price) && $sale_price) ? $sale_price : ""; ?></td>
-                            <td><?= (isset($import_time) && $import_time) ? $import_time : ""; ?></td>
-                            <td>
-                                <?php if (isset($arrStatus) && $arrStatus) : ?>
-                                    <?php foreach ($arrStatus as $key => $item) : ?>
-                                        <?= (isset($status) && $status && $status == $key + 1) ? $item : ""; ?>
+                                <?php if (defined('AR_STATUS') && is_array(AR_STATUS) && AR_STATUS) : ?>
+                                    <?php foreach (AR_STATUS as $key => $item) : ?>
+                                        <?= isset($status) && $status == $key + 1 ? $item : "" ?>
                                     <?php endforeach; ?>
                                 <?php endif; ?>
                             </td>
-                            <!-- <p class="text-danger">check lại toàn bộ biến isset 0;</p> -->
-                            <td><?= (isset($view_number)) ? $view_number : ""; ?></td>
+                            <td><?= isset($view_number) ? $view_number : "" ?></td>
                             <td>
-                                <a href="<?= (isset($update) && $update) ? $update : ""; ?>" class="btn btn-success btn-sm">Chi tiết, Sửa</a>
-                                <a href="<?= (isset($delete) && $delete) ? $delete : ""; ?>" onclick="return confirm('Bạn có muốn xóa không')" class="btn btn-outline-danger btn-sm">Xóa</a>
+                                <a href="<?= isset($update) ? $update : "" ?>" class="btn btn-success btn-sm">Chi tiết, Sửa</a>
+                                <a href="<?= isset($delete) ? $delete : "" ?>" onclick="return confirm('Bạn có muốn xóa không')" class="btn btn-outline-danger btn-sm">Xóa</a>
                             </td>
                         </tr>
                     <?php endforeach; ?>
@@ -99,8 +88,6 @@
                         <td colspan="12" class="text-danger text-center fw-bold fs-2">Chưa có sản phẩm nào!</td>
                     </tr>
                 <?php endif; ?>
-
-
             </tbody>
         </table>
     </div>

@@ -1,5 +1,5 @@
 <footer>
-    <h2 class="container mt-5">
+    <h2 class="container text-danger text-center mt-5 mb-5">
         CODE BY TRAN DUC LUONG
     </h2>
 </footer>

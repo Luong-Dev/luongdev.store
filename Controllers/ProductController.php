@@ -2,12 +2,14 @@
 include_once "./Models/Product.php";
 
 // Admin
+const URL_P = 'index?act=admin_products';
 const AR_STATUS = ['Còn hàng', 'Sắp có hàng', 'Ngưng bán', 'Hết hàng'];
 // define('AR_STATUS', array('Còn hàng', 'Sắp có hàng', 'Ngưng bán', 'Hết hàng'));
 
 function productsControl()
 {
     include "./Views/admin/layouts/header.php";
+
     $products = getProducts();
     $productCategories = getProductCategories();
 
@@ -28,150 +30,120 @@ function productsControl()
 function createProductControl()
 {
     include "./Views/admin/layouts/header.php";
-    $productCategories = getProductCategories();;
+
+    $productCategories = getProductCategories();
     if (isset($_POST['add-new']) && $_POST['add-new']) {
         // xét tồn tại các post
         $module = $_POST['module'];
-        $productCategoryId = (int)$_POST['productCategoryId'];
         $name = $_POST['name'];
         $regularPrice = (int)$_POST['regularPrice'];
         $salePrice = (int)$_POST['salePrice'];
         $size = (int)$_POST['size'];
         $color = $_POST['color'];
-        $trademark = $_POST['trademark'];
         $shortDescription = $_POST['shortDescription'];
         $longDescription = $_POST['longDescription'];
-        $status = (int)$_POST['status'];
+        $quantity = (int)$_POST['quantity'];
         $importTime = $_POST['importTime'];
-
+        // $importTime = date('Y-m-d');
+        // echo $importTime;
+        $status = (int)$_POST['status'];
+        $productCategoryId = (int)$_POST['productCategoryId'];
         // file
         $targetDir = "./resources/uploads/images/product/";
         $fileName = $_FILES['imageUpload']['name'];
         $fileTmpName = $_FILES['imageUpload']['tmp_name'];
+        $image = "";
         if ($fileName != "") {
-            $imageUrl = $targetDir . $fileName;
-        } else {
-            $imageUrl = "";
+            $image = $targetDir . $fileName;
         }
-        move_uploaded_file($fileTmpName, $imageUrl);
-        // $importTime = date('Y-m-d');
-        // var_dump($fileTmpName);
-        // var_dump($module, $name, $regularPrice, $salePrice, $imageUrl, $imageAlt, $importTime, $shortDescription, $longDescription, $status, $productCategoryId);
-        postProduct($module, $name, $regularPrice, $salePrice, $imageUrl, $imageAlt, $importTime, $shortDescription, $longDescription, $status, $productCategoryId);
-        $message['success'] = "Thêm thành công!";
+        move_uploaded_file($fileTmpName, $image);
+        postProduct($module, $name, $image, $shortDescription, $longDescription, $regularPrice, $salePrice, $size, $color, $quantity, $importTime, $status, $productCategoryId);
+        $_SESSION['notify']['success'] = "Thêm mới thành công sản phẩm: $name";
+        header("location: " . URL_P);
     }
+
     include "./Views/admin/product/create.php";
     include "./Views/admin/layouts/footer.php";
 }
 
 function deleteProductControl()
 {
-    // include "./Views/admin/layouts/header.php";
-    $url = 'index?act=admin_products';
     if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         $id = $_GET['id'];
-        $res = getProduct($id);
-        if ($res) {
+        $check = getProduct($id);
+        if ($check) {
             deleteProduct($id);
-            $message['success'] = "Xóa thành công!";
-            echo "<script>
-                    alert('Không tồn tại danh mục có id này');
-                    window.location.href = '$url';
-                </script>";
+            $_SESSION['notify']['success'] = 'Xóa thành công sản phẩm: ' . $check['name'];
+            header("location: " . URL_P);
         } else {
-            echo "<script>
-                        alert('Không tồn tại danh mục có id này');
-                        window.location.href = '$url';
-                    </script>";
+            $_SESSION['notify']['error'] = "Sản phẩm không tồn tại";
+            header("location: " . URL_P);
         }
     } else {
-        echo "<script>
-                    alert('Không tồn tại danh mục có id này');
-                    window.location.href = '$url';
-                </script>";
+        $_SESSION['notify']['error'] = "Sản phẩm không tồn tại";
+        header("location: " . URL_P);
     }
-    // $products = getProducts();
-    // include "./Views/admin/product/index.php";
-    // include "./Views/admin/layouts/footer.php";
 }
 
 function editProductControl()
 {
     include "./Views/admin/layouts/header.php";
+
     if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         $id = $_GET['id'];
         $product = getProduct($id);
         if ($product) {
-            $productCategories = getProductCategories();;
+            $productCategories = getProductCategories();
             include "./Views/admin/product/edit.php";
         } else {
-            echo "<script>
-                        alert('Không tồn tại danh mục có id này');
-                    </script>";
-            $products = getProducts();
-            $productCategories = getProductCategories();
-            include "./Views/admin/category/index.php";
+            $_SESSION['notify']['error'] = "Sản phẩm không tồn tại";
+            header("location: " . URL_P);
         }
     } else {
-        echo "<script>
-                alert('Không tồn tại danh mục có id này');
-            </script>";
-        $products = getProducts();
-        $productCategories = getProductCategories();
-        include "./Views/admin/products/index.php";
+        $_SESSION['notify']['error'] = "Sản phẩm không tồn tại";
+        header("location: " . URL_P);
     }
+
     include "./Views/admin/layouts/footer.php";
 }
 
 function updateProductControl()
 {
-    include "./Views/admin/layouts/header.php";
-    $url = 'index?act=admin_products';
     if (isset($_POST['update']) && $_POST['update']) {
         // xét tồn tại các post, xét điều kiện validate, nghiên cứu làm 1 file validate riêng
         $id = $_POST['idData'];
         // echo  $id;
-        $code = $_POST['code'];
-        $categoryId = (int)$_POST['categoryId'];
+        $module = $_POST['module'];
         $name = $_POST['name'];
         $regularPrice = (int)$_POST['regularPrice'];
         $salePrice = (int)$_POST['salePrice'];
+        $size = (int)$_POST['size'];
+        $color = $_POST['color'];
         $shortDescription = $_POST['shortDescription'];
         $longDescription = $_POST['longDescription'];
-        $status = (int)$_POST['status'];
-
-        $targetDir = "./resources/uploads/images/product/";
-        $fileName = $_FILES['imageUpload']['name'];
-        $fileTmpName = $_FILES['imageUpload']['tmp_name'];
-
-        if ($fileName != "") {
-            $imageUrl = $targetDir . $fileName;
-        } else {
-            $imageUrl = "";
-        }
-        move_uploaded_file($fileTmpName, $imageUrl);
-
-        $imageAlt = $_POST['imageAlt'];
+        $quantity = (int)$_POST['quantity'];
         $importTime = $_POST['importTime'];
         // $importTime = date('Y-m-d');
-        // var_dump($fileTmpName);
-        // var_dump($code, $name, $regularPrice, $salePrice, $imageUrl, $imageAlt, $importTime, $shortDescription, $longDescription, $status, $categoryId);
+        // echo $importTime;
+        $status = (int)$_POST['status'];
+        $productCategoryId = (int)$_POST['productCategoryId'];
+        // file
+        $targetDir = "./resources/uploads/images/product/";
+        var_dump($_FILES['imageUpload']);
+        if ($size > 0) {
+        }
+        $fileName = $_FILES['imageUpload']['name'];
+        $fileTmpName = $_FILES['imageUpload']['tmp_name'];
+        $image = "";
+        if ($fileName != "") {
+            $image = $targetDir . $fileName;
+            move_uploaded_file($fileTmpName, $image);
+        }
 
-        putProduct($code, $name, $regularPrice, $salePrice, $imageUrl, $imageAlt, $importTime, $shortDescription, $longDescription, $status, $categoryId, $id);
-        $message['success'] = "Cập nhật thành công";
-        echo "<script>
-                    window.location.href = '$url';
-                    alert('Cập nhật thành công');
-                </script>";
-        // include "./Views/admin/product/edit.php";
-    } else {
-
-        echo "<script>
-                    alert('Thao tác sai');
-                    window.location.href = '$url';
-                </script>";
+        putProduct($module, $name, $image, $shortDescription, $longDescription, $regularPrice, $salePrice, $size, $color, $quantity,  $status, $importTime, $productCategoryId, $id);
+        $_SESSION['notify']['success'] = 'Cập nhật thành công sản phẩm: ' . $name;
+        header("location: " . URL_P);
     }
-    include "./Views/admin/layouts/footer.php";
 }
 
 // function detailCategoryControl()

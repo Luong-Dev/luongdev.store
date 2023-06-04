@@ -26,19 +26,19 @@
                 <?php if (isset($productCategories) && !empty($productCategories)) : ?>
                     <?php foreach ($productCategories as $key => $productCategory) :
                         extract($productCategory);
-                        if (isset($id) && $id) {
+                        if (isset($id)) {
                             $update = "index.php?act=admin_product_categories_edit&id=" . $id;
                             $delete = "index.php?act=admin_product_categories_delete&id=" . $id;
                         }
                     ?>
                         <tr>
                             <td><input class="form-check-input" type="checkbox"></td>
-                            <td><?= (isset($id) && $id) ? $id : ""; ?></td>
-                            <td><?= (isset($name) && $name) ? $name : ""; ?></td>
-                            <td><?= (isset($quantity_product) && $quantity_product != "") ? $quantity_product : "" ?></td>
+                            <td><?= isset($id) ? $id : "" ?></td>
+                            <td><?= isset($name) ? $name : "" ?></td>
+                            <td><?= isset($quantity_product) ? $quantity_product : "" ?></td>
                             <td>
-                                <a href="<?= (isset($update) && $update) ? $update : ""; ?>" class="btn btn-success btn-sm">Sửa</a>
-                                <a href="<?= (isset($delete) && $delete) ? $delete : ""; ?>" onclick="return confirm('Bạn có muốn xóa không')" class="btn btn-outline-danger btn-sm">Xóa</a>
+                                <a href="<?= isset($update) ? $update : "" ?>" class="btn btn-success btn-sm">Sửa</a>
+                                <a href="<?= isset($delete) ? $delete : "" ?>" onclick="return confirm('Bạn có muốn xóa không')" class="btn btn-outline-danger btn-sm">Xóa</a>
                             </td>
                         </tr>
                     <?php endforeach; ?>

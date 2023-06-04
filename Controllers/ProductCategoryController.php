@@ -38,7 +38,7 @@ function createProductCategoryControl()
         postProductCategory($name);
         $_SESSION['notify']['success'] = "Thêm mới thành công danh mục: $name";
         header("location: " . URL_P_C);
-        exit("Test Exit");
+        // exit("Test Exit");
     }
 
     include "./Views/admin/productCategory/create.php";
@@ -53,15 +53,15 @@ function deleteProductCategoryControl()
         $id = $_GET['id'];
         $check = getProductCategory($id);
         if ($check) {
-            $_SESSION['notify']['success'] = 'Xóa thành công danh mục: ' . $check['name'];
             deleteProductCategory($id);
+            $_SESSION['notify']['success'] = 'Xóa thành công danh mục: ' . $check['name'];
             header("location: " . URL_P_C);
         } else {
-            $_SESSION['notify']['error'] = "Không tồn tại danh mục";
+            $_SESSION['notify']['error'] = "Danh mục không tồn tại";
             header("location: " . URL_P_C);
         }
     } else {
-        $_SESSION['notify']['error'] = "Không tồn tại danh mục";
+        $_SESSION['notify']['error'] = "Danh mục không tồn tại";
         header("location: " . URL_P_C);
     }
 }
@@ -76,11 +76,11 @@ function editProductCategoryControl()
         if ($productCategory) {
             include "./Views/admin/productCategory/edit.php";
         } else {
-            $_SESSION['notify']['error'] = "Không tồn tại danh mục";
+            $_SESSION['notify']['error'] = "Danh mục không tồn tại";
             header("location: " . URL_P_C);
         }
     } else {
-        $_SESSION['notify']['error'] = "Không tồn tại danh mục";
+        $_SESSION['notify']['error'] = "Danh mục không tồn tại";
         header("location: " . URL_P_C);
     }
 
@@ -92,8 +92,8 @@ function updateProductCategoryControl()
     if (isset($_POST['update']) && $_POST['update']) {
         $id = $_POST['idData'];
         $name = $_POST['name'];
-        $_SESSION['notify']['success'] = 'Cập nhật thành công danh mục: ' . $name;
         putProductCategory($name, $id);
+        $_SESSION['notify']['success'] = 'Cập nhật thành công danh mục: ' . $name;
         header("location: " . URL_P_C);
     }
 }
