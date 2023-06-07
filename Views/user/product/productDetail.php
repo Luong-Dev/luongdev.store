@@ -1,10 +1,3 @@
-<?php
-// var_dump($product);
-// var_dump($categories);
-// echo "<pre>";
-// var_dump($top10RelatedProducts);
-// echo "</pre>";
-?>
 <main>
     <div class="breadcrumb-css__background">
         <div class="container">
@@ -28,11 +21,10 @@
                     <div class="product-detail__image-top">
                         <img src="<?= isset($product['image']) ? $product['image'] : "" ?>" alt="Hình ảnh sản phẩm" class="image-top__main">
                         <div class="product-detail__image-wrap-extra">
-                            <img src="https://bizweb.dktcdn.net/thumb/medium/100/451/884/products/chanvaydangacaplientabongthant.jpg?v=1649173050497" alt="" class="image-top__extra">
-                            <img src="https://bizweb.dktcdn.net/thumb/medium/100/451/884/products/chanvaydangacaplientabongthant-eb9a6568-72f7-45a3-807b-dab4142ffc13.jpg?v=1649173050497" alt="" class="image-top__extra">
-                            <img src="https://bizweb.dktcdn.net/thumb/medium/100/451/884/products/chanvaydangacaplientabongthant-08c397d2-22c4-4c19-ab1b-f3e8f5546784.jpg?v=1649173050497" alt="" class="image-top__extra">
-                            <img src="https://bizweb.dktcdn.net/thumb/medium/100/451/884/products/chanvaydangacaplientabongthant-a7c357d3-d48a-49fb-91e8-035532643b0b.jpg?v=1649173050497" alt="" class="image-top__extra">
-                            <img src="https://bizweb.dktcdn.net/thumb/medium/100/451/884/products/chanvaydangacaplientabongthant-afda6e75-aa07-4588-b82d-015432ec39d9.jpg?v=1649173050497" alt="" class="image-top__extra">
+                            <img src="<?= defined('URL_WEB') ? URL_WEB . '/resources/uploads/images/product/anh-mau/anh-mau1.jpg' : '' ?>" alt="Hình ảnh" class="image-top__extra">
+                            <img src="<?= defined('URL_WEB') ? URL_WEB . '/resources/uploads/images/product/anh-mau/anh-mau2.jpg' : '' ?>" alt="Hình ảnh" class="image-top__extra">
+                            <img src="<?= defined('URL_WEB') ? URL_WEB . '/resources/uploads/images/product/anh-mau/anh-mau3.jpg' : '' ?>" alt="Hình ảnh" class="image-top__extra">
+                            <img src="<?= defined('URL_WEB') ? URL_WEB . '/resources/uploads/images/product/anh-mau/anh-mau4.jpg' : '' ?>" alt="Hình ảnh" class="image-top__extra">
                         </div>
                     </div>
                     <div class="product-detail__content-top">
@@ -71,22 +63,12 @@
                             <p class="content-top__color-title">Màu sắc:
                                 <span class="content-top__color"><?= (isset($product['color']) && $product['color']) ? $product['color'] : "Đang cập nhật" ?></span>
                             </p>
-                            <!-- <div class="content-top__description">
-                                <span class="content-top__description-color content-top__description-color-active"></span>
-                                <span class="content-top__description-color"></span>
-                                <span class="content-top__description-color"></span>
-                            </div> -->
                         </div>
                         <div class="content-top__size-wrap">
                             <p class="content-top__size-title">Kích thước:
                                 <span class="content-top__size"><?= (isset($product['size']) && $product['size']) ? $product['size'] : "Đang cập nhật" ?></span>
                                 Inch
                             </p>
-                            <!-- <div class="content-top__description">
-                                <span class="content-top__description-size content-top__description-size-active">S</span>
-                                <span class="content-top__description-size">M</span>
-                                <span class="content-top__description-size">L</span>
-                            </div> -->
                         </div>
                         <form class="content-top__form">
                             <div class="content-top__form-wrap">
@@ -101,7 +83,6 @@
                         </form>
                     </div>
                 </div>
-
                 <div class="content-top__description-long">
                     <h3 class="description-long__title">Mô tả sản phẩm</h3>
                     <p class="description-long__content">
@@ -110,7 +91,6 @@
                 </div>
 
                 <!-- <div id="comment"></div> -->
-
                 <div class="mt-5 product-detail__comment-wrap">
                     <div class="form__fixed">
                         <h4 class="product-comment__title">Bình luận</h4>
@@ -124,7 +104,6 @@
                     </div>
                     <iframe src="./Views/user/comment/comments.php?productId=<?= (isset($product['id']) && $product['id']) ? $product['id'] : "" ?>" frameborder="0" width="100%" height="666px"></iframe>
                 </div>
-
 
                 <!-- <div class="product-detail__comment-wrap">
                     <h4 class="product-comment__title">Bình luận</h4>
@@ -207,7 +186,6 @@
                 </div> -->
             </section>
             <aside class="product-detail wrap__main-right">
-
                 <div class="product-coupon">
                     <h3 class="product-coupon__title">
                         <i class="product-coupon__title-icon ti-gift"></i> Mã giảm giá

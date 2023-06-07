@@ -5,12 +5,9 @@ function homeUserControl()
     include "./Views/user/layouts/header.php";
 
     $categories = getProductCategories();
-    // $products = getProductsCustom();
-    // $topNewProducts = getProductsCustom(0, "", "import_time", 10);
-    // $top4ViewProducts = getProductsCustom(0, "", "view_number", 4);
-    // // $top4ViewProducts = getProductsCustom(0,"","view_number",4);
-    // $top4SellingProducts = getProductsCustom(0, "", "number_sold", 4);
-    // $topSellingProducts = getProductsCustom(0, "", "number_sold", 4);
+    $top10NewProducts = getProductsCustom(sort: "created_at", limit: '18', sortDirect: 'ASC');
+    $top8ViewProducts = getProductsCustom(sort: "view_number", limit: '8');
+    $top4SellingProducts = getProductsCustom(sort: "view_number", limit: '8');
 
     include "./Views/user/home.php";
     include "./Views/user/layouts/footer.php";

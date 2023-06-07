@@ -185,26 +185,27 @@ function productUserControl()
 {
     include "./Views/user/layouts/header.php";
 
-    $products = getProducts();
+    $productCategories = getProductCategories();
+    $top10NewProducts = getProductsCustom(sort: "created_at", limit: 10, sortDirect: 'ASC');
+    $productCategoryId = 0;
+    // chỗ này cần sửa thành text sau, nếu làm search. nếu sửa thì phải sửa tất cả những link liên quan ăn theo text. ví dụ thanh menu
+    $sort = 'name';
+    $sortDirect = 'DESC';
 
-    // làm details xong quay lại xử lý trang chủ, rồi về đây xử lý
-
-    // var_dump($products);
-
-    // if (isset($_GET['category']) && is_numeric($_GET['category'])) {
-    //     $categoryId = $_GET['category'];
-    //     $productSearch = "";
-
-    //     $productCategories = getProductCategories();
-    //     $products = getProductsInUser($categoryId, $productSearch);
-    // } else {
-    //     // echo "<script>
-    //     //         alert('Không tồn tại danh mục có id này');
-    //     //     </script>";
-    //     // $products = getProducts();
-    //     // $productCategories = getProductCategories();
-    //     // include "./Views/admin/products/index.php";
-    // }
+    // làm sắp xếp, lọc... trong trang product đọc lại code xử lý ở đoạn này và mở comment code ở link product ở home.php để test cho nhanh
+    if (isset($_GET['product_category_id']) && is_numeric($_GET['product_category_id']) && $_GET['product_category_id'] != 0) {
+        $productCategoryId = $_GET['product_category_id'];
+    }
+    if (isset($_GET['sort']) && (!strcasecmp($_GET['sort'], 'price') || !strcasecmp($_GET['sort'], 'view_number') || !strcasecmp($_GET['sort'], 'created_at'))) {
+        // này sau khi có số lượng đã bán sẽ thêm vào
+        // loại trừ name
+        $sort = $_GET['sort'];
+    }
+    if (isset($_GET['sort_direct']) && !strcasecmp($_GET['sort_direct'], 'ASC')) {
+        $sortDirect = $_GET['sort_direct'];
+    }
+    // hàm strcasecmp(chuỗi 1, chuỗi 2) sẽ trả về 0 nếu 2 chuỗi giống nhau - không phân biệt chữ hoa, thường.
+    $products =  getProductsCustom(productCategoryId: $productCategoryId, sort: $sort, sortDirect: $sortDirect, limit: 1000);
 
     include "./Views/user/product/index.php";
     include "./Views/user/layouts/footer.php";

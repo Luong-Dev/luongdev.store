@@ -54,19 +54,34 @@ function deleteProduct($id)
 }
 
 // user
-function getProductsCustom($categoryId = 0, $productSearch = "", $sort = "name", $limit = 12)
+// khi sắp xếp sản phẩm theo giá thì sẽ so sánh sản phẩm theo giá sale nếu có, còn không sẽ lấy giá gốc
+// tham khảo: SELECT *, IFNULL(sale_price, regular_price) AS sorted_price FROM products ORDER BY sorted_price ASC;
+
+function getProductsCustom($productCategoryId = 0, $productSearch = "", $sort = "name", $limit = 12, $sortDirect = "DESC")
 {
-    $sql = "SELECT * FROM `products` WHERE 1 ";
-    if ($categoryId != 0) {
-        $sql .= "AND `category_id` = $categoryId";
-    }
-    if ($productSearch != "") {
-        $sql .= "AND `name` LIKE '%$productSearch%'";
-    }
+    if ($sort != 'price') {
+        $sql = "SELECT * FROM `products` WHERE 1 ";
+        if ($productCategoryId != 0) {
+            $sql .= "AND `product_category_id` = $productCategoryId";
+        }
+        if ($productSearch != "") {
+            $sql .= "AND `name` LIKE '%$productSearch%'";
+        }
+        $sql .= " ORDER BY $sort $sortDirect LIMIT $limit";
 
-    $sql .= " ORDER BY $sort DESC LIMIT $limit";
+        return pdo_query($sql);
+    } else {
+        $sql = "SELECT *, IFNULL(sale_price, regular_price) AS $sort FROM `products` WHERE 1 ";
+        if ($productCategoryId != 0) {
+            $sql .= "AND `product_category_id` = $productCategoryId";
+        }
+        if ($productSearch != "") {
+            $sql .= "AND `name` LIKE '%$productSearch%'";
+        }
+        $sql .= " ORDER BY $sort $sortDirect LIMIT $limit";
 
-    return pdo_query($sql);
+        return pdo_query($sql);
+    }
 }
 
 function get10RelatedProducts($productCategoryId, $productId)

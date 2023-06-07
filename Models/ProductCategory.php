@@ -6,7 +6,7 @@ function getProductCategories()
     $sql = "SELECT CG.id, CG.name, COUNT(PD.product_category_id) AS 'quantity_product' FROM `product_categories` AS CG
     LEFT JOIN products AS PD ON CG.id = PD.product_category_id
     GROUP BY CG.id
-    ORDER BY CG.name";
+    ORDER BY COUNT(PD.product_category_id) DESC";
 
     return pdo_query($sql);
 }

@@ -41,7 +41,7 @@ $comments = getCommentsInProduct($productId);
 <body>
 
     <div class="product-detail__comment-wrap">
-        <div class="form__fixed">
+        <div class="form__fixed py-2 px-5">
             <?php
             if (isset($_SESSION['user']) && !empty($_SESSION['user'])) :
             ?>
@@ -89,8 +89,10 @@ $comments = getCommentsInProduct($productId);
                             <span class="product-comment__time-comment"><?= (isset($created_at) && $created_at) ? $created_at : ""; ?></span>
                         </div>
                     </div>
-            <?php endforeach;
-            endif; ?>
+            <?php
+                endforeach;
+            endif;
+            ?>
         </div>
     </div>
 </body>

@@ -2,7 +2,7 @@
 // var_dump($products);
 // var_dump($categories);
 // echo "<pre>"; 
-// var_dump($topNewProducts);
+// var_dump($top10NewProducts);
 // echo "</pre>";
 ?>
 
@@ -96,56 +96,27 @@
         <div class="wrap__main mt-5 mb-5">
             <section class="wrap__main-left">
                 <div class="product-home">
-                    <h2 class="text-center fw-bold"><a href="index.php?act=products&sort=number_sold&category=0" class="fs-1 text-dark text-deco-none">#Top Bán Chạy</a>
+                    <h2 class="text-center fw-bold"><a href="index.php?act=products&sort=number_sold" class="fs-1 text-dark text-deco-none">#Top Bán Chạy</a>
                     </h2>
                     <div class="grid-col-4 mt-5">
-                        <!-- <div class="card border-0 shadow rounded" style="width: 100%; ">
-                            <a href="" class="text-deco-none card__wrap-image">
-                                <img src="https://bizweb.dktcdn.net/thumb/large/100/451/884/products/aocottondangsuongfreesizeinchu.jpg?v=1649173049000" class="card-img-top" alt="...">
-                                <i class="card__price-sale-image">- 20%</i>
-                            </a>
-                            <div class="card-body">
-                                <h3 class="card-title"><a href="" class="card__name text-deco-none">Áo Cotton Nữ cổ tròn
-                                        dáng suôn chữ in theo trend</a></h3>
-                                <p class="card__price mt-3">
-                                    <span class="card__price-sale">195.000<u>đ</u></span>
-                                    <span class="card__price-regular text-deco-line-th">250.000<u>đ</u></span>
-                                </p>
-                                <div class="card__sold text-center">
-                                    <span class="card__sold-sale-bar">
-                                        <span class="card__sold-sale-bar-text">#1</span>
-                                    </span>
-                                    <span class="card__sold-text">Đã bán 236</span>
-                                    <span class="card__sold-countdown" style="width: 40%;"></span>
-                                </div>
-                            </div>
-                        </div> -->
-
                         <?php
                         if (isset($top4SellingProducts) && $top4SellingProducts) :
                             foreach ($top4SellingProducts as $key => $top4SellingProduct) :
                                 extract($top4SellingProduct);
+                                $url_product = 'index.php?act=product_detail&id=' . $id;
                                 if (isset($regular_price) && isset($sale_price) && $sale_price >= 0) {
-                                    $sale = $regular_price - $sale_price;
-                                    $precent = round((($sale / $regular_price) * 100), 2);
-                                    if ($precent >= 100) {
-                                        $precent = 100;
-                                    } elseif ($precent <= 0) {
-                                        $precent = 0;
-                                    }
-                                } else {
-                                    $precent = 0;
+                                    $precent = ceil(($regular_price - $sale_price) / $regular_price * 100);
                                 }
                         ?>
                                 <div class="card border-0 shadow rounded" style="width: 100%; ">
-                                    <a href="index.php?act=products_detail&id=<?= (isset($id) && $id) ? $id : ""; ?>" class="text-deco-none card__wrap-image">
-                                        <img src="<?= (isset($image_url) && $image_url) ? $image_url : ""; ?>" class="card-img-top" alt="<?= (isset($image_alt) && $image_alt) ? $image_alt : ""; ?>">
+                                    <a href="<?= (isset($url_product) && $url_product) ? $url_product : "" ?>" class="text-deco-none card__wrap-image">
+                                        <img src="<?= defined('URL_WEB') && $image ? URL_WEB . $image : '' ?>" class="card-img-top" alt="Hình ảnh sản phẩm">
                                         <?php if (isset($precent)  && $precent > 0) : ?>
                                             <i class="card__price-sale-image">- <?= $precent ?>%</i>
                                         <?php endif; ?>
                                     </a>
                                     <div class="card-body">
-                                        <h3 class="card-title"><a href="index.php?act=products_detail&id=<?= (isset($id) && $id) ? $id : ""; ?>" class="card__name text-deco-none"><?= (isset($name) && $name) ? $name : ""; ?></a>
+                                        <h3 class="card-title"><a href="<?= (isset($url_product) && $url_product) ? $url_product : "" ?>" class="card__name text-deco-none"><?= (isset($name) && $name) ? $name : ""; ?></a>
                                         </h3>
                                         <p class="card__price mt-3">
                                             <?php if (isset($sale_price) && $sale_price >= 0) : ?>
@@ -160,12 +131,7 @@
                                                 <span class="card__sold-sale-bar-text">#<?= $key + 1 ?></span>
                                             </span>
                                             <span class="card__sold-text">Đã bán
-                                                <?php if (isset($number_sold) && isset($quantity)) {
-                                                    if ($number_sold == $quantity) echo "Hết $number_sold cái";
-                                                    else echo $number_sold;
-                                                }
-                                                ?>
-                                            </span>
+                                                <?= (isset($number_sold) && $number_sold) ? $number_sold : ""; ?></span>
                                             <span class="card__sold-countdown" style="width:<?= (isset($number_sold) && $number_sold && isset($quantity) && $quantity) ? ($number_sold / $quantity * 100) : ""; ?>%; max-width: 100%;"></span>
                                         </div>
                                     </div>
@@ -176,38 +142,31 @@
 
                     </div>
                     <div class="text-center mt-5">
-                        <a href="index.php?act=products&sort=number_sold&category=0" class=" product-home__view-more">Xem thêm</a>
+                        <a href="index.php?act=products&sort=number_sold" class=" product-home__view-more">Xem thêm</a>
                     </div>
                 </div>
                 <div class="product-home mt-5">
-                    <h2 class="text-center fw-bold"><a href="index.php?act=products&sort=view_number&category=0" class="fs-1 text-dark text-deco-none">#Top Yêu Thích</a>
+                    <h2 class="text-center fw-bold"><a href="index.php?act=products&sort=view_number" class="fs-1 text-dark text-deco-none">#Top Yêu Thích</a>
                     </h2>
                     <div class="grid-col-4 mt-5">
                         <?php
-                        if (isset($top4ViewProducts) && $top4ViewProducts) :
-                            foreach ($top4ViewProducts as $key => $top4ViewProduct) :
-                                extract($top4ViewProduct);
+                        if (isset($top8ViewProducts) && $top8ViewProducts) :
+                            foreach ($top8ViewProducts as $key => $top8ViewProduct) :
+                                extract($top8ViewProduct);
+                                $url_product = 'index.php?act=product_detail&id=' . $id;
                                 if (isset($regular_price) && isset($sale_price) && $sale_price >= 0) {
-                                    $sale = $regular_price - $sale_price;
-                                    $precent = round((($sale / $regular_price) * 100), 2);
-                                    if ($precent >= 100) {
-                                        $precent = 100;
-                                    } elseif ($precent <= 0) {
-                                        $precent = 0;
-                                    }
-                                } else {
-                                    $precent = 0;
+                                    $precent = ceil(($regular_price - $sale_price) / $regular_price * 100);
                                 }
                         ?>
                                 <div class="card border-0 shadow rounded" style="width: 100%; ">
-                                    <a href="index.php?act=products_detail&id=<?= (isset($id) && $id) ? $id : ""; ?>" class="text-deco-none card__wrap-image">
-                                        <img src="<?= (isset($image_url) && $image_url) ? $image_url : ""; ?>" class="card-img-top" alt="<?= (isset($image_alt) && $image_alt) ? $image_alt : ""; ?>">
+                                    <a href="<?= (isset($url_product) && $url_product) ? $url_product : "" ?>" class="text-deco-none card__wrap-image">
+                                        <img src="<?= defined('URL_WEB') && $image ? URL_WEB . $image : '' ?>" class="card-img-top" alt="Hình ảnh sản phẩm">
                                         <?php if (isset($precent)  && $precent > 0) : ?>
                                             <i class="card__price-sale-image">- <?= $precent ?>%</i>
                                         <?php endif; ?>
                                     </a>
                                     <div class="card-body">
-                                        <h3 class="card-title"><a href="index.php?act=products_detail&id=<?= (isset($id) && $id) ? $id : ""; ?>" class="card__name text-deco-none"><?= (isset($name) && $name) ? $name : ""; ?></a>
+                                        <h3 class="card-title"><a href="<?= (isset($url_product) && $url_product) ? $url_product : "" ?>" class="card__name text-deco-none"><?= (isset($name) && $name) ? $name : ""; ?></a>
                                         </h3>
                                         <p class="card__price mt-3">
                                             <?php if (isset($sale_price) && $sale_price >= 0) : ?>
@@ -232,7 +191,7 @@
                         ?>
                     </div>
                     <div class="text-center mt-5">
-                        <a href="index.php?act=products&sort=view_number&category=0" class=" product-home__view-more">Xem thêm</a>
+                        <a href="index.php?act=products&sort=view_number" class=" product-home__view-more">Xem thêm</a>
                     </div>
                 </div>
             </section>
@@ -241,7 +200,6 @@
                     <span class="wrap-item__item-title list-group-item" aria-current="true">
                         Danh mục
                     </span>
-
                     <?php
                     if (isset($categories)) :
                         foreach ($categories as $category) :
@@ -254,30 +212,24 @@
                     <?php endforeach;
                     endif;
                     ?>
-
-                    <!-- <a href="#" class="wrap-item__item-link list-group-item d-flex justify-content-between align-items-start">
-                        Quần
-                        <span class=" wrap-item__item-count badge  rounded-pill">14</span>
-                    </a> -->
                 </div>
 
                 <div class="wrap-item list-group mt-5">
                     <span class="wrap-item__item-title list-group-item" aria-current="true">
                         Sản Phẩm Mới
                     </span>
-
                     <?php
-                    if (isset($topNewProducts)) :
-                        foreach ($topNewProducts as $topNewProduct) :
+                    if (isset($top10NewProducts)) :
+                        foreach ($top10NewProducts as $topNewProduct) :
                             extract($topNewProduct);
-                            $url_product = "index.php?act=products_detail&id=" . $id;
+                            $url_product = "index.php?act=product_detail&id=" . $id;
                     ?>
-                            <a href="<?= (isset($url_product) && $url_product) ? $url_product : ""; ?>" class="wrap-item__product wrap-item__item-link list-group-item d-flex justify-content-between align-items-start">
+                            <a href="<?= (isset($url_product) && $url_product) ? $url_product : "" ?>" class="wrap-item__product wrap-item__item-link list-group-item d-flex justify-content-between align-items-start">
                                 <div class="">
-                                    <img class="wrap-item__product-img" src="<?= (isset($image_url) && $image_url) ? $image_url : ""; ?>" alt="<?= (isset($image_alt) && $image_alt) ? $image_alt : ""; ?>">
+                                    <img class="wrap-item__product-img" src="<?= defined('URL_WEB') && $image ? URL_WEB . $image : '' ?>" alt="Hình ảnh sản phẩm">
                                 </div>
                                 <div class="wrap-item__product-content">
-                                    <h2 class="wrap-item__product-title"><?= (isset($name) && $name) ? $name : "Chưa có tên"; ?>
+                                    <h2 class="wrap-item__product-title"><?= isset($name) ? $name : "Chưa có tên" ?>
                                     </h2>
                                     <p class="wrap-item__product-price card__price ">
                                         <?php if (isset($sale_price) && $sale_price >= 0) : ?>
@@ -293,19 +245,6 @@
                         endforeach;
                     endif;
                     ?>
-                    <!-- <a href="#" class="wrap-item__product wrap-item__item-link list-group-item d-flex justify-content-between align-items-start">
-                        <div class="">
-                            <img class="wrap-item__product-img" src="https://bizweb.dktcdn.net/thumb/large/100/451/884/products/chanvaydangacaplientabongthant.jpg?v=1649173050000" alt="">
-                        </div>
-                        <div class="wrap-item__product-content">
-                            <h2 class="wrap-item__product-title">Áo nữ mùa hè mát mẻ</h2>
-                            <p class="wrap-item__product-price card__price ">
-                                <span class="card__price-sale">195.000<u>đ</u></span>
-                                <span class="card__price-regular text-deco-line-th">250.000<u>đ</u></span>
-                            </p>
-                        </div>
-                    </a> -->
-
                 </div>
             </aside>
 

@@ -1,7 +1,3 @@
-<?php
-// var_dump($products);
-// echo $categoryId;
-?>
 <main>
     <div class="breadcrumb-css__background">
         <div class="container">
@@ -47,7 +43,7 @@
                                 <div class="card border-0 shadow rounded" style="width: 100%; ">
                                     <a href="<?= isset($detail) ? $detail : '' ?>" class="text-deco-none card__wrap-image">
                                         <img src="<?= isset($image) ? $image : '' ?>" class="card-img-top" alt="Hình ảnh sản phẩm">
-                                        <?php if ($sale_price) : ?>
+                                        <?php if (isset($sale_price) && $sale_price >= 0) : ?>
                                             <?php
                                             $precent = ceil(($regular_price - $sale_price) / $regular_price * 100);
                                             ?>
@@ -57,11 +53,11 @@
                                     <div class="card-body">
                                         <h3 class="card-title"><a href="<?= isset($detail) ? $detail : '' ?>" class="card__name text-deco-none"><?= isset($name) ? $name : '' ?></a></h3>
                                         <p class="card__price mt-3">
-                                            <?php if ($sale_price) : ?>
-                                                <span class="card__price-sale"><?= isset($sale_price) ? $sale_price : '' ?><u>đ</u></span>
-                                                <span class="card__price-regular text-deco-line-th"><?= isset($regular_price) ? $regular_price : '' ?><u>đ</u></span>
+                                            <?php if (isset($sale_price) && $sale_price >= 0) : ?>
+                                                <span class="card__price-sale"><?= number_format($sale_price, 0, ",", ".") ?><u>đ</u></span>
+                                                <span class="card__price-regular text-deco-line-th"><?= (isset($regular_price) && $regular_price >= 0) ? number_format($regular_price, 0, ",", ".")  : ""; ?><u>đ</u></span>
                                             <?php else : ?>
-                                                <span class="card__price-sale"><?= isset($regular_price) ? $regular_price : '' ?><u>đ</u></span>
+                                                <span class="card__price-sale"><?= (isset($regular_price) && $regular_price >= 0) ? number_format($regular_price, 0, ",", ".")  : ""; ?><u>đ</u></span>
                                             <?php endif; ?>
                                         </p>
                                         <!-- <div class="card__sold text-center">
@@ -78,7 +74,6 @@
                     <?php else : ?>
                         <p class="text-center fw-bold fs-1 text-danger mt-5 mb-5">Không có sản phẩm nào!</p>
                     <?php endif; ?>
-
 
                     <div class="mt-5 d-flex justify-content-center">
                         <nav aria-label="Page navigation example">
@@ -127,18 +122,18 @@
                     <span class="wrap-item__item-title list-group-item" aria-current="true">
                         Danh mục
                     </span>
-                    <a href="#" class="wrap-item__item-link list-group-item d-flex justify-content-between align-items-start">
-                        Quần
-                        <span class=" wrap-item__item-count badge  rounded-pill">14</span>
-                    </a>
-                    <a href="#" class="wrap-item__item-link list-group-item d-flex justify-content-between align-items-start">
-                        Mũ
-                        <span class="wrap-item__item-count badge rounded-pill">14</span>
-                    </a>
-                    <a href="#" class="wrap-item__item-link list-group-item d-flex justify-content-between align-items-start">
-                        Áo
-                        <span class="wrap-item__item-count badge rounded-pill">1</span>
-                    </a>
+                    <?php if (isset($productCategories) && $productCategories) :
+                        foreach ($productCategories as $key => $productCategory) :
+                            extract($productCategory);
+                    ?>
+                            <a href="#" class="wrap-item__item-link list-group-item d-flex justify-content-between align-items-start">
+                                <?= isset($name) ? $name : '' ?>
+                                <span class=" wrap-item__item-count badge  rounded-pill"> <?= isset($quantity_product) ? $quantity_product : '' ?></span>
+                            </a>
+                    <?php
+                        endforeach;
+                    endif;
+                    ?>
                 </div>
 
                 <div class="filter-pro__wrap mt-5 rounded">
@@ -176,61 +171,6 @@
                         </div>
                     </div>
                     <div class="filter-pro__wrap-item">
-                        <h3 class="filter-pro__title">LOẠI SẢN PHẨM</h3>
-                        <div class="filter-pro__item form-check">
-                            <input class="filter-pro__check form-check-input" type="checkbox" value="" id="flexCheck500">
-                            <label class="filter-pro__label form-check-label" for="flexCheck500">
-                                Áo cotton
-                            </label>
-                        </div>
-                        <div class="filter-pro__item form-check">
-                            <input class="filter-pro__check form-check-input" type="checkbox" value="" id="flexCheck500-1000">
-                            <label class="filter-pro__label form-check-label" for="flexCheck500-1000">
-                                Áo phông
-                            </label>
-                        </div>
-                        <div class="filter-pro__item form-check">
-                            <input class="filter-pro__check form-check-input" type="checkbox" value="" id="flexCheck1000-2000">
-                            <label class="filter-pro__label form-check-label" for="flexCheck1000-2000">
-                                Áo polo
-                            </label>
-                        </div>
-                        <div class="filter-pro__item form-check">
-                            <input class="filter-pro__check form-check-input" type="checkbox" value="" id="flexCheck2000-5000">
-                            <label class="filter-pro__label form-check-label" for="flexCheck2000-5000">
-                                Áo tắm
-                            </label>
-                        </div>
-                        <div class="filter-pro__item form-check">
-                            <input class="filter-pro__check form-check-input" type="checkbox" value="" id="flexCheck5000Min">
-                            <label class="filter-pro__label form-check-label" for="flexCheck5000Min">
-                                Váy body
-                            </label>
-                        </div>
-                    </div>
-                    <div class="filter-pro__wrap-item">
-                        <h3 class="filter-pro__title">Thương hiệu</h3>
-                        <div class="filter-pro__item form-check">
-                            <input class="filter-pro__check form-check-input" type="checkbox" value="" id="flexCheck500">
-                            <label class="filter-pro__label form-check-label" for="flexCheck500">
-                                LuongShop
-                            </label>
-                        </div>
-                        <div class="filter-pro__item form-check">
-                            <input class="filter-pro__check form-check-input" type="checkbox" value="" id="flexCheck500-1000">
-                            <label class="filter-pro__label form-check-label" for="flexCheck500-1000">
-                                Gucci
-                            </label>
-                        </div>
-                        <div class="filter-pro__item form-check">
-                            <input class="filter-pro__check form-check-input" type="checkbox" value="" id="flexCheck1000-2000">
-                            <label class="filter-pro__label form-check-label" for="flexCheck1000-2000">
-                                Adidas
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="filter-pro__wrap-item">
                         <h3 class="filter-pro__title">Màu phổ biến</h3>
                         <div class="filter-pro__item form-check">
                             <input class="filter-pro__check form-check-input" type="checkbox" value="" id="flexCheck500">
@@ -263,7 +203,6 @@
                             </label>
                         </div>
                     </div>
-
                     <div class="filter-pro__wrap-item">
                         <h3 class="filter-pro__title">Kiểu vải</h3>
                         <div class="filter-pro__item form-check">
@@ -303,42 +242,32 @@
                     <span class="wrap-item__item-title list-group-item" aria-current="true">
                         Sản Phẩm Mới
                     </span>
-                    <a href="#" class="wrap-item__product wrap-item__item-link list-group-item d-flex justify-content-between align-items-start">
-                        <div class="">
-                            <img class="wrap-item__product-img" src="https://bizweb.dktcdn.net/thumb/large/100/451/884/products/chanvaydangacaplientabongthant.jpg?v=1649173050000" alt="">
-                        </div>
-                        <div class="wrap-item__product-content">
-                            <h2 class="wrap-item__product-title">Áo nữ mùa hè mát mẻ</h2>
-                            <p class="wrap-item__product-price card__price ">
-                                <span class="card__price-sale">195.000<u>đ</u></span>
-                                <span class="card__price-regular text-deco-line-th">250.000<u>đ</u></span>
-                            </p>
-                        </div>
-                    </a>
-                    <a href="#" class="wrap-item__product wrap-item__item-link list-group-item d-flex justify-content-between align-items-start">
-                        <div class="">
-                            <img class="wrap-item__product-img" src="https://bizweb.dktcdn.net/thumb/large/100/451/884/products/chanvaydangacaplientabongthant.jpg?v=1649173050000" alt="">
-                        </div>
-                        <div class="wrap-item__product-content">
-                            <h2 class="wrap-item__product-title">Áo nữ mùa hè mát mẻ</h2>
-                            <p class="wrap-item__product-price card__price ">
-                                <span class="card__price-sale">195.000<u>đ</u></span>
-                                <span class="card__price-regular text-deco-line-th">250.000<u>đ</u></span>
-                            </p>
-                        </div>
-                    </a>
-                    <a href="#" class="wrap-item__product wrap-item__item-link list-group-item d-flex justify-content-between align-items-start">
-                        <div class="">
-                            <img class="wrap-item__product-img" src="https://bizweb.dktcdn.net/thumb/large/100/451/884/products/chanvaydangacaplientabongthant.jpg?v=1649173050000" alt="">
-                        </div>
-                        <div class="wrap-item__product-content">
-                            <h2 class="wrap-item__product-title">Áo nữ mùa hè mát mẻ</h2>
-                            <p class="wrap-item__product-price card__price ">
-                                <span class="card__price-sale">195.000<u>đ</u></span>
-                                <span class="card__price-regular text-deco-line-th">250.000<u>đ</u></span>
-                            </p>
-                        </div>
-                    </a>
+                    <?php if (isset($top10NewProducts) && $top10NewProducts) :
+                        foreach ($top10NewProducts as $key => $top10NewProduct) :
+                            extract($top10NewProduct);
+                            $url_product = 'index.php?act=product_detail&id=' . $id;
+                    ?>
+                            <a href="<?= (isset($url_product) && $url_product) ? $url_product : "" ?>" class="wrap-item__product wrap-item__item-link list-group-item d-flex justify-content-between align-items-start">
+                                <div class="">
+                                    <img class="wrap-item__product-img" src="<?= defined('URL_WEB') && $image ? URL_WEB . $image : '' ?>" alt="Hình ảnh sản phẩm">
+                                </div>
+                                <div class="wrap-item__product-content">
+                                    <h2 class="wrap-item__product-title"> <?= isset($name) ? $name : '' ?></h2>
+                                    <p class="wrap-item__product-price card__price ">
+                                        <?php if (isset($sale_price) && $sale_price >= 0) : ?>
+                                            <span class="card__price-sale"><?= number_format($sale_price, 0, ",", ".") ?><u>đ</u></span>
+                                            <span class="card__price-regular text-deco-line-th"><?= (isset($regular_price) && $regular_price >= 0) ? number_format($regular_price, 0, ",", ".")  : ""; ?><u>đ</u></span>
+                                        <?php else : ?>
+                                            <span class="card__price-sale"><?= (isset($regular_price) && $regular_price >= 0) ? number_format($regular_price, 0, ",", ".")  : ""; ?><u>đ</u></span>
+                                        <?php endif; ?>
+                                    </p>
+                                </div>
+                            </a>
+                    <?php
+                        endforeach;
+                    endif;
+                    ?>
+
 
                 </div>
             </aside>
