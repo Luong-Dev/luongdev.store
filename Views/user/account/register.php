@@ -19,19 +19,19 @@
         </p>
         <form action="index.php?act=register" method="post" class="register__form mt-4">
             <div class="mb-4">
-                <input name="name" type="text" class="form-control" placeholder="Họ và tên">
+                <input name="name" type="text" class="form-control" placeholder="Họ và tên" required>
             </div>
             <div class="mb-4">
-                <input name="email" type="email" class="form-control" aria-describedby="emailHelp" placeholder="Email">
+                <input name="email" type="email" class="form-control" aria-describedby="emailHelp" placeholder="Email" required>
             </div>
             <div class="mb-4">
-                <input name="phone" type="number" class="form-control" placeholder="Số điện thoại">
+                <input name="phoneNumber" type="tel" class="form-control" placeholder="Số điện thoại">
             </div>
             <div class="mb-4">
-                <input name="password" type="password" class="form-control" placeholder="Mật khẩu">
+                <input name="password" type="password" class="form-control" placeholder="Mật khẩu" required>
             </div>
             <div class="mb-4">
-                <input name="confirmPassword" type="password" class="form-control" placeholder="Nhập lại mật khẩu">
+                <input name="confirmPassword" type="password" class="form-control" placeholder="Nhập lại mật khẩu" required>
             </div>
             <div class="register__event">
                 <input name="add-new" type="submit" class="register__btn btn" value="Đăng ký"></input>

@@ -32,8 +32,8 @@
                     <?php foreach ($accounts as $key => $account) :
                         extract($account);
                         if (isset($id)) {
-                            $update = "index.php?act=admin_products_edit&id=" . $id;
-                            $delete = "index.php?act=admin_products_delete&id=" . $id;
+                            $update = "index.php?act=admin_accounts_edit&id=" . $id;
+                            $delete = "index.php?act=admin_accounts_delete&id=" . $id;
                         }
                     ?>
                         <tr>
@@ -45,15 +45,13 @@
                             <td><?= isset($phone_number) ? $phone_number : ""; ?></td>
                             <td><?= isset($email) ? $email : "" ?></td>
                             <td>
-                                <!-- <?php if (defined('AR_STATUS') && is_array(AR_STATUS) && AR_STATUS) : ?>
-                                    <?php foreach (AR_STATUS as $key => $item) : ?>
-                                        <?= isset($status) && $status == $key + 1 ? $item : "" ?>
+                                <?php if (defined('AR_ROLE') && is_array(AR_ROLE) && AR_ROLE) : ?>
+                                    <?php foreach (AR_ROLE as $key => $item) : ?>
+                                        <?= isset($role) && $role == $key ? $item : "" ?>
                                     <?php endforeach; ?>
-                                <?php endif; ?> -->
-                                <?= isset($role) ? $role : "" ?>
+                                <?php endif; ?>
                             </td>
                             <td><?= isset($status) && $status == 1 ? "Đang hoạt động" : (isset($status) && $status == 2 ? "Bị khóa" : "") ?></td>
-
                             <td><?= isset($created_at) ? $created_at : "" ?></td>
                             <td>
                                 <a href="<?= isset($update) ? $update : "" ?>" class="btn btn-outline-success btn-sm">Sửa</a>
@@ -70,7 +68,7 @@
         </table>
     </div>
     <div class="mb-3">
-        <a href="index.php?act=admin_products_create" name="add-new" class="btn btn-primary">Thêm mới</a>
+        <a href="index.php?act=admin_accounts_create" name="add-new" class="btn btn-primary">Thêm mới</a>
         <input type="submit" value="Chọn tất cả" class="btn btn-outline-dark">
         <input type="submit" value="Bỏ chọn tất cả" class="btn btn-outline-dark">
         <input type="submit" value="Xóa mục đã chọn" class="btn btn-outline-danger">

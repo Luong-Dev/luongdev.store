@@ -54,7 +54,7 @@ function deleteProduct($id)
 }
 
 // user
-function getProductsInUser($categoryId = 0, $productSearch = "", $sort = "id", $limit = 12)
+function getProductsCustom($categoryId = 0, $productSearch = "", $sort = "name", $limit = 12)
 {
     $sql = "SELECT * FROM `products` WHERE 1 ";
     if ($categoryId != 0) {
@@ -69,11 +69,11 @@ function getProductsInUser($categoryId = 0, $productSearch = "", $sort = "id", $
     return pdo_query($sql);
 }
 
-function get10RelatedProducts($categoryId, $productId)
+function get10RelatedProducts($productCategoryId, $productId)
 {
     $sql = "SELECT * FROM `products` WHERE 
-    category_id = $categoryId AND id <> $productId
+    product_category_id = ? AND id <> ?
     ORDER BY id DESC LIMIT 10";
 
-    return pdo_query($sql);
+    return pdo_query($sql, $productCategoryId, $productId);
 }

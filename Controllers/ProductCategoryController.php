@@ -16,7 +16,6 @@ include_once "./Models/ProductCategory.php";
 
 //     include "./Views/admin/layouts/footer.php";
 // }
-const URL_P_C = 'index?act=admin_product_categories';
 
 function productCategoriesControl()
 {
@@ -47,8 +46,6 @@ function createProductCategoryControl()
 
 function deleteProductCategoryControl()
 {
-    include "./Views/admin/layouts/header.php";
-
     if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         $id = $_GET['id'];
         $check = getProductCategory($id);

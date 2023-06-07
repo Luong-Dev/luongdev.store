@@ -16,7 +16,7 @@
             <thead class="table-primary">
                 <tr>
                     <th><input class="form-check-input" type="checkbox"></th>
-                    <th>Mã loại</th>
+                    <!-- <th>Mã loại</th> -->
                     <th>Tên loại</th>
                     <th>Số lượng SP</th>
                     <th>Thao tác</th>
@@ -33,7 +33,7 @@
                     ?>
                         <tr>
                             <td><input class="form-check-input" type="checkbox"></td>
-                            <td><?= isset($id) ? $id : "" ?></td>
+                            <!-- <td><?= isset($id) ? $id : "" ?></td> -->
                             <td><?= isset($name) ? $name : "" ?></td>
                             <td><?= isset($quantity_product) ? $quantity_product : "" ?></td>
                             <td>

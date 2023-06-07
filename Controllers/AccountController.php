@@ -12,6 +12,99 @@ function accountsControl()
     include "./Views/admin/layouts/footer.php";
 }
 
+function createAccountControl()
+{
+    include "./Views/admin/layouts/header.php";
+
+    if (isset($_POST['add-new']) && $_POST['add-new']) {
+        // xét tồn tại các post
+        $name = $_POST['name'];
+        $email = $_POST['email'];
+        $phoneNumber = $_POST['phoneNumber'];
+        $role = (int)$_POST['role'];
+        $status = (int)$_POST['status'];
+        $password = $_POST['password'];
+        // $password = md5($password);
+        $password = password_hash($password, PASSWORD_BCRYPT, ['cost' => 12]);
+        $confirmPassword = $_POST['confirmPassword'];
+        $createdAt = date('Y-m-d');
+        postAccount($name, "", $phoneNumber, $email, $password, $role, $status, $createdAt);
+        $_SESSION['notify']['success'] = "Thêm mới thành công tài khoản: $name";
+        header("location: " . URL_AC);
+    }
+
+    include "./Views/admin/account/create.php";
+    include "./Views/admin/layouts/footer.php";
+}
+
+function deleteAccountControl()
+{
+    if (isset($_GET['id']) && is_numeric($_GET['id'])) {
+        $id = $_GET['id'];
+        $check = getAccount($id);
+        if ($check) {
+            deleteAccount($id);
+            $_SESSION['notify']['success'] = 'Xóa thành công tài khoản: ' . $check['name'];
+            header("location: " . URL_AC);
+        } else {
+            $_SESSION['notify']['error'] = "Tài khoản không tồn tại";
+            header("location: " . URL_AC);
+        }
+    } else {
+        $_SESSION['notify']['error'] = "Tài khoản không tồn tại";
+        header("location: " . URL_AC);
+    }
+}
+
+function editAccountControl()
+{
+    include "./Views/admin/layouts/header.php";
+
+    if (isset($_GET['id']) && is_numeric($_GET['id'])) {
+        $id = $_GET['id'];
+        $account = getAccount($id);
+        if ($account) {
+            include "./Views/admin/account/edit.php";
+        } else {
+            $_SESSION['notify']['error'] = "Tài khoản không tồn tại";
+            header("location: " . URL_AC);
+        }
+    } else {
+        $_SESSION['notify']['error'] = "Tài khoản không tồn tại";
+        header("location: " . URL_AC);
+    }
+
+    include "./Views/admin/layouts/footer.php";
+}
+
+function updateAccountControl()
+{
+    if (isset($_POST['update']) && $_POST['update']) {
+        $id = $_POST['idData'];
+        $account = getAccount($id);
+        $email = $_POST['email'];
+        $phoneNumber = $_POST['phoneNumber'];
+        $role = (int)$_POST['role'];
+        $status = (int)$_POST['status'];
+        putAccount($phoneNumber, $email, $role, $status, $id);
+        $_SESSION['notify']['success'] = 'Cập nhật thành công tài khoản khách hàng: ' . $account['name'];
+        header("location: " . URL_AC);
+    }
+}
+
+function checkRoleAdmin()
+{
+    if (!(isset($_SESSION['user']['status']) && $_SESSION['user']['status'] == 1 && isset($_SESSION['user']['role']) && ($_SESSION['user']['role'] == 4 || $_SESSION['user']['role'] == 5))) {
+        $_SESSION['notify']['error'] = "Tài khoản của bạn không có quyền truy cập vào link này. Mời đăng nhập tài khoản Admin";
+        exit(header("location: " . URL_LOGIN));
+    }
+}
+
+// xử lý xong phần role thì update lại: super admin chỉ có 1 tài khoản, tạo được các admin. còn các admin chỉ tạo được các account.
+// xử lý create sau, đọc lại code đã
+
+
+
 
 
 
@@ -24,29 +117,30 @@ use PHPMailer\PHPMailer\Exception;
 // print_r($account);
 // echo "</pre>";
 // user
+
+
+// sửa tử đây, sửa cả mã hóa mật khẩu
 function registerAccountControl()
 {
     include "./Views/user/layouts/header.php";
+
     if (isset($_POST['add-new']) && $_POST['add-new']) {
-        // xét tồn tại các post, xét điều kiện validate, nghiên cứu làm 1 file validate riêng
         $name = $_POST['name'];
         $email = $_POST['email'];
-        $phoneNumber = $_POST['phone'];
+        $phoneNumber = $_POST['phoneNumber'];
         $password = $_POST['password'];
         // $password = md5($password);
-        $password = password_hash($password, PASSWORD_BCRYPT, ['web_of_luong']);
-
-        // $confirmPassword = $_POST['confirmPassword'];
-
-        postUser($name, $email, $phoneNumber, $password);
+        $password = password_hash($password, PASSWORD_BCRYPT, ['cost' => 12]);
+        $confirmPassword = $_POST['confirmPassword'];
+        $createdAt = date('Y-m-d');
+        postAccount($name, "", $phoneNumber, $email, $password, 1, 1, $createdAt);
+        $_SESSION['user'] = getUserWithEmail($email);
         echo "<script>
                 alert('Đăng ký tài khoản thành công')
                 window.location.href = 'index.php';
             </script>";
-        // $message['success'] = "Thêm thành công!";
-
-        $_SESSION['user'] = checkAuthUser($email);
     }
+
     include "./Views/user/account/register.php";
     include "./Views/user/layouts/footer.php";
 }
@@ -54,18 +148,28 @@ function registerAccountControl()
 function loginAccountControl()
 {
     include "./Views/user/layouts/header.php";
+
+    // trong hàm này có bug liên quan tới $_SESSION['notify']['success'] không thể khai báo được. đã fix đổi tên notify thành messenger ở trong này không sao nhưng đổi cho toàn bộ web thì lại bug như ban đầu
+    //    kiểm tra xung đột code ở đâu
     if (isset($_POST['login']) && $_POST['login']) {
-        // xét tồn tại các post, xét điều kiện validate, nghiên cứu làm 1 file validate riêng
         $email = $_POST['email'];
-        $account = checkAuthUser($email);
-        if (!empty($account)) {
+        $account = getUserWithEmail($email);
+        if (!empty($account) && isset($account['password']) && isset($account['status'])) {
             $password = $_POST['password'];
             if (password_verify($password, $account['password'])) {
-                $_SESSION['user'] = $account;
-                echo "<script>
-                window.location.href = 'index.php';
-                    alert('Đăng nhập thành công')
-                </script>";
+                if ($account['status'] == 1) {
+                    $_SESSION['user'] = $account;
+                    $_SESSION['notify']['success'] = 'không khai báo được';
+                    // echo "<script>
+                    // window.location.href = 'index.php';
+                    //     alert('Đăng nhập thành công')
+                    // </script>";
+                    echo "<script>
+                    window.location.href = 'index.php';
+                    </script>";
+                } else {
+                    $message['error'] = "Tài khoản này đã bị khóa, vui lòng liên hệ: 1900000!";
+                }
             } else {
                 $message['error'] = "Email hoặc mật khẩu sai";
             }
@@ -73,6 +177,7 @@ function loginAccountControl()
             $message['error'] = "Email hoặc mật khẩu sai";
         }
     }
+
     include "./Views/user/account/login.php";
     include "./Views/user/layouts/footer.php";
 }
@@ -80,27 +185,38 @@ function loginAccountControl()
 function logoutAccountControl()
 {
     session_unset();
+    // $_SESSION['notify']['success'] = 'không khai báo được';
+    // header("location: " . URL_HOME);
     echo "<script>
             window.location.href = 'index.php';
-            alert('Đăng xuất thành công')
+            alert('Đăng xuất thành công!')
         </script>";
 }
 
-function checkUserUsed()
+function confirmAuthUser()
 {
     if (isset($_SESSION['user']['email']) && !empty($_SESSION['user']['email']) && isset($_SESSION['user']['password']) && !empty($_SESSION['user']['password'])) {
-        $account = checkAuthUser($_SESSION['user']['email']);
-        // var_dump($account['password']);
-        if (!empty($account)) {
-            // var_dump($_SESSION['user']['password']);
-            if ($_SESSION['user']['password'] == $account['password']) {
-                $_SESSION['user'] = $account;
-            } else {
-                session_unset();
-            }
+        $account = getUserWithEmailPassword($_SESSION['user']['email'], $_SESSION['user']['password']);
+        if (!empty($account) && $account['status'] == 1) {
+            $_SESSION['user'] = $account;
+        } else {
+            session_unset();
+            $_SESSION['notify']['error'] = "Tài khoản của bạn đã bị thay đổi thông tin đăng nhập. Mời đăng nhập lại!";
+            exit(header("location: " . URL_LOGIN));
         }
     } else {
         session_unset();
+        $_SESSION['notify']['error'] = "Tài khoản của bạn đã bị thay đổi thông tin đăng nhập. Mời đăng nhập lại!";
+        exit(header("location: " . URL_LOGIN));
+    }
+}
+
+function checkRoleFull()
+{
+    // hàm check các tài khoản đã đăng nhập (role 1-4-5) đều được chạy tiếp
+    if (!(isset($_SESSION['user']['status']) && $_SESSION['user']['status'] == 1 && isset($_SESSION['user']['role']) && ($_SESSION['user']['role'] == 1 || $_SESSION['user']['role'] == 4 || $_SESSION['user']['role'] == 5))) {
+        $_SESSION['notify']['error'] = "Tài khoản của bạn không có quyền truy cập vào link này. Mời đăng nhập tài khoản Admin";
+        exit(header("location: " . URL_LOGIN));
     }
 }
 
@@ -118,7 +234,7 @@ function forgotPassword()
 
     if (isset($_POST['forgot'])) {
         $email = $_POST['email'];
-        $account = checkAuthUser($email);
+        $account = getUserWithEmail($email);
         if (!empty($account)) {
 
             try {
@@ -168,3 +284,7 @@ function forgotPassword()
     include "./Views/user/account/forgotPassword.php";
     include "./Views/user/layouts/footer.php";
 }
+
+
+// làm hàm cập nhật thông tin tài khoản gồm hình ảnh tài khoản thì cần kiểm trang link phía comment sản phẩm xem có hiển thị đầy đủ hay không.
+// nên chỉ lưu 1 phần link trong db thôi

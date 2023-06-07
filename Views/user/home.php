@@ -6,24 +6,26 @@
 // echo "</pre>";
 ?>
 
-
-
-<div class="container-fluid slide-show fix">
+<div class="container-fluid slide-show fix mt-3">
     <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-indicators">
             <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
             <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
             <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
         </div>
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img src="https://routine.vn/media/catalog/category/thoi-trang-danh-cho-nu_1.png" class="d-block w-100" alt="...">
+                <img src="./resources/uploads/images/slideshow/slide1.png.jpg" class="d-block w-100" alt="...">
             </div>
             <div class="carousel-item">
-                <img src="https://routine.vn/media/catalog/category/bo-suu-tap-thoi-trang-moi-nhat-2023_1.jpg" class="d-block w-100" alt="...">
+                <img src="./resources/uploads/images/slideshow/slide2.png.jpg" class="d-block w-100" alt="...">
             </div>
             <div class="carousel-item">
-                <img src="https://routine.vn/media/catalog/category/thoi-trang-danh-cho-nam.jpg" class="d-block w-100" alt="...">
+                <img src="./resources/uploads/images/slideshow/slide3.png.jpg" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="./resources/uploads/images/slideshow/slide4.png.jpg" class="d-block w-100" alt="...">
             </div>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -81,7 +83,16 @@
                 </div>
             </div>
         </div>
-
+        <div class="mt-3 notify">
+            <?php if (isset($_SESSION['notify']['success'])) : ?>
+                <div class="alert alert-success" role="alert"><?= $_SESSION['notify']['success'] ?></div>
+                <?php unset($_SESSION['notify']['success']) ?>
+            <?php endif; ?>
+            <?php if (isset($_SESSION['notify']['error'])) : ?>
+                <div class="alert alert-danger" role="alert"><?= $_SESSION['notify']['error'] ?></div>
+                <?php unset($_SESSION['notify']['error']) ?>
+            <?php endif; ?>
+        </div>
         <div class="wrap__main mt-5 mb-5">
             <section class="wrap__main-left">
                 <div class="product-home">

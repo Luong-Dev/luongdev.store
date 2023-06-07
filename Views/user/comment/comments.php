@@ -1,22 +1,20 @@
 <?php
+session_start();
 include_once '../../../Models/Db.php';
 include_once '../../../Models/Comment.php';
-// include_once '../../../Controllers/CommentController.php';
-session_start();
 
 if (isset($_REQUEST['productId']) && $_REQUEST['productId']) {
     $productId = $_REQUEST['productId'];
 }
-if (isset($_POST['id']) && $_POST['id']) {
-    $productId = $_POST['id'];
-}
 if (isset($_POST['comment']) && $_POST['comment']) {
+    if (isset($_POST['id']) && $_POST['id']) {
+        $productId = $_POST['id'];
+    }
     $content = $_POST['content'];
     postComment($_SESSION['user']['id'], $productId, $content);
 }
-$comments = getCommentsOneProduct($productId);
+$comments = getCommentsInProduct($productId);
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -44,7 +42,6 @@ $comments = getCommentsOneProduct($productId);
 
     <div class="product-detail__comment-wrap">
         <div class="form__fixed">
-            <h4 class="product-comment__title">Bình luận</h4>
             <?php
             if (isset($_SESSION['user']) && !empty($_SESSION['user'])) :
             ?>
@@ -56,36 +53,44 @@ $comments = getCommentsOneProduct($productId);
                         <input type="submit" name="comment" id="" class="product-comment__form-submit" value="Bình luận">
                     </form>
                 </div>
-            <?php else : ?>
-                <h5 class="product-comment__not-login">
-                    <!-- Bạn cần <a href="../../../index.php?act=login" class="product-comment__link">đăng nhập</a> để bình luận! -->
-                    Bạn cần <a href="" class="product-comment__link">đăng nhập</a> để bình luận!
-                </h5>
             <?php endif; ?>
         </div>
-
         <div class="product-comment__list">
             <?php
-            foreach ($comments as $comment) :
-                extract($comment);
+            if (isset($comments) && is_array($comments)) :
+                foreach ($comments as $comment) :
+                    extract($comment);
             ?>
-                <div class="product-comment__item">
-                    <div class="product-comment__item-image-wrap">
-                        <?php if (isset($image_url) && $image_url) : ?>
-                            <img src="<?= $image_url?>" alt="" class="product-comment__item-image">
-                        <?php else : ?>
-                            <img src="https://icons.veryicon.com/png/o/miscellaneous/administration/account-25.png" alt="avatar" class="product-comment__item-image">
-                        <?php endif; ?>
-                        <p class="product-comment__item-user-name"><?= (isset($name) && $name) ? $name : ""; ?></p>
+                    <div class="product-comment__item">
+                        <!-- <div class="product-comment__item-image-wrap">
+                            <?php if (isset($avatar) && $avatar) : ?>
+                                <img src="<?= $avatar ?>" alt="avatar" class="product-comment__item-image">
+                            <?php else : ?>
+                                <?php if (isset($role) && $role == 4 || $role == 5) : ?>
+                                    <img src="../../../resources/uploads/images/avatar/admin.jpg" alt="avatar" class="product-comment__item-image">
+                                <?php else : ?>
+                                    <img src="../../../resources/uploads/images/avatar/user.png" alt="avatar" class="product-comment__item-image">
+                                <?php endif; ?>
+                            <?php endif; ?>
+                            <p class="product-comment__item-user-name"><?= (isset($name) && $name) ? $name : ""; ?></p>
+                        </div> -->
+                        <div class="product-comment__item-image-wrap">
+                            <?php if (isset($avatar) && $avatar) : ?>
+                                <img src="<?= $avatar ?>" alt="Avatar" class="product-comment__item-image">
+                            <?php else : ?>
+                                <img src="https://icons.veryicon.com/png/o/miscellaneous/administration/account-25.png" alt="avatar" class="product-comment__item-image">
+                            <?php endif; ?>
+                            <p class="product-comment__item-user-name"><?= (isset($name) && $name) ? $name : ""; ?></p>
+                        </div>
+                        <div class="product-comment__item-content-wrap">
+                            <p class="product-comment__content-comment">
+                                <?= (isset($content) && $content) ? $content : ""; ?>
+                            </p>
+                            <span class="product-comment__time-comment"><?= (isset($created_at) && $created_at) ? $created_at : ""; ?></span>
+                        </div>
                     </div>
-                    <div class="product-comment__item-content-wrap">
-                        <p class="product-comment__content-comment">
-                            <?= (isset($content) && $content) ? $content : ""; ?>
-                        </p>
-                        <span class="product-comment__time-comment"><?= (isset($cmt_time) && $cmt_time) ? $cmt_time : ""; ?></span>
-                    </div>
-                </div>
-            <?php endforeach; ?>
+            <?php endforeach;
+            endif; ?>
         </div>
     </div>
 </body>

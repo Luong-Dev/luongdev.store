@@ -1,13 +1,10 @@
 <?php
-// var_dump($products);
+// var_dump($product);
 // var_dump($categories);
 // echo "<pre>";
 // var_dump($top10RelatedProducts);
 // echo "</pre>";
-
-
 ?>
-
 <main>
     <div class="breadcrumb-css__background">
         <div class="container">
@@ -17,19 +14,19 @@
                             chủ</a></li>
                     <li class="breadcrumb-css__item breadcrumb-item"><a href="index.php?act=products" class="breadcrumb-css__item-link">Sản
                             phẩm</a></li>
-                    <li class="breadcrumb-css__item breadcrumb-css__item--active breadcrumb-item active" aria-current="page">Tên sản phẩm</li>
+                    <li class="breadcrumb-css__item breadcrumb-css__item--active breadcrumb-item active" aria-current="page">
+                        <?= isset($product['name']) ? $product['name'] : "" ?>
+                    </li>
                 </ol>
             </nav>
         </div>
     </div>
-
     <div class="container">
         <div class="product wrap__main mt-5 mb-5">
             <section class="product-detail wrap__main-left">
-
                 <div class="product-detail__wrap-top">
                     <div class="product-detail__image-top">
-                        <img src="<?= (isset($product['image_url']) && $product['image_url']) ? $product['image_url'] : ""; ?>" alt="<?= (isset($product['image_alt']) && $product['image_alt']) ? $product['image_alt'] : ""; ?>" class="image-top__main">
+                        <img src="<?= isset($product['image']) ? $product['image'] : "" ?>" alt="Hình ảnh sản phẩm" class="image-top__main">
                         <div class="product-detail__image-wrap-extra">
                             <img src="https://bizweb.dktcdn.net/thumb/medium/100/451/884/products/chanvaydangacaplientabongthant.jpg?v=1649173050497" alt="" class="image-top__extra">
                             <img src="https://bizweb.dktcdn.net/thumb/medium/100/451/884/products/chanvaydangacaplientabongthant-eb9a6568-72f7-45a3-807b-dab4142ffc13.jpg?v=1649173050497" alt="" class="image-top__extra">
@@ -38,18 +35,23 @@
                             <img src="https://bizweb.dktcdn.net/thumb/medium/100/451/884/products/chanvaydangacaplientabongthant-afda6e75-aa07-4588-b82d-015432ec39d9.jpg?v=1649173050497" alt="" class="image-top__extra">
                         </div>
                     </div>
-
                     <div class="product-detail__content-top">
-                        <h1 class="content-top__title">
-                            <?= (isset($product['name']) && $product['name']) ? $product['name'] : ""; ?></h1>
-                        <p class="content-top__code-wrap">Mã: <span class="content-top__code"><?= (isset($product['code']) && $product['code']) ? $product['code'] : "Đang cập nhật"; ?></span>
+                        <h1 class="content-top__title"><?= isset($product['name']) ? $product['name'] : "" ?></h1>
+                        <p class="content-top__code-wrap">Mã: <span class="content-top__code"><?= isset($product['module']) ? $product['module'] : "Đang cập nhật"; ?></span>
                         </p>
-                        <span class="content-top__trademark-wrap">Thương hiệu: <span class="content-top__trademark"><?= (isset($product['trademark']) && $product['trademark']) ? $product['trademark'] : "Cú đêm shop"; ?></span>
+                        <span class="content-top__trademark-wrap">Thương hiệu:
+                            <span class="content-top__trademark">
+                                <?php if (isset($productCategories) && $productCategories) : ?>
+                                    <?php foreach ($productCategories as $productCategory) : ?>
+                                        <?= isset($product['product_category_id']) && $product['product_category_id'] == $productCategory['id'] ? $productCategory['name'] : "" ?>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
+                            </span>
                         </span>
                         <span class="content-top__status-wrap">Trạng thái: <span class="content-top__status">
-                                <?php if (isset($arrStatus) && $arrStatus) : ?>
-                                    <?php foreach ($arrStatus as $key => $item) : ?>
-                                        <?= (isset($product['status']) && $product['status'] && $product['status'] == $key + 1) ? $item : ""; ?>
+                                <?php if (defined('AR_STATUS') && is_array(AR_STATUS) && AR_STATUS) : ?>
+                                    <?php foreach (AR_STATUS as $key => $item) : ?>
+                                        <?= isset($product['status']) && $product['status'] == $key + 1 ? $item : "" ?>
                                     <?php endforeach; ?>
                                 <?php endif; ?>
                             </span>
@@ -66,21 +68,25 @@
                             <?= (isset($product['short_description']) && $product['short_description']) ? $product['short_description'] : ""; ?>
                         </p>
                         <div class="content-top__color-wrap">
-                            <p class="content-top__color-title">Màu sắc: <span class="content-top__color">Trắng</span>
+                            <p class="content-top__color-title">Màu sắc:
+                                <span class="content-top__color"><?= (isset($product['color']) && $product['color']) ? $product['color'] : "Đang cập nhật" ?></span>
                             </p>
-                            <div class="content-top__description">
+                            <!-- <div class="content-top__description">
                                 <span class="content-top__description-color content-top__description-color-active"></span>
                                 <span class="content-top__description-color"></span>
                                 <span class="content-top__description-color"></span>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="content-top__size-wrap">
-                            <p class="content-top__size-title">Kích thước: <span class="content-top__size">M</span></p>
-                            <div class="content-top__description">
+                            <p class="content-top__size-title">Kích thước:
+                                <span class="content-top__size"><?= (isset($product['size']) && $product['size']) ? $product['size'] : "Đang cập nhật" ?></span>
+                                Inch
+                            </p>
+                            <!-- <div class="content-top__description">
                                 <span class="content-top__description-size content-top__description-size-active">S</span>
                                 <span class="content-top__description-size">M</span>
                                 <span class="content-top__description-size">L</span>
-                            </div>
+                            </div> -->
                         </div>
                         <form class="content-top__form">
                             <div class="content-top__form-wrap">
@@ -106,8 +112,19 @@
                 <!-- <div id="comment"></div> -->
 
                 <div class="mt-5 product-detail__comment-wrap">
-                    <iframe src="./Views/user/comment/comments.php?productId=<?= (isset($product['id']) && $product['id']) ? $product['id'] : ""; ?>" frameborder="0" width="100%" height="666px"></iframe>
+                    <div class="form__fixed">
+                        <h4 class="product-comment__title">Bình luận</h4>
+                        <?php
+                        if (!isset($_SESSION['user']) || empty($_SESSION['user'])) :
+                        ?>
+                            <h5 class="product-comment__not-login">
+                                Bạn cần <a href="<?= defined('URL_LOGIN') ? URL_LOGIN : '' ?>" class="product-comment__link"> đăng nhập </a> để bình luận!
+                            </h5>
+                        <?php endif; ?>
+                    </div>
+                    <iframe src="./Views/user/comment/comments.php?productId=<?= (isset($product['id']) && $product['id']) ? $product['id'] : "" ?>" frameborder="0" width="100%" height="666px"></iframe>
                 </div>
+
 
                 <!-- <div class="product-detail__comment-wrap">
                     <h4 class="product-comment__title">Bình luận</h4>
@@ -235,9 +252,9 @@
                         Danh mục
                     </span>
                     <?php
-                    if (isset($categories)) :
-                        foreach ($categories as $category) :
-                            extract($category);
+                    if (isset($productCategories)) :
+                        foreach ($productCategories as $productCategory) :
+                            extract($productCategory);
                     ?>
                             <a href="index.php?act=products&category=<?= (isset($id) && $id) ? $id : ""; ?>" class="wrap-item__item-link list-group-item d-flex justify-content-between align-items-start">
                                 <?= (isset($name) && $name) ? $name : ""; ?>
@@ -257,14 +274,14 @@
                     if (isset($top10RelatedProducts)) :
                         foreach ($top10RelatedProducts as $top10RelatedProduct) :
                             extract($top10RelatedProduct);
-                            $url_product = "index.php?act=products_detail&id=" . $id;
+                            $url_product = 'index.php?act=product_detail&id=' . $id;
                     ?>
-                            <a href="<?= (isset($url_product) && $url_product) ? $url_product : ""; ?>" class="wrap-item__product wrap-item__item-link list-group-item d-flex justify-content-between align-items-start">
+                            <a href="<?= (isset($url_product) && $url_product) ? $url_product : "" ?>" class="wrap-item__product wrap-item__item-link list-group-item d-flex justify-content-between align-items-start">
                                 <div class="">
-                                    <img class="wrap-item__product-img" src="<?= (isset($image_url) && $image_url) ? $image_url : ""; ?>" alt="<?= (isset($image_alt) && $image_alt) ? $image_alt : ""; ?>">
+                                    <img class="wrap-item__product-img" src="<?= (isset($image) && $image) ? $image : "" ?>" alt="Hình ảnh sản phẩm">
                                 </div>
                                 <div class="wrap-item__product-content">
-                                    <h2 class="wrap-item__product-title"><?= (isset($name) && $name) ? $name : "Chưa có tên"; ?>
+                                    <h2 class="wrap-item__product-title"><?= (isset($name) && $name) ? $name : "Chưa có tên" ?>
                                     </h2>
                                     <p class="wrap-item__product-price card__price ">
                                         <?php if (isset($sale_price) && $sale_price >= 0) : ?>

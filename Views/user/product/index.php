@@ -1,20 +1,15 @@
 <?php
 // var_dump($products);
 // echo $categoryId;
-echo "Đang được bảo trì nâng cấp";
 ?>
-
 <main>
     <div class="breadcrumb-css__background">
         <div class="container">
             <nav aria-label="breadcrumb-css breadcrumb ">
                 <ol class=" breadcrumb-css__wrap breadcrumb">
-                    <li class="breadcrumb-css__item breadcrumb-item"><a href="index.php?act="
-                            class="breadcrumb-css__item-link">Trang
+                    <li class="breadcrumb-css__item breadcrumb-item"><a href="index.php?act=" class="breadcrumb-css__item-link">Trang
                             chủ</a></li>
-                    <!-- <li class="breadcrumb-css__item breadcrumb-item"><a href="#">Tất cả sản phẩm</a></li> -->
-                    <li class="breadcrumb-css__item breadcrumb-css__item--active breadcrumb-item active"
-                        aria-current="page">Tất cả sản phẩm</li>
+                    <li class="breadcrumb-css__item breadcrumb-css__item--active breadcrumb-item active" aria-current="page">Tất cả sản phẩm</li>
                 </ol>
             </nav>
         </div>
@@ -27,8 +22,7 @@ echo "Đang được bảo trì nâng cấp";
                     <div class="product-main__wrap-top">
                         <p class="product-main__title">TẤT CẢ SẢN PHẨM</p>
                         <div class="product-main__dropdown dropdown">
-                            <button class="product-main__dropdown-btn btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
-                                data-bs-toggle="dropdown" aria-expanded="false">
+                            <button class="product-main__dropdown-btn btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                 Sắp xếp sản phẩm
                             </button>
                             <ul class="product-main__dropdown-menu dropdown-menu" aria-labelledby="dropdownMenuButton1">
@@ -38,277 +32,53 @@ echo "Đang được bảo trì nâng cấp";
                                 <li><a class="product-main__dropdown-item dropdown-item" href="#">Giá giảm dần</a></li>
                                 <li><a class="product-main__dropdown-item dropdown-item" href="#">Hàng mới nhất</a></li>
                                 <li><a class="product-main__dropdown-item dropdown-item" href="#">Hàng cũ nhất</a></li>
-                           
+
                             </ul>
                         </div>
                     </div>
+                    <?php if (isset($products) && !empty($products)) : ?>
+                        <div class="grid-col-4 mt-5">
+                            <?php foreach ($products as $product) :
+                                extract($product);
+                                if (isset($id)) {
+                                    $detail = 'index.php?act=product_detail&id=' . $id;
+                                }
+                            ?>
+                                <div class="card border-0 shadow rounded" style="width: 100%; ">
+                                    <a href="<?= isset($detail) ? $detail : '' ?>" class="text-deco-none card__wrap-image">
+                                        <img src="<?= isset($image) ? $image : '' ?>" class="card-img-top" alt="Hình ảnh sản phẩm">
+                                        <?php if ($sale_price) : ?>
+                                            <?php
+                                            $precent = ceil(($regular_price - $sale_price) / $regular_price * 100);
+                                            ?>
+                                            <i class="card__price-sale-image">- <?= $precent ?>%</i>
+                                        <?php endif; ?>
+                                    </a>
+                                    <div class="card-body">
+                                        <h3 class="card-title"><a href="<?= isset($detail) ? $detail : '' ?>" class="card__name text-deco-none"><?= isset($name) ? $name : '' ?></a></h3>
+                                        <p class="card__price mt-3">
+                                            <?php if ($sale_price) : ?>
+                                                <span class="card__price-sale"><?= isset($sale_price) ? $sale_price : '' ?><u>đ</u></span>
+                                                <span class="card__price-regular text-deco-line-th"><?= isset($regular_price) ? $regular_price : '' ?><u>đ</u></span>
+                                            <?php else : ?>
+                                                <span class="card__price-sale"><?= isset($regular_price) ? $regular_price : '' ?><u>đ</u></span>
+                                            <?php endif; ?>
+                                        </p>
+                                        <!-- <div class="card__sold text-center">
+                                            <span class="card__sold-sale-bar">
+                                                <span class="card__sold-sale-bar-text">#1</span>
+                                            </span>
+                                            <span class="card__sold-text">Đã bán 236</span>
+                                            <span class="card__sold-countdown" style="width: 40%;"></span>
+                                        </div> -->
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+                    <?php else : ?>
+                        <p class="text-center fw-bold fs-1 text-danger mt-5 mb-5">Không có sản phẩm nào!</p>
+                    <?php endif; ?>
 
-                    <div class="grid-col-4 mt-5">
-                        <div class="card border-0 shadow rounded" style="width: 100%; ">
-                            <a href="" class="text-deco-none card__wrap-image">
-                                <img src="https://bizweb.dktcdn.net/thumb/large/100/451/884/products/aocottondangsuongfreesizeinchu.jpg?v=1649173049000"
-                                    class="card-img-top" alt="...">
-                                <i class="card__price-sale-image">- 20%</i>
-                            </a>
-                            <div class="card-body">
-                                <h3 class="card-title"><a href="" class="card__name text-deco-none">Áo Cotton Nữ cổ tròn
-                                        dáng suôn chữ in theo trend</a></h3>
-                                <p class="card__price mt-3">
-                                    <span class="card__price-sale">195.000<u>đ</u></span>
-                                    <span class="card__price-regular text-deco-line-th">250.000<u>đ</u></span>
-                                </p>
-                                <div class="card__sold text-center">
-                                    <span class="card__sold-sale-bar">
-                                        <span class="card__sold-sale-bar-text">#1</span>
-                                    </span>
-                                    <span class="card__sold-text">Đã bán 236</span>
-                                    <span class="card__sold-countdown" style="width: 40%;"></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card border-0 shadow rounded" style="width: 100%; ">
-                            <a href="" class="text-deco-none card__wrap-image">
-                                <img src="https://bizweb.dktcdn.net/thumb/large/100/451/884/products/aocottondangsuongfreesizeinchu.jpg?v=1649173049000"
-                                    class="card-img-top" alt="...">
-                                <i class="card__price-sale-image">- 20%</i>
-                            </a>
-                            <div class="card-body">
-                                <h3 class="card-title"><a href="" class="card__name text-deco-none">Áo Cotton Nữ cổ tròn
-                                        dáng suôn chữ in theo trend</a></h3>
-                                <p class="card__price mt-3">
-                                    <span class="card__price-sale">195.000<u>đ</u></span>
-                                    <span class="card__price-regular text-deco-line-th">250.000<u>đ</u></span>
-                                </p>
-                                <div class="card__sold text-center">
-                                    <span class="card__sold-sale-bar">
-                                        <span class="card__sold-sale-bar-text">#1</span>
-                                    </span>
-                                    <span class="card__sold-text">Đã bán 236</span>
-                                    <span class="card__sold-countdown" style="width: 40%;"></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card border-0 shadow rounded" style="width: 100%; ">
-                            <a href="" class="text-deco-none card__wrap-image">
-                                <img src="https://bizweb.dktcdn.net/thumb/large/100/451/884/products/aocottondangsuongfreesizeinchu.jpg?v=1649173049000"
-                                    class="card-img-top" alt="...">
-                                <i class="card__price-sale-image">- 20%</i>
-                            </a>
-                            <div class="card-body">
-                                <h3 class="card-title"><a href="" class="card__name text-deco-none">Áo Cotton Nữ cổ tròn
-                                        dáng suôn chữ in theo trend</a></h3>
-                                <p class="card__price mt-3">
-                                    <span class="card__price-sale">195.000<u>đ</u></span>
-                                    <span class="card__price-regular text-deco-line-th">250.000<u>đ</u></span>
-                                </p>
-                                <div class="card__sold text-center">
-                                    <span class="card__sold-sale-bar">
-                                        <span class="card__sold-sale-bar-text">#1</span>
-                                    </span>
-                                    <span class="card__sold-text">Đã bán 236</span>
-                                    <span class="card__sold-countdown" style="width: 40%;"></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card border-0 shadow rounded" style="width: 100%; ">
-                            <a href="" class="text-deco-none card__wrap-image">
-                                <img src="https://bizweb.dktcdn.net/thumb/large/100/451/884/products/aocottondangsuongfreesizeinchu.jpg?v=1649173049000"
-                                    class="card-img-top" alt="...">
-                                <i class="card__price-sale-image">- 20%</i>
-                            </a>
-                            <div class="card-body">
-                                <h3 class="card-title"><a href="" class="card__name text-deco-none">Áo Cotton Nữ cổ tròn
-                                        dáng suôn chữ in theo trend</a></h3>
-                                <p class="card__price mt-3">
-                                    <span class="card__price-sale">195.000<u>đ</u></span>
-                                    <span class="card__price-regular text-deco-line-th">250.000<u>đ</u></span>
-                                </p>
-                                <div class="card__sold text-center">
-                                    <span class="card__sold-sale-bar">
-                                        <span class="card__sold-sale-bar-text">#1</span>
-                                    </span>
-                                    <span class="card__sold-text">Đã bán 236</span>
-                                    <span class="card__sold-countdown" style="width: 40%;"></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card border-0 shadow rounded" style="width: 100%; ">
-                            <a href="" class="text-deco-none card__wrap-image">
-                                <img src="https://bizweb.dktcdn.net/thumb/large/100/451/884/products/aocottondangsuongfreesizeinchu.jpg?v=1649173049000"
-                                    class="card-img-top" alt="...">
-                                <i class="card__price-sale-image">- 20%</i>
-                            </a>
-                            <div class="card-body">
-                                <h3 class="card-title"><a href="" class="card__name text-deco-none">Áo Cotton Nữ cổ tròn
-                                        dáng suôn chữ in theo trend</a></h3>
-                                <p class="card__price mt-3">
-                                    <span class="card__price-sale">195.000<u>đ</u></span>
-                                    <span class="card__price-regular text-deco-line-th">250.000<u>đ</u></span>
-                                </p>
-                                <div class="card__sold text-center">
-                                    <span class="card__sold-sale-bar">
-                                        <span class="card__sold-sale-bar-text">#1</span>
-                                    </span>
-                                    <span class="card__sold-text">Đã bán 236</span>
-                                    <span class="card__sold-countdown" style="width: 40%;"></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card border-0 shadow rounded" style="width: 100%; ">
-                            <a href="" class="text-deco-none card__wrap-image">
-                                <img src="https://bizweb.dktcdn.net/thumb/large/100/451/884/products/aocottondangsuongfreesizeinchu.jpg?v=1649173049000"
-                                    class="card-img-top" alt="...">
-                                <i class="card__price-sale-image">- 20%</i>
-                            </a>
-                            <div class="card-body">
-                                <h3 class="card-title"><a href="" class="card__name text-deco-none">Áo Cotton Nữ cổ tròn
-                                        dáng suôn chữ in theo trend</a></h3>
-                                <p class="card__price mt-3">
-                                    <span class="card__price-sale">195.000<u>đ</u></span>
-                                    <span class="card__price-regular text-deco-line-th">250.000<u>đ</u></span>
-                                </p>
-                                <div class="card__sold text-center">
-                                    <span class="card__sold-sale-bar">
-                                        <span class="card__sold-sale-bar-text">#1</span>
-                                    </span>
-                                    <span class="card__sold-text">Đã bán 236</span>
-                                    <span class="card__sold-countdown" style="width: 40%;"></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card border-0 shadow rounded" style="width: 100%; ">
-                            <a href="" class="text-deco-none card__wrap-image">
-                                <img src="https://bizweb.dktcdn.net/thumb/large/100/451/884/products/aocottondangsuongfreesizeinchu.jpg?v=1649173049000"
-                                    class="card-img-top" alt="...">
-                                <i class="card__price-sale-image">- 20%</i>
-                            </a>
-                            <div class="card-body">
-                                <h3 class="card-title"><a href="" class="card__name text-deco-none">Áo Cotton Nữ cổ tròn
-                                        dáng suôn chữ in theo trend</a></h3>
-                                <p class="card__price mt-3">
-                                    <span class="card__price-sale">195.000<u>đ</u></span>
-                                    <span class="card__price-regular text-deco-line-th">250.000<u>đ</u></span>
-                                </p>
-                                <div class="card__sold text-center">
-                                    <span class="card__sold-sale-bar">
-                                        <span class="card__sold-sale-bar-text">#1</span>
-                                    </span>
-                                    <span class="card__sold-text">Đã bán 236</span>
-                                    <span class="card__sold-countdown" style="width: 40%;"></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card border-0 shadow rounded" style="width: 100%; ">
-                            <a href="" class="text-deco-none card__wrap-image">
-                                <img src="https://bizweb.dktcdn.net/thumb/large/100/451/884/products/aocottondangsuongfreesizeinchu.jpg?v=1649173049000"
-                                    class="card-img-top" alt="...">
-                                <i class="card__price-sale-image">- 20%</i>
-                            </a>
-                            <div class="card-body">
-                                <h3 class="card-title"><a href="" class="card__name text-deco-none">Áo Cotton Nữ cổ tròn
-                                        dáng suôn chữ in theo trend</a></h3>
-                                <p class="card__price mt-3">
-                                    <span class="card__price-sale">195.000<u>đ</u></span>
-                                    <span class="card__price-regular text-deco-line-th">250.000<u>đ</u></span>
-                                </p>
-                                <div class="card__sold text-center">
-                                    <span class="card__sold-sale-bar">
-                                        <span class="card__sold-sale-bar-text">#1</span>
-                                    </span>
-                                    <span class="card__sold-text">Đã bán 236</span>
-                                    <span class="card__sold-countdown" style="width: 40%;"></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card border-0 shadow rounded" style="width: 100%; ">
-                            <a href="" class="text-deco-none card__wrap-image">
-                                <img src="https://bizweb.dktcdn.net/thumb/large/100/451/884/products/aocottondangsuongfreesizeinchu.jpg?v=1649173049000"
-                                    class="card-img-top" alt="...">
-                                <i class="card__price-sale-image">- 20%</i>
-                            </a>
-                            <div class="card-body">
-                                <h3 class="card-title"><a href="" class="card__name text-deco-none">Áo Cotton Nữ cổ tròn
-                                        dáng suôn chữ in theo trend</a></h3>
-                                <p class="card__price mt-3">
-                                    <span class="card__price-sale">195.000<u>đ</u></span>
-                                    <span class="card__price-regular text-deco-line-th">250.000<u>đ</u></span>
-                                </p>
-                                <div class="card__sold text-center">
-                                    <span class="card__sold-sale-bar">
-                                        <span class="card__sold-sale-bar-text">#1</span>
-                                    </span>
-                                    <span class="card__sold-text">Đã bán 236</span>
-                                    <span class="card__sold-countdown" style="width: 40%;"></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card border-0 shadow rounded" style="width: 100%; ">
-                            <a href="" class="text-deco-none card__wrap-image">
-                                <img src="https://bizweb.dktcdn.net/thumb/large/100/451/884/products/aocottondangsuongfreesizeinchu.jpg?v=1649173049000"
-                                    class="card-img-top" alt="...">
-                                <i class="card__price-sale-image">- 20%</i>
-                            </a>
-                            <div class="card-body">
-                                <h3 class="card-title"><a href="" class="card__name text-deco-none">Áo Cotton Nữ cổ tròn
-                                        dáng suôn chữ in theo trend</a></h3>
-                                <p class="card__price mt-3">
-                                    <span class="card__price-sale">195.000<u>đ</u></span>
-                                    <span class="card__price-regular text-deco-line-th">250.000<u>đ</u></span>
-                                </p>
-                                <div class="card__sold text-center">
-                                    <span class="card__sold-sale-bar">
-                                        <span class="card__sold-sale-bar-text">#1</span>
-                                    </span>
-                                    <span class="card__sold-text">Đã bán 236</span>
-                                    <span class="card__sold-countdown" style="width: 40%;"></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card border-0 shadow rounded" style="width: 100%; ">
-                            <a href="" class="text-deco-none card__wrap-image">
-                                <img src="https://bizweb.dktcdn.net/thumb/large/100/451/884/products/aocottondangsuongfreesizeinchu.jpg?v=1649173049000"
-                                    class="card-img-top" alt="...">
-                                <i class="card__price-sale-image">- 20%</i>
-                            </a>
-                            <div class="card-body">
-                                <h3 class="card-title"><a href="" class="card__name text-deco-none">Áo Cotton Nữ cổ tròn
-                                        dáng suôn chữ in theo trend</a></h3>
-                                <p class="card__price mt-3">
-                                    <span class="card__price-sale">195.000<u>đ</u></span>
-                                    <span class="card__price-regular text-deco-line-th">250.000<u>đ</u></span>
-                                </p>
-                                <div class="card__sold text-center">
-                                    <span class="card__sold-sale-bar">
-                                        <span class="card__sold-sale-bar-text">#1</span>
-                                    </span>
-                                    <span class="card__sold-text">Đã bán 236</span>
-                                    <span class="card__sold-countdown" style="width: 40%;"></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card border-0 shadow rounded" style="width: 100%; ">
-                            <a href="" class="text-deco-none card__wrap-image">
-                                <img src="https://bizweb.dktcdn.net/thumb/large/100/451/884/products/aocottondangsuongfreesizeinchu.jpg?v=1649173049000"
-                                    class="card-img-top" alt="...">
-                                <i class="card__price-sale-image">- 20%</i>
-                            </a>
-                            <div class="card-body">
-                                <h3 class="card-title"><a href="" class="card__name text-deco-none">Áo Cotton Nữ cổ tròn
-                                        dáng suôn chữ in theo trend</a></h3>
-                                <p class="card__price mt-3">
-                                    <span class="card__price-sale">195.000<u>đ</u></span>
-                                    <span class="card__price-regular text-deco-line-th">250.000<u>đ</u></span>
-                                </p>
-                                <div class="card__sold text-center">
-                                    <span class="card__sold-sale-bar">
-                                        <span class="card__sold-sale-bar-text">#1</span>
-                                    </span>
-                                    <span class="card__sold-text">Đã bán 236</span>
-                                    <span class="card__sold-countdown" style="width: 40%;"></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
                     <div class="mt-5 d-flex justify-content-center">
                         <nav aria-label="Page navigation example">
@@ -357,18 +127,15 @@ echo "Đang được bảo trì nâng cấp";
                     <span class="wrap-item__item-title list-group-item" aria-current="true">
                         Danh mục
                     </span>
-                    <a href="#"
-                        class="wrap-item__item-link list-group-item d-flex justify-content-between align-items-start">
+                    <a href="#" class="wrap-item__item-link list-group-item d-flex justify-content-between align-items-start">
                         Quần
                         <span class=" wrap-item__item-count badge  rounded-pill">14</span>
                     </a>
-                    <a href="#"
-                        class="wrap-item__item-link list-group-item d-flex justify-content-between align-items-start">
+                    <a href="#" class="wrap-item__item-link list-group-item d-flex justify-content-between align-items-start">
                         Mũ
                         <span class="wrap-item__item-count badge rounded-pill">14</span>
                     </a>
-                    <a href="#"
-                        class="wrap-item__item-link list-group-item d-flex justify-content-between align-items-start">
+                    <a href="#" class="wrap-item__item-link list-group-item d-flex justify-content-between align-items-start">
                         Áo
                         <span class="wrap-item__item-count badge rounded-pill">1</span>
                     </a>
@@ -378,36 +145,31 @@ echo "Đang được bảo trì nâng cấp";
                     <div class="filter-pro__wrap-item">
                         <h3 class="filter-pro__title">CHỌN MỨC GIÁ</h3>
                         <div class="filter-pro__item form-check">
-                            <input class="filter-pro__check form-check-input" type="checkbox" value=""
-                                id="flexCheck500">
+                            <input class="filter-pro__check form-check-input" type="checkbox" value="" id="flexCheck500">
                             <label class="filter-pro__label form-check-label" for="flexCheck500">
                                 Dưới 500k
                             </label>
                         </div>
                         <div class="filter-pro__item form-check">
-                            <input class="filter-pro__check form-check-input" type="checkbox" value=""
-                                id="flexCheck500-1000">
+                            <input class="filter-pro__check form-check-input" type="checkbox" value="" id="flexCheck500-1000">
                             <label class="filter-pro__label form-check-label" for="flexCheck500-1000">
                                 Từ 500k - 1 triệu
                             </label>
                         </div>
                         <div class="filter-pro__item form-check">
-                            <input class="filter-pro__check form-check-input" type="checkbox" value=""
-                                id="flexCheck1000-2000">
+                            <input class="filter-pro__check form-check-input" type="checkbox" value="" id="flexCheck1000-2000">
                             <label class="filter-pro__label form-check-label" for="flexCheck1000-2000">
                                 Từ 1 triệu - 2 triệu
                             </label>
                         </div>
                         <div class="filter-pro__item form-check">
-                            <input class="filter-pro__check form-check-input" type="checkbox" value=""
-                                id="flexCheck2000-5000">
+                            <input class="filter-pro__check form-check-input" type="checkbox" value="" id="flexCheck2000-5000">
                             <label class="filter-pro__label form-check-label" for="flexCheck2000-5000">
                                 Từ 2 triệu - 5 triệu
                             </label>
                         </div>
                         <div class="filter-pro__item form-check">
-                            <input class="filter-pro__check form-check-input" type="checkbox" value=""
-                                id="flexCheck5000Min">
+                            <input class="filter-pro__check form-check-input" type="checkbox" value="" id="flexCheck5000Min">
                             <label class="filter-pro__label form-check-label" for="flexCheck5000Min">
                                 Trên 5 triệu
                             </label>
@@ -416,36 +178,31 @@ echo "Đang được bảo trì nâng cấp";
                     <div class="filter-pro__wrap-item">
                         <h3 class="filter-pro__title">LOẠI SẢN PHẨM</h3>
                         <div class="filter-pro__item form-check">
-                            <input class="filter-pro__check form-check-input" type="checkbox" value=""
-                                id="flexCheck500">
+                            <input class="filter-pro__check form-check-input" type="checkbox" value="" id="flexCheck500">
                             <label class="filter-pro__label form-check-label" for="flexCheck500">
                                 Áo cotton
                             </label>
                         </div>
                         <div class="filter-pro__item form-check">
-                            <input class="filter-pro__check form-check-input" type="checkbox" value=""
-                                id="flexCheck500-1000">
+                            <input class="filter-pro__check form-check-input" type="checkbox" value="" id="flexCheck500-1000">
                             <label class="filter-pro__label form-check-label" for="flexCheck500-1000">
                                 Áo phông
                             </label>
                         </div>
                         <div class="filter-pro__item form-check">
-                            <input class="filter-pro__check form-check-input" type="checkbox" value=""
-                                id="flexCheck1000-2000">
+                            <input class="filter-pro__check form-check-input" type="checkbox" value="" id="flexCheck1000-2000">
                             <label class="filter-pro__label form-check-label" for="flexCheck1000-2000">
                                 Áo polo
                             </label>
                         </div>
                         <div class="filter-pro__item form-check">
-                            <input class="filter-pro__check form-check-input" type="checkbox" value=""
-                                id="flexCheck2000-5000">
+                            <input class="filter-pro__check form-check-input" type="checkbox" value="" id="flexCheck2000-5000">
                             <label class="filter-pro__label form-check-label" for="flexCheck2000-5000">
                                 Áo tắm
                             </label>
                         </div>
                         <div class="filter-pro__item form-check">
-                            <input class="filter-pro__check form-check-input" type="checkbox" value=""
-                                id="flexCheck5000Min">
+                            <input class="filter-pro__check form-check-input" type="checkbox" value="" id="flexCheck5000Min">
                             <label class="filter-pro__label form-check-label" for="flexCheck5000Min">
                                 Váy body
                             </label>
@@ -454,22 +211,19 @@ echo "Đang được bảo trì nâng cấp";
                     <div class="filter-pro__wrap-item">
                         <h3 class="filter-pro__title">Thương hiệu</h3>
                         <div class="filter-pro__item form-check">
-                            <input class="filter-pro__check form-check-input" type="checkbox" value=""
-                                id="flexCheck500">
+                            <input class="filter-pro__check form-check-input" type="checkbox" value="" id="flexCheck500">
                             <label class="filter-pro__label form-check-label" for="flexCheck500">
                                 LuongShop
                             </label>
                         </div>
                         <div class="filter-pro__item form-check">
-                            <input class="filter-pro__check form-check-input" type="checkbox" value=""
-                                id="flexCheck500-1000">
+                            <input class="filter-pro__check form-check-input" type="checkbox" value="" id="flexCheck500-1000">
                             <label class="filter-pro__label form-check-label" for="flexCheck500-1000">
                                 Gucci
                             </label>
                         </div>
                         <div class="filter-pro__item form-check">
-                            <input class="filter-pro__check form-check-input" type="checkbox" value=""
-                                id="flexCheck1000-2000">
+                            <input class="filter-pro__check form-check-input" type="checkbox" value="" id="flexCheck1000-2000">
                             <label class="filter-pro__label form-check-label" for="flexCheck1000-2000">
                                 Adidas
                             </label>
@@ -479,36 +233,31 @@ echo "Đang được bảo trì nâng cấp";
                     <div class="filter-pro__wrap-item">
                         <h3 class="filter-pro__title">Màu phổ biến</h3>
                         <div class="filter-pro__item form-check">
-                            <input class="filter-pro__check form-check-input" type="checkbox" value=""
-                                id="flexCheck500">
+                            <input class="filter-pro__check form-check-input" type="checkbox" value="" id="flexCheck500">
                             <label class="filter-pro__label form-check-label" for="flexCheck500">
                                 Trắng
                             </label>
                         </div>
                         <div class="filter-pro__item form-check">
-                            <input class="filter-pro__check form-check-input" type="checkbox" value=""
-                                id="flexCheck500-1000">
+                            <input class="filter-pro__check form-check-input" type="checkbox" value="" id="flexCheck500-1000">
                             <label class="filter-pro__label form-check-label" for="flexCheck500-1000">
                                 Đen
                             </label>
                         </div>
                         <div class="filter-pro__item form-check">
-                            <input class="filter-pro__check form-check-input" type="checkbox" value=""
-                                id="flexCheck1000-2000">
+                            <input class="filter-pro__check form-check-input" type="checkbox" value="" id="flexCheck1000-2000">
                             <label class="filter-pro__label form-check-label" for="flexCheck1000-2000">
                                 Hồng
                             </label>
                         </div>
                         <div class="filter-pro__item form-check">
-                            <input class="filter-pro__check form-check-input" type="checkbox" value=""
-                                id="flexCheck2000-5000">
+                            <input class="filter-pro__check form-check-input" type="checkbox" value="" id="flexCheck2000-5000">
                             <label class="filter-pro__label form-check-label" for="flexCheck2000-5000">
                                 Xanh
                             </label>
                         </div>
                         <div class="filter-pro__item form-check">
-                            <input class="filter-pro__check form-check-input" type="checkbox" value=""
-                                id="flexCheck5000Min">
+                            <input class="filter-pro__check form-check-input" type="checkbox" value="" id="flexCheck5000Min">
                             <label class="filter-pro__label form-check-label" for="flexCheck5000Min">
                                 Cam
                             </label>
@@ -518,36 +267,31 @@ echo "Đang được bảo trì nâng cấp";
                     <div class="filter-pro__wrap-item">
                         <h3 class="filter-pro__title">Kiểu vải</h3>
                         <div class="filter-pro__item form-check">
-                            <input class="filter-pro__check form-check-input" type="checkbox" value=""
-                                id="flexCheck500">
+                            <input class="filter-pro__check form-check-input" type="checkbox" value="" id="flexCheck500">
                             <label class="filter-pro__label form-check-label" for="flexCheck500">
                                 Vải cotton
                             </label>
                         </div>
                         <div class="filter-pro__item form-check">
-                            <input class="filter-pro__check form-check-input" type="checkbox" value=""
-                                id="flexCheck500-1000">
+                            <input class="filter-pro__check form-check-input" type="checkbox" value="" id="flexCheck500-1000">
                             <label class="filter-pro__label form-check-label" for="flexCheck500-1000">
                                 Vải kaki
                             </label>
                         </div>
                         <div class="filter-pro__item form-check">
-                            <input class="filter-pro__check form-check-input" type="checkbox" value=""
-                                id="flexCheck1000-2000">
+                            <input class="filter-pro__check form-check-input" type="checkbox" value="" id="flexCheck1000-2000">
                             <label class="filter-pro__label form-check-label" for="flexCheck1000-2000">
                                 Vải jeans
                             </label>
                         </div>
                         <div class="filter-pro__item form-check">
-                            <input class="filter-pro__check form-check-input" type="checkbox" value=""
-                                id="flexCheck2000-5000">
+                            <input class="filter-pro__check form-check-input" type="checkbox" value="" id="flexCheck2000-5000">
                             <label class="filter-pro__label form-check-label" for="flexCheck2000-5000">
                                 Vải len
                             </label>
                         </div>
                         <div class="filter-pro__item form-check">
-                            <input class="filter-pro__check form-check-input" type="checkbox" value=""
-                                id="flexCheck5000Min">
+                            <input class="filter-pro__check form-check-input" type="checkbox" value="" id="flexCheck5000Min">
                             <label class="filter-pro__label form-check-label" for="flexCheck5000Min">
                                 Vải kate
                             </label>
@@ -559,12 +303,9 @@ echo "Đang được bảo trì nâng cấp";
                     <span class="wrap-item__item-title list-group-item" aria-current="true">
                         Sản Phẩm Mới
                     </span>
-                    <a href="#"
-                        class="wrap-item__product wrap-item__item-link list-group-item d-flex justify-content-between align-items-start">
+                    <a href="#" class="wrap-item__product wrap-item__item-link list-group-item d-flex justify-content-between align-items-start">
                         <div class="">
-                            <img class="wrap-item__product-img"
-                                src="https://bizweb.dktcdn.net/thumb/large/100/451/884/products/chanvaydangacaplientabongthant.jpg?v=1649173050000"
-                                alt="">
+                            <img class="wrap-item__product-img" src="https://bizweb.dktcdn.net/thumb/large/100/451/884/products/chanvaydangacaplientabongthant.jpg?v=1649173050000" alt="">
                         </div>
                         <div class="wrap-item__product-content">
                             <h2 class="wrap-item__product-title">Áo nữ mùa hè mát mẻ</h2>
@@ -574,12 +315,9 @@ echo "Đang được bảo trì nâng cấp";
                             </p>
                         </div>
                     </a>
-                    <a href="#"
-                        class="wrap-item__product wrap-item__item-link list-group-item d-flex justify-content-between align-items-start">
+                    <a href="#" class="wrap-item__product wrap-item__item-link list-group-item d-flex justify-content-between align-items-start">
                         <div class="">
-                            <img class="wrap-item__product-img"
-                                src="https://bizweb.dktcdn.net/thumb/large/100/451/884/products/chanvaydangacaplientabongthant.jpg?v=1649173050000"
-                                alt="">
+                            <img class="wrap-item__product-img" src="https://bizweb.dktcdn.net/thumb/large/100/451/884/products/chanvaydangacaplientabongthant.jpg?v=1649173050000" alt="">
                         </div>
                         <div class="wrap-item__product-content">
                             <h2 class="wrap-item__product-title">Áo nữ mùa hè mát mẻ</h2>
@@ -589,12 +327,9 @@ echo "Đang được bảo trì nâng cấp";
                             </p>
                         </div>
                     </a>
-                    <a href="#"
-                        class="wrap-item__product wrap-item__item-link list-group-item d-flex justify-content-between align-items-start">
+                    <a href="#" class="wrap-item__product wrap-item__item-link list-group-item d-flex justify-content-between align-items-start">
                         <div class="">
-                            <img class="wrap-item__product-img"
-                                src="https://bizweb.dktcdn.net/thumb/large/100/451/884/products/chanvaydangacaplientabongthant.jpg?v=1649173050000"
-                                alt="">
+                            <img class="wrap-item__product-img" src="https://bizweb.dktcdn.net/thumb/large/100/451/884/products/chanvaydangacaplientabongthant.jpg?v=1649173050000" alt="">
                         </div>
                         <div class="wrap-item__product-content">
                             <h2 class="wrap-item__product-title">Áo nữ mùa hè mát mẻ</h2>

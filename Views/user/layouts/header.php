@@ -542,7 +542,7 @@
                             <i class="header-account__hover-icon fa-solid fa-right-from-bracket"></i> Cài đặt tài khoản
                         </a>
                         <?php
-                        if (isset($_SESSION['user']['role']) && ($_SESSION['user']['role'] == 1 || $_SESSION['user']['role'] == 2)) :
+                        if (isset($_SESSION['user']['role']) && ($_SESSION['user']['role'] == 5 || $_SESSION['user']['role'] == 4)) :
                         ?>
                             <a href="index.php?act=admin" class="header-account__hover-register">
                                 <i class="header-account__hover-icon fa-solid fa-screwdriver-wrench"></i> Quản trị Website

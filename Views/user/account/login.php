@@ -11,7 +11,16 @@
             </nav>
         </div>
     </div>
-
+    <div class="container mt-3 notify">
+        <?php if (isset($_SESSION['notify']['success'])) : ?>
+            <div class="alert alert-success" role="alert"><?= $_SESSION['notify']['success'] ?></div>
+            <?php unset($_SESSION['notify']['success']) ?>
+        <?php endif; ?>
+        <?php if (isset($_SESSION['notify']['error'])) : ?>
+            <div class="alert alert-danger" role="alert"><?= $_SESSION['notify']['error'] ?></div>
+            <?php unset($_SESSION['notify']['error']) ?>
+        <?php endif; ?>
+    </div>
     <div class="register mt-5 mb-5 container">
         <h1 class="register__title">Đăng nhập</h1>
         <div class="notify-login">
