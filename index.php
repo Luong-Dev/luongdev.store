@@ -164,6 +164,11 @@ if (isset($_GET['act'])) {
             loginAccountControl();
             break;
 
+        case 'account_logout':
+            checkRoleFull();
+            logoutAccountControl();
+            break;
+
             // case 'forgot_password':
             //     forgotPassword();
             //     break;
@@ -173,28 +178,39 @@ if (isset($_GET['act'])) {
             profileControl();
             break;
 
+        case 'update_profile':
+            checkRoleFull();
+            updateProfileControl();
+            break;
+
+        case 'edit_password':
+            checkRoleFull();
+            editPassword();
+            break;
+
+        case 'update_password':
+            checkRoleFull();
+            updatePassword();
+            break;
+
+        case 'forgot_password':
+            checkUseLogged();
+            forgotPassword();
+            // include "./Views/user/layouts/header.php";
+            // include "./Views/user/account/changePasswordUsed.php";
+            // include "./Views/user/layouts/footer.php";
+            break;
+
         case 'confirm_code':
+            checkUseLogged();
             include "./Views/user/layouts/header.php";
             include "./Views/user/account/confirmCode.php";
             include "./Views/user/layouts/footer.php";
             break;
 
-        case 'change_password':
-            include "./Views/user/layouts/header.php";
-            include "./Views/user/account/changePassword.php";
-            include "./Views/user/layouts/footer.php";
-            break;
 
-        case 'account_change_password':
-            include "./Views/user/layouts/header.php";
-            include "./Views/user/account/changePasswordUsed.php";
-            include "./Views/user/layouts/footer.php";
-            break;
 
-        case 'account_logout':
-            checkRoleFull();
-            logoutAccountControl();
-            break;
+
 
         default:
 

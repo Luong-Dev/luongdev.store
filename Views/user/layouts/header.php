@@ -182,8 +182,11 @@
                         <a href="index.php?act=profile" class="header-account__hover-login">
                             <i class="header-account__hover-icon fa-solid fa-user-pen"></i> Chi tiết tài khoản
                         </a>
-                        <a href="index.php?act=profile" class="header-account__hover-login">
+                        <a href="index.php?act=edit_password" class="header-account__hover-login">
                             <i class="header-account__hover-icon fa-solid fa-key"></i> Đổi mật khẩu
+                        </a>
+                        <a href="index.php?act=orders" class="header-account__hover-login">
+                            <i class="header-account__hover-icon fa-solid fa-list-check"></i> Đơn hàng của tôi
                         </a>
                         <?php
                         if (isset($_SESSION['user']['role']) && ($_SESSION['user']['role'] == 5 || $_SESSION['user']['role'] == 4)) :

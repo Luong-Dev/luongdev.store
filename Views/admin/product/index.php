@@ -26,7 +26,7 @@
         <?php if (isset($_SESSION['notify']['success'])) : ?>
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                 <?= $_SESSION['notify']['success'] ?>
-                <button type="button" class="btn-close bg-success" style="padding: 13px 40px;" data-bs-dismiss="alert" aria-label="Close"></button>
+                <button type="button" class="btn-close bg-danger" style="padding: 13px 40px;" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
             <?php unset($_SESSION['notify']['success']) ?>
         <?php endif; ?>

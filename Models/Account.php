@@ -50,18 +50,26 @@ function putUser($name, $avatar, $phoneNumber, $email, $address, $id)
     // $sql = "UPDATE `users` SET `name`=? ,`avatar`=? ,`phone_number`=? , `email`=? , `address`=? WHERE id = ?";
     $sql = "UPDATE `users` SET `name`=? ,`avatar`= IF(? <> '', ?, `avatar`) ,`phone_number`=? , `email`=? , `address`=? WHERE id = ?";
 
-
     pdo_execute($sql, $name, $avatar, $avatar, $phoneNumber, $email, $address, $id);
+}
+
+function putPasswordUser($password, $id)
+{
+    $sql = "UPDATE `users` SET `password`=? WHERE id = ?";
+
+    pdo_execute($sql, $password, $id);
 }
 
 function getUserWithEmail($email)
 {
     $sql = "SELECT * FROM `users` WHERE email = ?";
+
     return  pdo_query_one($sql, $email);
 }
 
 function getUserWithEmailPassword($email, $password)
 {
     $sql = "SELECT * FROM `users` WHERE email = ? AND password = ?";
+
     return  pdo_query_one($sql, $email, $password);
 }

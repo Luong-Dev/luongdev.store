@@ -15,7 +15,7 @@
             <?php if (isset($_SESSION['notify']['success'])) : ?>
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                     <?= $_SESSION['notify']['success'] ?>
-                    <button type="button" class="btn-close bg-success" style="padding: 13px 40px;" data-bs-dismiss="alert" aria-label="Close"></button>
+                    <button type="button" class="btn-close bg-danger" style="padding: 13px 40px;" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
                 <?php unset($_SESSION['notify']['success']) ?>
             <?php endif; ?>
@@ -26,24 +26,12 @@
                 </div>
                 <?php unset($_SESSION['notify']['error']) ?>
             <?php endif; ?>
-            <?php if (isset($notify['success'])) : ?>
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <?= $notify['success'] ?>
-                    <button type="button" class="btn-close bg-success" style="padding: 13px 40px;" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            <?php endif; ?>
-            <?php if (isset($notify['error'])) : ?>
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <?= $notify['error'] ?>
-                    <button type="button" class="btn-close bg-danger" style="padding: 13px 40px;" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            <?php endif; ?>
         </div>
         <?php
         extract($account);
         ?>
         <h1 class="mb-5 text-center mt-5">Thông tin khách hàng: <span class="text-success fs-1 fw-bold"><?= isset($name) ? $name : "" ?></span></h1>
-        <form action="index.php?act=profile" class="form" method="POST" enctype="multipart/form-data">
+        <form action="index.php?act=update_profile" class="form" method="POST" enctype="multipart/form-data">
             <div class="row mb-3">
                 <div class="row">
                     <div class="col-md-6 text-center">

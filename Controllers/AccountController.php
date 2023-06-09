@@ -231,54 +231,107 @@ function checkUseLogged()
 
 function profileControl()
 {
-    // ob_start();
     include "./Views/user/layouts/header.php";
-    // ob_end_clean();
 
     if (isset($_SESSION['user']['id']) && is_numeric($_SESSION['user']['id'])) {
         $id = $_SESSION['user']['id'];
         $account = getAccount($id);
         if ($account) {
-            if (isset($_POST['update']) && $_POST['update']) {
-                $name = $_POST['name'];
-                $email = $_POST['email'];
-                $phoneNumber = $_POST['phoneNumber'];
-                $address = $_POST['address'];
-                // file
-                $targetDir = "./resources/uploads/images/avatar/";
-                $fileName = $_FILES['avatar']['name'];
-                $fileTmpName = $_FILES['avatar']['tmp_name'];
-                // var_dump($_FILES['avatar']);
-                $avatar = "";
-                if ($fileName != "") {
-                    $avatar = $targetDir . $fileName;
-                    move_uploaded_file($fileTmpName, $avatar);
-                }
-                putUser($name, $avatar, $phoneNumber, $email, $address, $id);
-                $_SESSION['notify']['success'] = 'Cập nhật thông tin tài khoản thành công!';
-                $notify['success'] = 'Cập nhật thông tin tài khoản thành công!';
-                // header('Location: ' . $_SERVER['REQUEST_URI']);
-                // header("location: " . URL_HOME);
-                echo "<script>
-                    window.location.href = '" . URL_PROFILE . "';
-                    alert('Cập nhật thông tin tài khoàn thành công!');
-                    </script>";
-                // echo "sdfsdfsđfsdfdf";
-                // header('Location: ' . $_SERVER['REQUEST_URI']);
-                // $_SESSION['notify']['success'] = 'Cập nhật thông tin tài khoản thành công!';
-            }
-
             include "./Views/user/account/profile.php";
         } else {
-            $_SESSION['notify']['error'] = "Sai đường dẫn, mời nhập đường dẫn chính xác!";
+            $_SESSION['notify']['error'] = "Đường dẫn hiện tại không hỗ trợ cho bạn!";
             header("location: " . URL_HOME);
         }
     } else {
-        $_SESSION['notify']['error'] = "Sai đường dẫn, mời nhập đường dẫn chính xác!";
+        $_SESSION['notify']['error'] = "Đường dẫn hiện tại không hỗ trợ cho bạn!";
         header("location: " . URL_HOME);
     }
 
     include "./Views/user/layouts/footer.php";
+}
+
+function updateProfileControl()
+{
+    if (isset($_SESSION['user']['id']) && is_numeric($_SESSION['user']['id'])) {
+        $id = $_SESSION['user']['id'];
+        if (isset($_POST['update']) && $_POST['update']) {
+            $name = $_POST['name'];
+            $email = $_POST['email'];
+            $phoneNumber = $_POST['phoneNumber'];
+            $address = $_POST['address'];
+            // file
+            $targetDir = "./resources/uploads/images/avatar/";
+            $fileName = $_FILES['avatar']['name'];
+            $fileTmpName = $_FILES['avatar']['tmp_name'];
+            $avatar = "";
+            if ($fileName != "") {
+                $avatar = $targetDir . $fileName;
+                move_uploaded_file($fileTmpName, $avatar);
+            }
+            putUser($name, $avatar, $phoneNumber, $email, $address, $id);
+            $_SESSION['notify']['success'] = 'Cập nhật thông tin tài khoản thành công!';
+            header("location: " . URL_PROFILE);
+        }
+    } else {
+        $_SESSION['notify']['error'] = "Đường dẫn hiện tại không hỗ trợ cho bạn!";
+        header("location: " . URL_HOME);
+    }
+}
+
+function editPassword()
+{
+    include "./Views/user/layouts/header.php";
+
+    if (isset($_SESSION['user']['id']) && is_numeric($_SESSION['user']['id'])) {
+        $id = $_SESSION['user']['id'];
+        $account = getAccount($id);
+        if ($account) {
+            include "./Views/user/account/changePassword.php";
+        } else {
+            $_SESSION['notify']['error'] = "Đường dẫn hiện tại không hỗ trợ cho bạn!";
+            header("location: " . URL_HOME);
+        }
+    } else {
+        $_SESSION['notify']['error'] = "Đường dẫn hiện tại không hỗ trợ cho bạn!";
+        header("location: " . URL_HOME);
+    }
+
+    include "./Views/user/layouts/footer.php";
+}
+
+function updatePassword()
+{
+    if (isset($_SESSION['user']['id']) && is_numeric($_SESSION['user']['id'])) {
+        $id = $_SESSION['user']['id'];
+        $account = getAccount($id);
+        if ($account) {
+            if (isset($_POST['update']) && $_POST['update']) {
+                $password = $_POST['password'];
+                $passwordNew = $_POST['passwordNew'];
+                $confirmPassword = $_POST['confirmPassword'];
+
+                if (password_verify($password, $account['password'])) {
+                    if ($passwordNew == $confirmPassword) {
+                        putPasswordUser(password_hash($passwordNew, PASSWORD_BCRYPT, ['cost' => 12]), $id);
+                        $_SESSION['notify']['success'] = 'Cập nhật thông tin tài khoản thành công!';
+                        header("location: " . "index.php?act=edit_password");
+                    } else {
+                        $_SESSION['notify']['error'] = "Xác nhận mật khẩu mới không trùng nhau, mời nhập lại!";
+                        header("location: " . URL_ED_PW);
+                    }
+                } else {
+                    $_SESSION['notify']['error'] = "Mật khẩu hiện tại không đúng!";
+                    header("location: " . URL_ED_PW);
+                }
+            }
+        } else {
+            $_SESSION['notify']['error'] = "Đường dẫn hiện tại không hỗ trợ cho bạn!";
+            header("location: " . URL_HOME);
+        }
+    } else {
+        $_SESSION['notify']['error'] = "Đường dẫn hiện tại không hỗ trợ cho bạn!";
+        header("location: " . URL_HOME);
+    }
 }
 
 function forgotPassword()
@@ -294,9 +347,11 @@ function forgotPassword()
 
     if (isset($_POST['forgot'])) {
         $email = $_POST['email'];
+        echo $email;
+        // kiểm tra email có tồn tại không, nếu có thì gửi mật khẩu.
         $account = getUserWithEmail($email);
         if (!empty($account)) {
-
+            // echo "ádfsdf";
             try {
                 //Server settings
                 // $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
