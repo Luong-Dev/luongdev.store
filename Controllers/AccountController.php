@@ -215,11 +215,71 @@ function checkRoleFull()
 {
     // hàm check các tài khoản đã đăng nhập (role 1-4-5) đều được chạy tiếp
     if (!(isset($_SESSION['user']['status']) && $_SESSION['user']['status'] == 1 && isset($_SESSION['user']['role']) && ($_SESSION['user']['role'] == 1 || $_SESSION['user']['role'] == 4 || $_SESSION['user']['role'] == 5))) {
-        $_SESSION['notify']['error'] = "Tài khoản của bạn không có quyền truy cập vào link này. Mời đăng nhập tài khoản Admin";
+        $_SESSION['notify']['error'] = "Tài khoản của bạn không có quyền truy cập vào link này. Mời đăng nhập tài khoản!";
         exit(header("location: " . URL_LOGIN));
     }
 }
 
+function checkUseLogged()
+{
+    // hàm check nếu tài khoản đã đăng nhập không cho đi vào link này và điều hướng về trang chủ
+    if (isset($_SESSION['user']) && !empty($_SESSION['user'])) {
+        $_SESSION['notify']['error'] = "Link bạn truy cập không hỗ trợ trong trạng thái 'đăng nhập'!";
+        exit(header("location: " . URL_HOME));
+    }
+}
+
+function profileControl()
+{
+    // ob_start();
+    include "./Views/user/layouts/header.php";
+    // ob_end_clean();
+
+    if (isset($_SESSION['user']['id']) && is_numeric($_SESSION['user']['id'])) {
+        $id = $_SESSION['user']['id'];
+        $account = getAccount($id);
+        if ($account) {
+            if (isset($_POST['update']) && $_POST['update']) {
+                $name = $_POST['name'];
+                $email = $_POST['email'];
+                $phoneNumber = $_POST['phoneNumber'];
+                $address = $_POST['address'];
+                // file
+                $targetDir = "./resources/uploads/images/avatar/";
+                $fileName = $_FILES['avatar']['name'];
+                $fileTmpName = $_FILES['avatar']['tmp_name'];
+                // var_dump($_FILES['avatar']);
+                $avatar = "";
+                if ($fileName != "") {
+                    $avatar = $targetDir . $fileName;
+                    move_uploaded_file($fileTmpName, $avatar);
+                }
+                putUser($name, $avatar, $phoneNumber, $email, $address, $id);
+                $_SESSION['notify']['success'] = 'Cập nhật thông tin tài khoản thành công!';
+                $notify['success'] = 'Cập nhật thông tin tài khoản thành công!';
+                // header('Location: ' . $_SERVER['REQUEST_URI']);
+                // header("location: " . URL_HOME);
+                echo "<script>
+                    window.location.href = '" . URL_PROFILE . "';
+                    alert('Cập nhật thông tin tài khoàn thành công!');
+                    </script>";
+                // echo "sdfsdfsđfsdfdf";
+                // header('Location: ' . $_SERVER['REQUEST_URI']);
+                // $_SESSION['notify']['success'] = 'Cập nhật thông tin tài khoản thành công!';
+            }
+
+            include "./Views/user/account/profile.php";
+        } else {
+            $_SESSION['notify']['error'] = "Sai đường dẫn, mời nhập đường dẫn chính xác!";
+            header("location: " . URL_HOME);
+        }
+    } else {
+        $_SESSION['notify']['error'] = "Sai đường dẫn, mời nhập đường dẫn chính xác!";
+        header("location: " . URL_HOME);
+    }
+
+    include "./Views/user/layouts/footer.php";
+}
 
 function forgotPassword()
 {

@@ -70,96 +70,6 @@
                         </a>
 
                         <div class="menu-extend__wrap">
-                            <!-- <ul class="menu-extend__category">
-                                <a href="" class="menu-extend__category-tittle">Áo</a>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo len</a>
-                                </li>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo thun</a>
-                                </li>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo sơ mi</a>
-                                </li>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo Cardigan</a>
-                                </li>
-                            </ul>
-                            <ul class="menu-extend__category">
-                                <a href="" class="menu-extend__category-tittle">Áo</a>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo len</a>
-                                </li>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo thun</a>
-                                </li>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo sơ mi</a>
-                                </li>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo Cardigan</a>
-                                </li>
-                            </ul>
-                            <ul class="menu-extend__category">
-                                <a href="" class="menu-extend__category-tittle">Áo</a>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo len</a>
-                                </li>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo thun</a>
-                                </li>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo sơ mi</a>
-                                </li>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo Cardigan</a>
-                                </li>
-                            </ul>
-                            <ul class="menu-extend__category">
-                                <a href="" class="menu-extend__category-tittle">Áo</a>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo len</a>
-                                </li>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo thun</a>
-                                </li>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo sơ mi</a>
-                                </li>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo Cardigan</a>
-                                </li>
-                            </ul>
-                            <ul class="menu-extend__category">
-                                <a href="" class="menu-extend__category-tittle">Áo</a>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo len</a>
-                                </li>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo thun</a>
-                                </li>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo sơ mi</a>
-                                </li>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo Cardigan</a>
-                                </li>
-                            </ul>
-                            <ul class="menu-extend__category">
-                                <a href="" class="menu-extend__category-tittle">Áo</a>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo len</a>
-                                </li>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo thun</a>
-                                </li>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo sơ mi</a>
-                                </li>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo Cardigan</a>
-                                </li>
-                            </ul> -->
                         </div>
 
                         <a href="" class="menu-extend__link">
@@ -181,96 +91,6 @@
                         </a>
 
                         <div class="menu-extend__wrap">
-                            <!-- <ul class="menu-extend__category">
-                                <a href="" class="menu-extend__category-tittle">Áo</a>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo len</a>
-                                </li>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo thun</a>
-                                </li>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo sơ mi</a>
-                                </li>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo Cardigan</a>
-                                </li>
-                            </ul>
-                            <ul class="menu-extend__category">
-                                <a href="" class="menu-extend__category-tittle">Áo</a>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo len</a>
-                                </li>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo thun</a>
-                                </li>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo sơ mi</a>
-                                </li>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo Cardigan</a>
-                                </li>
-                            </ul>
-                            <ul class="menu-extend__category">
-                                <a href="" class="menu-extend__category-tittle">Áo</a>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo len</a>
-                                </li>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo thun</a>
-                                </li>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo sơ mi</a>
-                                </li>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo Cardigan</a>
-                                </li>
-                            </ul>
-                            <ul class="menu-extend__category">
-                                <a href="" class="menu-extend__category-tittle">Áo</a>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo len</a>
-                                </li>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo thun</a>
-                                </li>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo sơ mi</a>
-                                </li>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo Cardigan</a>
-                                </li>
-                            </ul>
-                            <ul class="menu-extend__category">
-                                <a href="" class="menu-extend__category-tittle">Áo</a>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo len</a>
-                                </li>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo thun</a>
-                                </li>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo sơ mi</a>
-                                </li>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo Cardigan</a>
-                                </li>
-                            </ul>
-                            <ul class="menu-extend__category">
-                                <a href="" class="menu-extend__category-tittle">Áo</a>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo len</a>
-                                </li>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo thun</a>
-                                </li>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo sơ mi</a>
-                                </li>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo Cardigan</a>
-                                </li>
-                            </ul> -->
                         </div>
 
                         <a href="" class="menu-extend__link">
@@ -292,96 +112,6 @@
                         </a>
 
                         <div class="menu-extend__wrap">
-                            <!-- <ul class="menu-extend__category">
-                                <a href="" class="menu-extend__category-tittle">Áo</a>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo len</a>
-                                </li>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo thun</a>
-                                </li>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo sơ mi</a>
-                                </li>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo Cardigan</a>
-                                </li>
-                            </ul>
-                            <ul class="menu-extend__category">
-                                <a href="" class="menu-extend__category-tittle">Áo</a>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo len</a>
-                                </li>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo thun</a>
-                                </li>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo sơ mi</a>
-                                </li>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo Cardigan</a>
-                                </li>
-                            </ul>
-                            <ul class="menu-extend__category">
-                                <a href="" class="menu-extend__category-tittle">Áo</a>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo len</a>
-                                </li>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo thun</a>
-                                </li>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo sơ mi</a>
-                                </li>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo Cardigan</a>
-                                </li>
-                            </ul>
-                            <ul class="menu-extend__category">
-                                <a href="" class="menu-extend__category-tittle">Áo</a>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo len</a>
-                                </li>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo thun</a>
-                                </li>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo sơ mi</a>
-                                </li>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo Cardigan</a>
-                                </li>
-                            </ul>
-                            <ul class="menu-extend__category">
-                                <a href="" class="menu-extend__category-tittle">Áo</a>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo len</a>
-                                </li>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo thun</a>
-                                </li>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo sơ mi</a>
-                                </li>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo Cardigan</a>
-                                </li>
-                            </ul>
-                            <ul class="menu-extend__category">
-                                <a href="" class="menu-extend__category-tittle">Áo</a>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo len</a>
-                                </li>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo thun</a>
-                                </li>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo sơ mi</a>
-                                </li>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo Cardigan</a>
-                                </li>
-                            </ul> -->
                         </div>
 
                         <a href="" class="menu-extend__link">
@@ -403,96 +133,6 @@
                         </a>
 
                         <div class="menu-extend__wrap">
-                            <!-- <ul class="menu-extend__category">
-                                <a href="" class="menu-extend__category-tittle">Áo</a>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo len</a>
-                                </li>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo thun</a>
-                                </li>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo sơ mi</a>
-                                </li>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo Cardigan</a>
-                                </li>
-                            </ul>
-                            <ul class="menu-extend__category">
-                                <a href="" class="menu-extend__category-tittle">Áo</a>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo len</a>
-                                </li>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo thun</a>
-                                </li>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo sơ mi</a>
-                                </li>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo Cardigan</a>
-                                </li>
-                            </ul>
-                            <ul class="menu-extend__category">
-                                <a href="" class="menu-extend__category-tittle">Áo</a>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo len</a>
-                                </li>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo thun</a>
-                                </li>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo sơ mi</a>
-                                </li>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo Cardigan</a>
-                                </li>
-                            </ul>
-                            <ul class="menu-extend__category">
-                                <a href="" class="menu-extend__category-tittle">Áo</a>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo len</a>
-                                </li>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo thun</a>
-                                </li>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo sơ mi</a>
-                                </li>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo Cardigan</a>
-                                </li>
-                            </ul>
-                            <ul class="menu-extend__category">
-                                <a href="" class="menu-extend__category-tittle">Áo</a>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo len</a>
-                                </li>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo thun</a>
-                                </li>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo sơ mi</a>
-                                </li>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo Cardigan</a>
-                                </li>
-                            </ul>
-                            <ul class="menu-extend__category">
-                                <a href="" class="menu-extend__category-tittle">Áo</a>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo len</a>
-                                </li>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo thun</a>
-                                </li>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo sơ mi</a>
-                                </li>
-                                <li class="menu-extend__item">
-                                    <a href="" class="menu-extend__category-link">Áo Cardigan</a>
-                                </li>
-                            </ul> -->
                         </div>
 
                         <a href="" class="menu-extend__link">
@@ -526,11 +166,10 @@
             </a>
 
             <div class="header-account header__right-box">
-
                 <?php
                 if (isset($_SESSION['user']) && !empty($_SESSION['user'])) :
                 ?>
-                    <a href="index.php?act=account" class="header__right-box-link">
+                    <a href="index.php?act=profile" class="header__right-box-link">
                         <div class="header-account__wrap header__right-wrap">
                             <i class="ti-user header-account__icon header__right-icon"></i>
                         </div>
@@ -541,7 +180,10 @@
                             Xin chào: <span class="header-account__hover-content"><?= isset($_SESSION['user']['name']) ? $_SESSION['user']['name'] : "" ?></span>
                         </p>
                         <a href="index.php?act=profile" class="header-account__hover-login">
-                            <i class="header-account__hover-icon fa-solid fa-right-from-bracket"></i> Cài đặt tài khoản
+                            <i class="header-account__hover-icon fa-solid fa-user-pen"></i> Chi tiết tài khoản
+                        </a>
+                        <a href="index.php?act=profile" class="header-account__hover-login">
+                            <i class="header-account__hover-icon fa-solid fa-key"></i> Đổi mật khẩu
                         </a>
                         <?php
                         if (isset($_SESSION['user']['role']) && ($_SESSION['user']['role'] == 5 || $_SESSION['user']['role'] == 4)) :
@@ -555,7 +197,7 @@
                         </a>
                     </div>
                 <?php else : ?>
-                    <a href="index.php?act=account" class="header__right-box-link">
+                    <a href="index.php?act=profile" class="header__right-box-link">
                         <div class="header-account__wrap header__right-wrap">
                             <i class="ti-user header-account__icon header__right-icon"></i>
                         </div>

@@ -45,6 +45,15 @@ function postUser($name, $email, $phoneNumber, $password, $role = 1)
     return  pdo_execute($sql);
 }
 
+function putUser($name, $avatar, $phoneNumber, $email, $address, $id)
+{
+    // $sql = "UPDATE `users` SET `name`=? ,`avatar`=? ,`phone_number`=? , `email`=? , `address`=? WHERE id = ?";
+    $sql = "UPDATE `users` SET `name`=? ,`avatar`= IF(? <> '', ?, `avatar`) ,`phone_number`=? , `email`=? , `address`=? WHERE id = ?";
+
+
+    pdo_execute($sql, $name, $avatar, $avatar, $phoneNumber, $email, $address, $id);
+}
+
 function getUserWithEmail($email)
 {
     $sql = "SELECT * FROM `users` WHERE email = ?";

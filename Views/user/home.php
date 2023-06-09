@@ -85,18 +85,24 @@
         </div>
         <div class="mt-3 notify">
             <?php if (isset($_SESSION['notify']['success'])) : ?>
-                <div class="alert alert-success" role="alert"><?= $_SESSION['notify']['success'] ?></div>
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <?= $_SESSION['notify']['success'] ?>
+                    <button type="button" class="btn-close bg-success" style="padding: 13px 40px;" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
                 <?php unset($_SESSION['notify']['success']) ?>
             <?php endif; ?>
             <?php if (isset($_SESSION['notify']['error'])) : ?>
-                <div class="alert alert-danger" role="alert"><?= $_SESSION['notify']['error'] ?></div>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <?= $_SESSION['notify']['error'] ?>
+                    <button type="button" class="btn-close bg-danger" style="padding: 13px 40px;" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
                 <?php unset($_SESSION['notify']['error']) ?>
             <?php endif; ?>
         </div>
         <div class="wrap__main mt-5 mb-5">
             <section class="wrap__main-left">
                 <div class="product-home">
-                    <h2 class="text-center fw-bold"><a href="index.php?act=products&sort=number_sold" class="fs-1 text-dark text-deco-none">#Top Bán Chạy</a>
+                    <h2 class="text-center fw-bold"><a href="index.php?act=products&sort=number_sold" class="fs-1 text-dark text-deco-none">#Top Bán Chạy - CẦN SỬA KHI LÀM XONG BÁN HÀNG</a>
                     </h2>
                     <div class="grid-col-4 mt-5">
                         <?php

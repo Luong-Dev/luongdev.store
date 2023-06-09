@@ -141,9 +141,7 @@ function updateProductControl()
         $productCategoryId = $_POST['productCategoryId'];
         // file
         $targetDir = "./resources/uploads/images/product/";
-        var_dump($_FILES['imageUpload']);
-        if ($size > 0) {
-        }
+        // var_dump($_FILES['imageUpload']);
         $fileName = $_FILES['imageUpload']['name'];
         $fileTmpName = $_FILES['imageUpload']['tmp_name'];
         $image = "";
@@ -153,6 +151,7 @@ function updateProductControl()
         }
 
         putProduct($module, $name, $image, $shortDescription, $longDescription, $regularPrice, $salePrice, $size, $color, $quantity,  $status, $importTime, $productCategoryId, $id);
+        // trong model đã xử lý có image hoặc không rồi nên ở đây không kiểm tra nữa. sau này sẽ nâng cấp sửa đổi tương tự giống cập nhật tài khoản.
         $_SESSION['notify']['success'] = 'Cập nhật thành công sản phẩm: ' . $name;
         header("location: " . URL_PR);
     }

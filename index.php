@@ -155,15 +155,22 @@ if (isset($_GET['act'])) {
             break;
 
         case 'register':
+            checkUseLogged();
             registerAccountControl();
             break;
 
         case 'login':
+            checkUseLogged();
             loginAccountControl();
             break;
 
-        case 'forgot_password':
-            forgotPassword();
+            // case 'forgot_password':
+            //     forgotPassword();
+            //     break;
+
+        case 'profile':
+            checkRoleFull();
+            profileControl();
             break;
 
         case 'confirm_code':
@@ -185,6 +192,7 @@ if (isset($_GET['act'])) {
             break;
 
         case 'account_logout':
+            checkRoleFull();
             logoutAccountControl();
             break;
 

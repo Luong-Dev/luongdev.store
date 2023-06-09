@@ -24,11 +24,17 @@
     </div>
     <div class="mt-3 notify">
         <?php if (isset($_SESSION['notify']['success'])) : ?>
-            <div class="alert alert-success" role="alert"><?= $_SESSION['notify']['success'] ?></div>
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <?= $_SESSION['notify']['success'] ?>
+                <button type="button" class="btn-close bg-success" style="padding: 13px 40px;" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
             <?php unset($_SESSION['notify']['success']) ?>
         <?php endif; ?>
         <?php if (isset($_SESSION['notify']['error'])) : ?>
-            <div class="alert alert-danger" role="alert"><?= $_SESSION['notify']['error'] ?></div>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <?= $_SESSION['notify']['error'] ?>
+                <button type="button" class="btn-close bg-danger" style="padding: 13px 40px;" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
             <?php unset($_SESSION['notify']['error']) ?>
         <?php endif; ?>
     </div>
