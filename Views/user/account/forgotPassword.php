@@ -22,9 +22,25 @@
                 <?= (isset($message['error']) && $message['error']) ? $message['error'] : ""; ?>
             </p>
         </div>
-        <form action="index.php?act=forgot_password" method="post" class="register__form mt-4">
+        <div class="container mt-3 notify">
+            <?php if (isset($_SESSION['notify']['success'])) : ?>
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <?= $_SESSION['notify']['success'] ?>
+                    <button type="button" class="btn-close bg-danger" style="padding: 13px 40px;" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                <?php unset($_SESSION['notify']['success']) ?>
+            <?php endif; ?>
+            <?php if (isset($_SESSION['notify']['error'])) : ?>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <?= $_SESSION['notify']['error'] ?>
+                    <button type="button" class="btn-close bg-danger" style="padding: 13px 40px;" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                <?php unset($_SESSION['notify']['error']) ?>
+            <?php endif; ?>
+        </div>
+        <form action="index.php?act=confirm_email" method="post" class="register__form mt-4">
             <div class="mb-4">
-                <input name="email" type="email" class="form-control" aria-describedby="emailHelp" placeholder="Nhập Email để lấy lại mật khẩu">
+                <input name="email" type="email" class="form-control" aria-describedby="emailHelp" placeholder="Nhập Email để lấy lại mật khẩu" required>
             </div>
             <div class="register__event">
                 <input name="forgot" type="submit" class="register__btn btn" value="Lấy lại mật khẩu"></input>

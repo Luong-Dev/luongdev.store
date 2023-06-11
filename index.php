@@ -17,6 +17,8 @@ include_once "./Controllers/ProductCategoryController.php";
 include_once "./Controllers/ProductController.php";
 include_once "./Controllers/CartController.php";
 include_once "./Controllers/AccountController.php";
+include_once "./Controllers/CommentController.php";
+include_once "./Controllers/StatisticalController.php";
 
 // mỗi lần về index đều phải check tài khoản và quyền của session
 if (isset($_SESSION['user'])) {
@@ -119,8 +121,28 @@ if (isset($_GET['act'])) {
             updateAccountControl();
             break;
 
+            // comment
+        case 'admin_comments':
+            checkRoleAdmin();
+            commentsControl();
+            break;
 
+        case 'admin_comments_detail':
+            checkRoleAdmin();
+            detailCommentControl();
+            break;
 
+        case 'admin_comments_delete':
+            checkRoleAdmin();
+            deleteCommentControl();
+            break;
+
+            // statistical
+
+        case 'statistical':
+            checkRoleAdmin();
+            statisticalControl();
+            break;
 
 
 
@@ -142,17 +164,17 @@ if (isset($_GET['act'])) {
             cartControl();
             break;
 
-        case 'news':
-            break;
-
         case 'contacts':
+            include "./Views/user/layouts/header.php";
+            include "./Views/user/layouts/footer.php";
             break;
 
         case 'sales':
+            include "./Views/user/layouts/header.php";
+            include "./Views/user/layouts/footer.php";
             break;
 
-        case 'statistical':
-            break;
+
 
         case 'register':
             checkUseLogged();
@@ -168,10 +190,6 @@ if (isset($_GET['act'])) {
             checkRoleFull();
             logoutAccountControl();
             break;
-
-            // case 'forgot_password':
-            //     forgotPassword();
-            //     break;
 
         case 'profile':
             checkRoleFull();
@@ -196,19 +214,32 @@ if (isset($_GET['act'])) {
         case 'forgot_password':
             checkUseLogged();
             forgotPassword();
-            // include "./Views/user/layouts/header.php";
-            // include "./Views/user/account/changePasswordUsed.php";
-            // include "./Views/user/layouts/footer.php";
             break;
 
-        case 'confirm_code':
+        case 'confirm_email':
             checkUseLogged();
-            include "./Views/user/layouts/header.php";
-            include "./Views/user/account/confirmCode.php";
-            include "./Views/user/layouts/footer.php";
+            confirmEmail();
             break;
 
+        case 'confirm_verification_code':
+            checkUseLogged();
+            confirmVerificationCode();
+            break;
 
+        case 'verification_code':
+            checkUseLogged();
+            verificationCode();
+            break;
+
+        case 'edit_password_forgot':
+            checkUseLogged();
+            editPasswordForgot();
+            break;
+
+        case 'update_password_forgot':
+            checkUseLogged();
+            updatePasswordForgot();
+            break;
 
 
 

@@ -159,12 +159,13 @@ function loginAccountControl()
             if (password_verify($password, $account['password'])) {
                 if ($account['status'] == 1) {
                     $_SESSION['user'] = $account;
-                    $_SESSION['notify']['success'] = 'không khai báo được';
+                    // $_SESSION['notify']['success'] = 'không khai báo được';
                     // echo "<script>
                     // window.location.href = 'index.php';
                     //     alert('Đăng nhập thành công')
                     // </script>";
                     echo "<script>
+                    alert('Đăng nhập thành công');
                     window.location.href = 'index.php';
                     </script>";
                 } else {
@@ -336,38 +337,43 @@ function updatePassword()
 
 function forgotPassword()
 {
-    require './resources/PHPMailer/src/Exception.php';
-    require './resources/PHPMailer/src/PHPMailer.php';
-    require './resources/PHPMailer/src/SMTP.php';
-
-    //Create an instance; passing `true` enables exceptions
-    $mail = new PHPMailer(true);
-
     include "./Views/user/layouts/header.php";
+    include "./Views/user/account/forgotPassword.php";
+    include "./Views/user/layouts/footer.php";
+}
 
+function confirmEmail()
+{
     if (isset($_POST['forgot'])) {
         $email = $_POST['email'];
-        echo $email;
-        // kiểm tra email có tồn tại không, nếu có thì gửi mật khẩu.
         $account = getUserWithEmail($email);
         if (!empty($account)) {
-            // echo "ádfsdf";
+            require './resources/PHPMailer/src/Exception.php';
+            require './resources/PHPMailer/src/PHPMailer.php';
+            require './resources/PHPMailer/src/SMTP.php';
+
+            //Create an instance; passing `true` enables exceptions
+            $mail = new PHPMailer(true);
+            $verificationCode = mt_rand(100000, 999999);
+            $_SESSION['verification_code'] = $verificationCode;
+            $_SESSION['verification_id'] = $account['id'];
+            $_SESSION['expires_at'] = time() + 60; // Thời gian hết hạn sau 1 phút
             try {
                 //Server settings
                 // $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
                 $mail->isSMTP();                                            //Send using SMTP
                 $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
                 $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-                $mail->Username   = 'maohiemgia3@gmail.com';                     //SMTP username
-                $mail->Password   = 'chudkttaylmelhkg';
+                $mail->Username   = 'ducluongwebdeveloper@gmail.com';                     //SMTP username
+                $mail->Password   = 'vvvdfemepzpzkupl';
                 $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
                 $mail->Port       = 465;                                 //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
                 //Recipients
-                $mail->setFrom('maohiemgia3@gmail.com', 'Luong');
-                $mail->addAddress($email);     //Add a recipient
-                // $mail->addAddress('ellen@example.com');               //Name is optional
-                $mail->addReplyTo('maohiemgia3@gmail.com', 'Information');
+                $mail->setFrom('ducluongwebdeveloper@gmail.com', 'Luong');
+                // $mail->addAddress($email);     //Add a recipient
+                $mail->addAddress($email);               //Name is optional
+                $mail->addReplyTo('ducluongwebdeveloper@gmail.com', 'Support');
                 // $mail->addCC('cc@example.com');
                 // $mail->addBCC('bcc@example.com');
 
@@ -377,29 +383,182 @@ function forgotPassword()
 
                 //Content
                 $mail->isHTML(true);                                  //Set email format to HTML
-                $mail->Subject = 'Mật khẩu đăng nhập của bạn là';
+                $mail->Subject = 'Mã xác thực của bạn';
                 // $mail->Body    = $password;
-                $mail->Body    = 'ABCDEF';
-                $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+                $mail->Body    = "$verificationCode";
+                $mail->AltBody = 'Sử dụng mã này để nhập vào xác thực đây là email của bạn.';
 
-                $mail->send();
-                // echo 'Đã gửi password, vui lòng kiểm tra Email và đăng nhập lại';
+                if ($mail->send()) {
+                    $_SESSION['notify']['success'] = "Đã gửi mã xác thực email, vui lòng kiểm tra Email!";
+                    header("location: index.php?act=confirm_verification_code");
+                }
+                // $_SESSION['notify']['success'] = "Đã gửi mã xác thực email, vui lòng kiểm tra Email!";
+                // header("location: index.php?act=confirm_verification_code");
             } catch (Exception $e) {
-                echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+                $message['error'] = "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
             }
-
-            echo "<script>
-                    window.location.href = 'index.php?act=confirmCode';
-                </script>";
         } else {
-            $message['error'] = "Email không đúng hoặc không có trong hệ thống";
+            $_SESSION['notify']['error'] = "Email không đúng hoặc không có trong hệ thống!";
+            header("location: index.php?act=forgot_password");
         }
     }
-
-    include "./Views/user/account/forgotPassword.php";
-    include "./Views/user/layouts/footer.php";
 }
 
+function confirmVerificationCode()
+{
+    if (isset($_SESSION['verification_code']) && isset($_SESSION['expires_at']) && $_SESSION['expires_at'] > time()) {
+        include "./Views/user/layouts/header.php";
+        include "./Views/user/account/confirmverificationCode.php";
+        include "./Views/user/layouts/footer.php";
+    } else {
+        $_SESSION['notify']['error'] = "Đường dẫn hiện tại không hỗ trợ cho bạn!";
+        header("location: index.php?act=forgot_password");
+    }
+}
+
+function verificationCode()
+{
+    if (isset($_POST['confirm'])) {
+        $code = $_POST['code'];
+        if (isset($_SESSION['verification_code']) && isset($_SESSION['verification_id']) && isset($_SESSION['expires_at']) && $_SESSION['expires_at'] > time()) {
+            if ($code == $_SESSION['verification_code']) {
+                unset($_SESSION['verification_code']);
+                $_SESSION['expires_at'] = time() + 300;
+                // thêm 5 phút thay đổi mật khẩu;
+                $_SESSION['notify']['success'] = "Hãy thay đổi mật khẩu để sử dụng!";
+                header("location: index.php?act=edit_password_forgot");
+            } else {
+                $_SESSION['notify']['error'] = "Mã bạn nhập không chính xác! Mã chỉ có thời hạn trong 1 phút! Vui lòng nhập lại!";
+                header("location: index.php?act=confirm_verification_code");
+            }
+        } else {
+            unset($_SESSION['verification_code']);
+            unset($_SESSION['verification_id']);
+            unset($_SESSION['expires_at']);
+            $_SESSION['notify']['error'] = "Không có mã xác thực, vui lòng thao tác theo trình tự!";
+            header("location: index.php?act=confirm_verification_code");
+        }
+    }
+}
+
+function editPasswordForgot()
+{
+    if (isset($_SESSION['verification_id']) && isset($_SESSION['expires_at']) && $_SESSION['expires_at'] > time()) {
+        include "./Views/user/layouts/header.php";
+        include "./Views/user/account/editPasswordForgot.php";
+        include "./Views/user/layouts/footer.php";
+    } else {
+        $_SESSION['notify']['error'] = "Đường dẫn hiện tại không hỗ trợ cho bạn!";
+        header("location: index.php?act=forgot_password");
+    }
+}
+
+function updatePasswordForgot()
+{
+    if (isset($_SESSION['verification_id']) && isset($_SESSION['expires_at']) && $_SESSION['expires_at'] > time()) {
+        if (isset($_POST['update']) && $_POST['update']) {
+            $id =  $_SESSION['verification_id'];
+            $passwordNew = $_POST['passwordNew'];
+            $confirmPassword = $_POST['confirmPassword'];
+            if ($passwordNew == $confirmPassword) {
+                putPasswordUser(password_hash($passwordNew, PASSWORD_BCRYPT, ['cost' => 12]), $id);
+                $account = getAccount($id);
+                if (!empty($account)) {
+                    $_SESSION['user'] = $account;
+                }
+                $_SESSION['notify']['success'] = 'Cập nhật mật khẩu và đăng nhập thành công!';
+                unset($_SESSION['verification_id']);
+                unset($_SESSION['expires_at']);
+                header("location: " . "index.php");
+                // header("location: " . "index.php?act=login");
+            } else {
+                $_SESSION['notify']['error'] = "Xác nhận mật khẩu mới không trùng nhau, mời nhập lại!";
+                header("location: index.php?act=edit_password_forgot");
+            }
+        }
+    } else {
+        unset($_SESSION['verification_id']);
+        unset($_SESSION['expires_at']);
+        $_SESSION['notify']['error'] = "Trang bạn thao tác không phù hợp hoặc hết thời hạn thao tác!";
+        header("location: index.php");
+    }
+}
+
+// function forgotPassword()
+// {
+//     require './resources/PHPMailer/src/Exception.php';
+//     require './resources/PHPMailer/src/PHPMailer.php';
+//     require './resources/PHPMailer/src/SMTP.php';
+
+//     //Create an instance; passing `true` enables exceptions
+//     $mail = new PHPMailer(true);
+
+//     include "./Views/user/layouts/header.php";
+
+//     if (isset($_POST['forgot'])) {
+//         $email = $_POST['email'];
+//         // kiểm tra email có tồn tại không, nếu có thì gửi mật khẩu.
+//         $account = getUserWithEmail($email);
+//         if (!empty($account)) {
+//             $verificationCode = mt_rand(100000, 999999);
+//             $_SESSION['verification_code'] = $verificationCode;
+//             $_SESSION['expires_at'] = time() + 60; // Thời gian hết hạn sau 1 phút
+//             // if (isset($_SESSION['verification_code']) && isset($_SESSION['expires_at']) && $_SESSION['expires_at'] > time()) {
+//             //     // Mã xác thực còn hợp lệ
+//             //     $verificationCode = $_SESSION['verification_code'];
+//             //     // Tiếp tục xử lý với mã xác thực
+//             // } else {
+//             //     // Mã xác thực không hợp lệ hoặc đã hết hạn
+//             //     // Xử lý lỗi hoặc thông báo cho người dùng
+//             // }
+//             try {
+//                 //Server settings
+//                 // $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
+//                 $mail->isSMTP();                                            //Send using SMTP
+//                 $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
+//                 $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+//                 $mail->Username   = 'ducluongwebdeveloper@gmail.com';                     //SMTP username
+//                 // $mail->Password   = 'luong080898';
+//                 $mail->Password   = 'vvvdfemepzpzkupl';
+//                 $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
+//                 $mail->Port       = 465;                                 //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+
+//                 //Recipients
+//                 $mail->setFrom('ducluongwebdeveloper@gmail.com', 'Luong');
+//                 // $mail->addAddress($email);     //Add a recipient
+//                 $mail->addAddress('luong.tran.146@gmail.com');               //Name is optional
+//                 $mail->addReplyTo('ducluongwebdeveloper@gmail.com', 'Support');
+//                 // $mail->addCC('cc@example.com');
+//                 // $mail->addBCC('bcc@example.com');
+
+//                 //Attachments
+//                 // $mail->addAttachment('/var/tmp/file.tar.gz');         //Add attachments
+//                 // $mail->addAttachment('../123.jpg', 'new.jpg');    //Optional name
+
+//                 //Content
+//                 $mail->isHTML(true);                                  //Set email format to HTML
+//                 $mail->Subject = 'Mã xác thực của bạn';
+//                 // $mail->Body    = $password;
+//                 $mail->Body    = "$verificationCode";
+//                 $mail->AltBody = 'Sử dụng mã này để nhập vào xác thực đây là email của bạn.';
+
+//                 // $mail->send();
+//                 if ($mail->send()) {
+//                     // echo 'Đã gửi password, vui lòng kiểm tra Email và đăng nhập lại';
+//                     $_SESSION['notify']['success'] = "Đã gửi mã xác thực email, vui lòng kiểm tra Email!";
+//                     header("location: " . URL_HOME);
+//                 }
+//             } catch (Exception $e) {
+//                 $message['error'] = "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+//             }
+//         } else {
+//             $message['error'] = "Email không đúng hoặc không có trong hệ thống";
+//         }
+//     }
+
+//     include "./Views/user/account/forgotPassword.php";
+//     include "./Views/user/layouts/footer.php";
+// }
 
 // làm hàm cập nhật thông tin tài khoản gồm hình ảnh tài khoản thì cần kiểm trang link phía comment sản phẩm xem có hiển thị đầy đủ hay không.
 // nên chỉ lưu 1 phần link trong db thôi

@@ -65,13 +65,13 @@ function deleteProductCategoryControl()
 
 function editProductCategoryControl()
 {
-    include "./Views/admin/layouts/header.php";
-
     if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         $id = $_GET['id'];
         $productCategory = getProductCategory($id);
         if ($productCategory) {
+            include "./Views/admin/layouts/header.php";
             include "./Views/admin/productCategory/edit.php";
+            include "./Views/admin/layouts/footer.php";
         } else {
             $_SESSION['notify']['error'] = "Danh mục không tồn tại";
             header("location: " . URL_P_C);
@@ -80,8 +80,6 @@ function editProductCategoryControl()
         $_SESSION['notify']['error'] = "Danh mục không tồn tại";
         header("location: " . URL_P_C);
     }
-
-    include "./Views/admin/layouts/footer.php";
 }
 
 function updateProductCategoryControl()

@@ -20,6 +20,9 @@ const URL_PR_US = URL_WEB . 'index.php?act=products';
 // url admin account
 const URL_AC = URL_WEB . 'index.php?act=admin_accounts';
 
+// url admin comments
+const URL_CM = URL_WEB . 'index.php?act=admin_comments';
+
 // url profile
 const URL_PROFILE = URL_WEB . 'index.php?act=profile';
 
