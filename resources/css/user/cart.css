@@ -1,6 +1,7 @@
 .header-cart__not-product {
     display: block;
     position: relative;
+    z-index: 0;
     top: 0;
     right: 0;
     width: 100%;
@@ -16,6 +17,7 @@
 .header-cart__have-product--cart.header-cart__have-product {
     display: block;
     position: relative;
+    z-index: 0;
     top: 0;
     right: 0;
     width: 100%;

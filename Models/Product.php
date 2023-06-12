@@ -47,6 +47,21 @@ function putProduct($module, $name, $image = "", $shortDescription, $longDescrip
     }
 }
 
+function putQuantityProduct($quantity, $id)
+{
+    $sql = "UPDATE `products` SET `quantity` = `quantity` - ? WHERE id = ?";
+
+    pdo_execute($sql, $quantity, $id);
+}
+
+
+function putViewProduct($id)
+{
+    $sql = "UPDATE `products` SET `view_number` = `view_number` + 1 WHERE id = ?";
+
+    pdo_execute($sql, $id);
+}
+
 function deleteProduct($id)
 {
     $sql = "DELETE FROM `products` WHERE id = ?";

@@ -37,7 +37,7 @@
                 <?= (isset($message['error']) && $message['error']) ? $message['error'] : ""; ?>
             </p>
         </div>
-        <form action="index.php?act=login" method="post" class="register__form mt-4">
+        <form action="index.php?act=login_submit" method="post" class="register__form mt-4">
             <div class="mb-4">
                 <input name="email" type="email" class="form-control" aria-describedby="emailHelp" placeholder="Email">
             </div>

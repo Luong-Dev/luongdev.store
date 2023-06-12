@@ -56,7 +56,7 @@
         </table>
     </div>
     <div class="mb-3">
-        <a href="index.php?act=admin_accounts_create" name="add-new" class="btn btn-primary">Thêm mới</a>
+        <a href="index.php?act=admin_comments" name="add-new" class="btn btn-primary">Quay lại</a>
         <input type="submit" value="Chọn tất cả" class="btn btn-outline-dark">
         <input type="submit" value="Bỏ chọn tất cả" class="btn btn-outline-dark">
         <input type="submit" value="Xóa mục đã chọn" class="btn btn-outline-danger">

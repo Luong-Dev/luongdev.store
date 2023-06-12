@@ -27,7 +27,9 @@
                 <label for="exampleStatus" class="form-label">Trạng thái:</label>
                 <p class="form-control">
                     <?php
-                    if (defined('AR_STATUS') && is_array(AR_STATUS) && AR_STATUS) {
+                    if (isset($quantity) && $quantity <= 0) {
+                        echo "Hết hàng";
+                    } else if (defined('AR_STATUS') && is_array(AR_STATUS) && AR_STATUS) {
                         foreach (AR_STATUS as $key => $item) {
                             if (isset($status) && $key + 1 == $status) {
                                 echo $item;

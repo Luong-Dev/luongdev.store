@@ -43,7 +43,6 @@
             <thead class="table-primary">
                 <tr>
                     <th><input class="form-check-input" type="checkbox"></th>
-                    <!-- <th>ID</th> -->
                     <th>Tên sản phẩm</th>
                     <th>Loại sản phẩm</th>
                     <th>Giá thường</th>
@@ -65,7 +64,6 @@
                     ?>
                         <tr>
                             <td><input class="form-check-input" type="checkbox"></td>
-                            <!-- <td><?= isset($id)  ? $id : "" ?></td> -->
                             <td><?= isset($name) ? $name : "" ?></td>
                             <td>
                                 <?php if (isset($productCategories) && $productCategories) : ?>
@@ -77,7 +75,9 @@
                             <td><?= isset($regular_price) ? $regular_price : ""; ?></td>
                             <td><?= isset($sale_price) ? $sale_price : "" ?></td>
                             <td>
-                                <?php if (defined('AR_STATUS') && is_array(AR_STATUS) && AR_STATUS) : ?>
+                                <?php if (isset($quantity) && $quantity <= 0) : ?>
+                                    "Hết hàng"
+                                <?php elseif (defined('AR_STATUS') && is_array(AR_STATUS) && AR_STATUS) : ?>
                                     <?php foreach (AR_STATUS as $key => $item) : ?>
                                         <?= isset($status) && $status == $key + 1 ? $item : "" ?>
                                     <?php endforeach; ?>

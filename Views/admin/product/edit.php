@@ -4,6 +4,9 @@
     $detail = "index.php?act=admin_products_detail&id=" . $id;
     ?>
     <h1 class="mb-5">Cập nhật sản phẩm: "<?= isset($name) ? $name : "" ?>"</h1>
+    <p class="text-danger">
+        <?= (isset($quantity) && $quantity <= 0 && isset($status) && $status != 4) ? 'Sản phẩm đang có số lượng bằng 0 và trạng thái không phải hết hàng! Hãy cập nhật lại trạng thái hàng hóa chính xác!' : '' ?>
+    </p>
     <form action="index.php?act=admin_products_update" class="form" method="POST" enctype="multipart/form-data">
         <div class="row mb-3">
             <div class="col-md-6">

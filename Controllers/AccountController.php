@@ -27,6 +27,7 @@ function createAccountControl()
         // $password = md5($password);
         $password = password_hash($password, PASSWORD_BCRYPT, ['cost' => 12]);
         $confirmPassword = $_POST['confirmPassword'];
+        date_default_timezone_set('Asia/Ho_Chi_Minh');
         $createdAt = date('Y-m-d');
         postAccount($name, "", $phoneNumber, $email, $password, $role, $status, $createdAt);
         $_SESSION['notify']['success'] = "Thêm mới thành công tài khoản: $name";
@@ -132,6 +133,7 @@ function registerAccountControl()
         // $password = md5($password);
         $password = password_hash($password, PASSWORD_BCRYPT, ['cost' => 12]);
         $confirmPassword = $_POST['confirmPassword'];
+        date_default_timezone_set('Asia/Ho_Chi_Minh');
         $createdAt = date('Y-m-d');
         postAccount($name, "", $phoneNumber, $email, $password, 1, 1, $createdAt);
         $_SESSION['user'] = getUserWithEmail($email);
@@ -148,9 +150,12 @@ function registerAccountControl()
 function loginAccountControl()
 {
     include "./Views/user/layouts/header.php";
+    include "./Views/user/account/login.php";
+    include "./Views/user/layouts/footer.php";
+}
 
-    // trong hàm này có bug liên quan tới $_SESSION['notify']['success'] không thể khai báo được. đã fix đổi tên notify thành messenger ở trong này không sao nhưng đổi cho toàn bộ web thì lại bug như ban đầu
-    //    kiểm tra xung đột code ở đâu
+function loginSubmitAccountControl()
+{
     if (isset($_POST['login']) && $_POST['login']) {
         $email = $_POST['email'];
         $account = getUserWithEmail($email);
@@ -159,39 +164,31 @@ function loginAccountControl()
             if (password_verify($password, $account['password'])) {
                 if ($account['status'] == 1) {
                     $_SESSION['user'] = $account;
-                    // $_SESSION['notify']['success'] = 'không khai báo được';
-                    // echo "<script>
-                    // window.location.href = 'index.php';
-                    //     alert('Đăng nhập thành công')
-                    // </script>";
-                    echo "<script>
-                    alert('Đăng nhập thành công');
-                    window.location.href = 'index.php';
-                    </script>";
+                    $_SESSION['notify']['success'] = 'Đăng nhập thành công!';
+                    header("location: " . URL_HOME);
                 } else {
-                    $message['error'] = "Tài khoản này đã bị khóa, vui lòng liên hệ: 1900000!";
+                    $_SESSION['notify']['error'] = 'Tài khoản này đã bị khóa, vui lòng liên hệ: 1900 1 tông 1 dép!';
+                    header("location: " . URL_LOGIN);
                 }
             } else {
-                $message['error'] = "Email hoặc mật khẩu sai";
+                $_SESSION['notify']['error'] = 'Email hoặc mật khẩu sai!';
+                header("location: " . URL_LOGIN);
             }
         } else {
-            $message['error'] = "Email hoặc mật khẩu sai";
+            $_SESSION['notify']['error'] = 'Email hoặc mật khẩu sai!';
+            header("location: " . URL_LOGIN);
         }
+    } else {
+        $_SESSION['notify']['error'] = 'Bạn phải vào chức năng đăng nhập!';
+        header("location: " . URL_LOGIN);
     }
-
-    include "./Views/user/account/login.php";
-    include "./Views/user/layouts/footer.php";
 }
 
 function logoutAccountControl()
 {
     session_unset();
-    // $_SESSION['notify']['success'] = 'không khai báo được';
-    // header("location: " . URL_HOME);
-    echo "<script>
-            window.location.href = 'index.php';
-            alert('Đăng xuất thành công!')
-        </script>";
+    $_SESSION['notify']['success'] = 'Đăng xuất thành công!';
+    header("location: " . URL_LOGIN);
 }
 
 function confirmAuthUser()
@@ -483,82 +480,6 @@ function updatePasswordForgot()
         header("location: index.php");
     }
 }
-
-// function forgotPassword()
-// {
-//     require './resources/PHPMailer/src/Exception.php';
-//     require './resources/PHPMailer/src/PHPMailer.php';
-//     require './resources/PHPMailer/src/SMTP.php';
-
-//     //Create an instance; passing `true` enables exceptions
-//     $mail = new PHPMailer(true);
-
-//     include "./Views/user/layouts/header.php";
-
-//     if (isset($_POST['forgot'])) {
-//         $email = $_POST['email'];
-//         // kiểm tra email có tồn tại không, nếu có thì gửi mật khẩu.
-//         $account = getUserWithEmail($email);
-//         if (!empty($account)) {
-//             $verificationCode = mt_rand(100000, 999999);
-//             $_SESSION['verification_code'] = $verificationCode;
-//             $_SESSION['expires_at'] = time() + 60; // Thời gian hết hạn sau 1 phút
-//             // if (isset($_SESSION['verification_code']) && isset($_SESSION['expires_at']) && $_SESSION['expires_at'] > time()) {
-//             //     // Mã xác thực còn hợp lệ
-//             //     $verificationCode = $_SESSION['verification_code'];
-//             //     // Tiếp tục xử lý với mã xác thực
-//             // } else {
-//             //     // Mã xác thực không hợp lệ hoặc đã hết hạn
-//             //     // Xử lý lỗi hoặc thông báo cho người dùng
-//             // }
-//             try {
-//                 //Server settings
-//                 // $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
-//                 $mail->isSMTP();                                            //Send using SMTP
-//                 $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
-//                 $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-//                 $mail->Username   = 'ducluongwebdeveloper@gmail.com';                     //SMTP username
-//                 // $mail->Password   = 'luong080898';
-//                 $mail->Password   = 'vvvdfemepzpzkupl';
-//                 $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
-//                 $mail->Port       = 465;                                 //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
-
-//                 //Recipients
-//                 $mail->setFrom('ducluongwebdeveloper@gmail.com', 'Luong');
-//                 // $mail->addAddress($email);     //Add a recipient
-//                 $mail->addAddress('luong.tran.146@gmail.com');               //Name is optional
-//                 $mail->addReplyTo('ducluongwebdeveloper@gmail.com', 'Support');
-//                 // $mail->addCC('cc@example.com');
-//                 // $mail->addBCC('bcc@example.com');
-
-//                 //Attachments
-//                 // $mail->addAttachment('/var/tmp/file.tar.gz');         //Add attachments
-//                 // $mail->addAttachment('../123.jpg', 'new.jpg');    //Optional name
-
-//                 //Content
-//                 $mail->isHTML(true);                                  //Set email format to HTML
-//                 $mail->Subject = 'Mã xác thực của bạn';
-//                 // $mail->Body    = $password;
-//                 $mail->Body    = "$verificationCode";
-//                 $mail->AltBody = 'Sử dụng mã này để nhập vào xác thực đây là email của bạn.';
-
-//                 // $mail->send();
-//                 if ($mail->send()) {
-//                     // echo 'Đã gửi password, vui lòng kiểm tra Email và đăng nhập lại';
-//                     $_SESSION['notify']['success'] = "Đã gửi mã xác thực email, vui lòng kiểm tra Email!";
-//                     header("location: " . URL_HOME);
-//                 }
-//             } catch (Exception $e) {
-//                 $message['error'] = "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-//             }
-//         } else {
-//             $message['error'] = "Email không đúng hoặc không có trong hệ thống";
-//         }
-//     }
-
-//     include "./Views/user/account/forgotPassword.php";
-//     include "./Views/user/layouts/footer.php";
-// }
 
 // làm hàm cập nhật thông tin tài khoản gồm hình ảnh tài khoản thì cần kiểm trang link phía comment sản phẩm xem có hiển thị đầy đủ hay không.
 // nên chỉ lưu 1 phần link trong db thôi

@@ -15,6 +15,22 @@
         </div>
     </div>
     <div class="container">
+        <div class="mt-3 notify">
+            <?php if (isset($_SESSION['notify']['success'])) : ?>
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <?= $_SESSION['notify']['success'] ?>
+                    <button type="button" class="btn-close bg-danger" style="padding: 13px 40px;" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                <?php unset($_SESSION['notify']['success']) ?>
+            <?php endif; ?>
+            <?php if (isset($_SESSION['notify']['error'])) : ?>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <?= $_SESSION['notify']['error'] ?>
+                    <button type="button" class="btn-close bg-danger" style="padding: 13px 40px;" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                <?php unset($_SESSION['notify']['error']) ?>
+            <?php endif; ?>
+        </div>
         <div class="product wrap__main mt-5 mb-5">
             <section class="product-detail wrap__main-left">
                 <div class="product-detail__wrap-top">
@@ -29,7 +45,12 @@
                     </div>
                     <div class="product-detail__content-top">
                         <h1 class="content-top__title"><?= isset($product['name']) ? $product['name'] : "" ?></h1>
-                        <p class="content-top__code-wrap">Mã: <span class="content-top__code"><?= isset($product['module']) ? $product['module'] : "Đang cập nhật"; ?></span>
+                        <p class="content-top__code-wrap">Mã:
+                            <span class="content-top__code"><?= isset($product['module']) ? $product['module'] : "Đang cập nhật"; ?></span> |
+                            <span class="content-top__status-wrap">Lượt xem: <span class="content-top__status">
+                                    <?= isset($product['view_number']) ? $product['view_number'] : "" ?>
+                                </span>
+                            </span>
                         </p>
                         <span class="content-top__trademark-wrap">Thương hiệu:
                             <span class="content-top__trademark">
@@ -41,7 +62,9 @@
                             </span>
                         </span>
                         <span class="content-top__status-wrap">Trạng thái: <span class="content-top__status">
-                                <?php if (defined('AR_STATUS') && is_array(AR_STATUS) && AR_STATUS) : ?>
+                                <?php if (isset($product['quantity']) && $product['quantity'] <= 0) : ?>
+                                    "Hết hàng"
+                                <?php elseif (defined('AR_STATUS') && is_array(AR_STATUS) && AR_STATUS) : ?>
                                     <?php foreach (AR_STATUS as $key => $item) : ?>
                                         <?= isset($product['status']) && $product['status'] == $key + 1 ? $item : "" ?>
                                     <?php endforeach; ?>
@@ -70,12 +93,14 @@
                                 Inch
                             </p>
                         </div>
-                        <form class="content-top__form">
+
+                        <form action="index.php?act=cart_create" method="POST">
                             <div class="content-top__form-wrap">
                                 <button class="content-top__form-minus"><i class="ti-minus"></i></button>
-                                <input class="content-top__form-quantity" type="text" value="1">
+                                <input name="productQuantity" class="content-top__form-quantity" type="number" value="1">
                                 <button class="content-top__form-plus"><i class="ti-plus"></i></button>
-                                <input class="content-top__form-submit" type="submit" value="THÊM VÀO GIỎ HÀNG">
+                                <input type="hidden" name="productId" value="<?= (isset($product['id']) && $product['id']) ? $product['id'] : "" ?>">
+                                <input name="create" class="content-top__form-submit" type="submit" value="THÊM VÀO GIỎ HÀNG">
                                 <span class="content-top__form-heart">
                                     <i class="content-top__form-heart-icon ti-heart"></i>
                                 </span>

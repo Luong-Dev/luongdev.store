@@ -1,21 +1,13 @@
 <?php
 
 session_start();
-// Chú ý: mở comment này thì header location sẽ bị lỗi không điều hướng được
-// if (isset($_SESSION['user']))
-//     var_dump($_SESSION['user']);
-// if (isset($_SESSION['notify']))
-//     echo "có";
-// if (isset($_SESSION['notify']['success']))
-//     echo $_SESSION['notify']['success'];
-// else
-//     echo "không có success";
 
 include_once "./Controllers/Controller.php";
 include_once "./Controllers/HomeController.php";
 include_once "./Controllers/ProductCategoryController.php";
 include_once "./Controllers/ProductController.php";
 include_once "./Controllers/CartController.php";
+include_once "./Controllers/OrderController.php";
 include_once "./Controllers/AccountController.php";
 include_once "./Controllers/CommentController.php";
 include_once "./Controllers/StatisticalController.php";
@@ -147,7 +139,6 @@ if (isset($_GET['act'])) {
 
 
             // Pages User
-            // nào làm tới phần user cần phân biệt giữa đăng nhập và chưa đăng nhập thì phân
         case '':
             homeUserControl();
             break;
@@ -160,10 +151,6 @@ if (isset($_GET['act'])) {
             productDetailUserControl();
             break;
 
-        case 'cart':
-            cartControl();
-            break;
-
         case 'contacts':
             include "./Views/user/layouts/header.php";
             include "./Views/user/layouts/footer.php";
@@ -174,8 +161,65 @@ if (isset($_GET['act'])) {
             include "./Views/user/layouts/footer.php";
             break;
 
+        case 'wishlist':
+            include "./Views/user/layouts/header.php";
+            include "./Views/user/layouts/footer.php";
+            break;
+
+            // cart
+        case 'cart':
+            checkRoleFull();
+            cartControl();
+            break;
+
+        case 'cart_create':
+            checkRoleFull();
+            createCartControl();
+            break;
+
+        case 'cart_one_delete':
+            checkRoleFull();
+            deleteOneProductCart();
+            break;
+
+        case 'cart_one_update':
+            checkRoleFull();
+            updateOneProductCart();
+            break;
+
+            // Order
+        case 'order_create':
+            checkRoleFull();
+            createOrderControl();
+            break;
+
+            // case 'cart_one_delete':
+            //     checkRoleFull();
+            //     deleteOneProductCart();
+            //     break;
+
+            // case 'cart_one_update':
+            //     checkRoleFull();
+            //     updateOneProductCart();
+            //     break;
 
 
+
+
+
+            // còn update trạng thái đơn hàng
+            // sử top bán chạy
+            // test đặt hàng acc khác
+            // thống kê đơn hàng
+            // quản lý đơn hàng
+            // đơn hàng của tôi
+            // validate
+            // up code
+            // check ràng buộc khi xóa các thứ liên quan, chú ý chỗ order với order detail đã bị mất ràng buộc
+
+
+
+            // account
         case 'register':
             checkUseLogged();
             registerAccountControl();
@@ -184,6 +228,11 @@ if (isset($_GET['act'])) {
         case 'login':
             checkUseLogged();
             loginAccountControl();
+            break;
+
+        case 'login_submit':
+            checkUseLogged();
+            loginSubmitAccountControl();
             break;
 
         case 'account_logout':

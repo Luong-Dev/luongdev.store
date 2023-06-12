@@ -12,6 +12,22 @@
     </div>
 
     <div class="container">
+        <div class="mt-3 notify">
+            <?php if (isset($_SESSION['notify']['success'])) : ?>
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <?= $_SESSION['notify']['success'] ?>
+                    <button type="button" class="btn-close bg-danger" style="padding: 13px 40px;" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                <?php unset($_SESSION['notify']['success']) ?>
+            <?php endif; ?>
+            <?php if (isset($_SESSION['notify']['error'])) : ?>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <?= $_SESSION['notify']['error'] ?>
+                    <button type="button" class="btn-close bg-danger" style="padding: 13px 40px;" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                <?php unset($_SESSION['notify']['error']) ?>
+            <?php endif; ?>
+        </div>
         <div class="product wrap__main mt-5 mb-5">
             <section class="product wrap__main-left">
                 <div class="product-home">
@@ -60,6 +76,7 @@
                                                 <span class="card__price-sale"><?= (isset($regular_price) && $regular_price >= 0) ? number_format($regular_price, 0, ",", ".")  : ""; ?><u>đ</u></span>
                                             <?php endif; ?>
                                         </p>
+                                        <p class="m-0 p-0">Lượt xem: <?= isset($view_number) ? $view_number : '' ?></p>
                                         <!-- <div class="card__sold text-center">
                                             <span class="card__sold-sale-bar">
                                                 <span class="card__sold-sale-bar-text">#1</span>

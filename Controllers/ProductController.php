@@ -46,6 +46,7 @@ function createProductControl()
             $quantity = null;
         }
         // $importTime = $_POST['importTime'];
+        date_default_timezone_set('Asia/Ho_Chi_Minh');
         $importTime = date('Y-m-d');
         // echo $importTime;
         $status = $_POST['status'];
@@ -212,30 +213,25 @@ function productUserControl()
 
 function productDetailUserControl()
 {
-    include "./Views/user/layouts/header.php";
-
     if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         $id = $_GET['id'];
         $product = getProduct($id);
         if ($product) {
+            putViewProduct($id);
+            $product = getProduct($id);
             $productCategories = getProductCategories();
             $productCategoryId = $product['product_category_id'];
             $top10RelatedProducts = get10RelatedProducts($productCategoryId, $id);
 
-
-
+            include "./Views/user/layouts/header.php";
             include "./Views/user/product/productDetail.php";
+            include "./Views/user/layouts/footer.php";
         } else {
-            echo "<script>
-                    alert('Không tồn tại sản phẩm này');
-                    window.location.href = URL_PR_US;
-                </script>";
+            $_SESSION['notify']['error'] = "Không tồn tại sản phẩm này";
+            header("location: " . URL_PR_US);
         }
     } else {
-        echo "<script>
-            alert('Không tồn tại sản phẩm này');
-            window.location.href = URL_PR_US;
-        </script>";
+        $_SESSION['notify']['error'] = "Không tồn tại sản phẩm này";
+        header("location: " . URL_PR_US);
     }
-    include "./Views/user/layouts/footer.php";
 }
