@@ -40,6 +40,17 @@ const AR_ROLE = [
     '1' => 'Khách hàng'
 ];
 
+// arr product status
+// 1 là chờ xác nhận, 2 là đang chuẩn bị, 3 là đang giao, 4 là đã hoàn thành, 5 là trả hàng, 6 là đơn hủy	
+const AR_STATUS_OD = [
+    '1' => 'Chờ xác nhận',
+    '2' => 'Đang chuẩn bị',
+    '3' => 'Đang giao',
+    '4' => 'Hoàn thành',
+    '5' => 'Trả hàng',
+    '6' => 'Đơn hủy'
+];
+
 
 // định nghĩa hàm cha để tự động nạp header, footer tương ứng với vai trò
 // tạo sau khi làm tính năng đăng nhập sau

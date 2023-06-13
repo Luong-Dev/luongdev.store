@@ -188,24 +188,27 @@ if (isset($_GET['act'])) {
             break;
 
             // Order
+
+        case 'order':
+            checkRoleFull();
+            orderControl();
+            break;
+
+
         case 'order_create':
             checkRoleFull();
             createOrderControl();
             break;
 
-            // case 'cart_one_delete':
-            //     checkRoleFull();
-            //     deleteOneProductCart();
-            //     break;
-
-            // case 'cart_one_update':
-            //     checkRoleFull();
-            //     updateOneProductCart();
-            //     break;
+        case 'cart_one_update':
+            checkRoleFull();
+            updateOneProductCart();
+            break;
 
 
 
 
+            // sửa lại cột giá
 
             // còn update trạng thái đơn hàng
             // sử top bán chạy

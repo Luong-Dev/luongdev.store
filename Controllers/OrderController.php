@@ -2,13 +2,17 @@
 include_once './Models/Order.php';
 include_once './Models/Cart.php';
 
+function orderControl()
+{
+    $orders = getOrdersOneUser($_SESSION['user']['id']);
+    // var_dump($orders);
+    include "./Views/user/layouts/header.php";
+    include "./Views/user/order/index.php";
+    include "./Views/user/layouts/footer.php";
+}
+
 function createOrderControl()
 {
-    // lấy thông tin từ người dùng
-    // lấy danh sách sản phẩm
-    // Xử lý data và thêm dữ liệu vào Order
-    //  Nếu nhiều sp thì cho vòng lặp chạy thêm vào Details
-    // xóa giỏ hàng
     $name = $_POST['name'];
     $address = $_POST['address'];
     $phoneNumber = $_POST['phoneNumber'];

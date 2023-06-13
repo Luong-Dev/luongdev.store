@@ -105,7 +105,8 @@
                                                 <?= isset($product_quantity) ? $product_quantity : '' ?>Sản phẩm
                                             </p>
                                             <?php if (isset($status) && $status != 1) : ?>
-                                                <span class="text-danger mt-2">Sản phẩm hiện không có sẵn để bán, hãy xóa khỏi giỏ!</span>
+                                                <span class="text-danger mt-2">Sản phẩm hiện không có sẵn để bán, hãy xóa khỏi
+                                                    giỏ!</span>
                                             <?php endif; ?>
                                         </td>
                                         <td>
@@ -132,7 +133,8 @@
                                 <tr>
                                     <td colspan="10" class="">
                                         <div class="header-cart__have-product-price-all">
-                                            <span class="header-cart__have-product-price-tittle text-success">Tổng tiền:</span>
+                                            <span class="header-cart__have-product-price-tittle text-success">Tổng
+                                                tiền:</span>
                                             <span class="header-cart__have-product-price-number"><?= number_format($allPrice, 0, ',', '.') ?><u>đ</u></span>
                                         </div>
                                     </td>
@@ -167,7 +169,7 @@
                                 </div>
                             </div>
                         </div>
-                        <button name="create" type="submit" class="header-cart__have-product-btn btn">THANH TOÁN</button>
+                        <button name="create" onclick="return confirm('Xác nhận thanh toán')" type="submit" class="header-cart__have-product-btn btn">THANH TOÁN</button>
                     </form>
                 </div>
             <?php else : ?>
@@ -294,7 +296,8 @@
             window['oneCart' + i].addEventListener("click", function() {
                 // alert(window['quantity' + i].value);
                 // alert(window['productDetailId-' + i].value);
-                window['oneCart' + i].href = `index.php?act=cart_one_update&id=${window['productDetailId-' + i].value}&quantity=${window['quantity' + i].value}`;
+                window['oneCart' + i].href =
+                    `index.php?act=cart_one_update&id=${window['productDetailId-' + i].value}&quantity=${window['quantity' + i].value}`;
             });
         }
     }
