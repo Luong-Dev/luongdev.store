@@ -8,6 +8,7 @@ include_once "./Controllers/ProductCategoryController.php";
 include_once "./Controllers/ProductController.php";
 include_once "./Controllers/CartController.php";
 include_once "./Controllers/OrderController.php";
+include_once "./Controllers/OrderDetailController.php";
 include_once "./Controllers/AccountController.php";
 include_once "./Controllers/CommentController.php";
 include_once "./Controllers/StatisticalController.php";
@@ -200,15 +201,25 @@ if (isset($_GET['act'])) {
             createOrderControl();
             break;
 
-        case 'cart_one_update':
+
+
+        case 'order_one_update':
             checkRoleFull();
-            updateOneProductCart();
+            // updateOneProductCart();
+            break;
+
+
+            // order detail
+
+        case 'order_detail':
+            checkRoleFull();
+            orderDetailControl();
             break;
 
 
 
-
-            // sửa lại cột giá
+            // deleteOneProductCart(); sua lai
+            // updateOneProductCart();
 
             // còn update trạng thái đơn hàng
             // sử top bán chạy

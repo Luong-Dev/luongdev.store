@@ -38,7 +38,7 @@
                 <?php foreach ($orders as $key => $order) :
                         extract($order);
                         if (isset($id)) {
-                            $detail = "index.php?act=admin_orders_detail&id=" . $id;
+                            $detail = "index.php?act=order_detail&id=" . $id;
                         }
                     ?>
                 <tr>

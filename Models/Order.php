@@ -3,7 +3,7 @@ include_once "./Models/Db.php";
 
 function getOrdersOneUser($userId)
 {
-    $sql = "SELECT O.order_code, COUNT(OD.product_id) AS quantity_product, O.price_total, O.ship, O.payment_price, O.status FROM `orders` O
+    $sql = "SELECT O.id, O.order_code, COUNT(OD.product_id) AS quantity_product, O.price_total, O.ship, O.payment_price, O.status FROM `orders` O
     JOIN `order_details` OD ON O.order_code = OD.order_code
     WHERE O.user_id = ?
     GROUP BY O.order_code
