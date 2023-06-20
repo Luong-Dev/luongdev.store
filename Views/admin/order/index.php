@@ -1,6 +1,6 @@
 <div class="container">
     <div class="my-5 row flex align-items-center">
-        <h1 class="">Danh sách đơn hàng của bạn:</h1>
+        <h1 class="">Danh sách đơn hàng:</h1>
     </div>
     <div class="mt-3 notify">
         <?php if (isset($_SESSION['notify']['success'])) : ?>
@@ -22,31 +22,27 @@
         <table class="table table-striped table-hover">
             <thead class="table-primary">
                 <tr>
-                    <th class="ps-5 py-4 fs-3 fw-bold">Mã đơn hàng</th>
-                    <th class="py-4 fs-3 fw-bold">Số sản phẩm</th>
-                    <th class="py-4 fs-3 fw-bold">Giá trị đơn</th>
-                    <th class="py-4 fs-3 fw-bold">Ship</th>
-                    <th class="py-4 fs-3 fw-bold">Tổng thanh toán</th>
-                    <th class="py-4 fs-3 fw-bold">Trạng thái</th>
-                    <th class="py-4 fs-3 fw-bold">Thao tác</th>
+                    <th class="ps-5 py-4 fs-4">Mã đơn hàng</th>
+                    <th class="py-4 fs-4">Số sản phẩm</th>
+                    <th class="py-4 fs-4">Giá trị đơn</th>
+                    <th class="py-4 fs-4">Ship</th>
+                    <th class="py-4 fs-4">Tổng thanh toán</th>
+                    <th class="py-4 fs-4">Trạng thái</th>
+                    <th class="py-4 fs-4">Thao tác</th>
                 </tr>
             </thead>
             <tbody>
                 <?php if (isset($orders) && $orders) : ?>
                     <?php foreach ($orders as $key => $order) :
                         extract($order);
-                        if (isset($order_code))
-                            $detail = "index.php?act=order_detail&id=" . $order_code;
-                        else
-                            $detail = '';
-                        if (isset($status) && $status == 1)
-                            $change = "index.php?act=order_change&id=" . $order_code;
-                        else
-                            $change = '';
+                        if (isset($order_code)) {
+                            $detail = "index.php?act=admin_order_details&id=" . $order_code;
+                            $edit = "index.php?act=admin_orders_edit&id=" . $order_code;
+                        }
                     ?>
                         <tr>
                             <td class="ps-5"><?= isset($order_code) ? $order_code : "" ?></td>
-                            <td><?= isset($quantity_product) ? $quantity_product : "" ?></td>
+                            <td class="text-center"><?= isset($quantity_product) ? $quantity_product : "" ?></td>
                             <td><?= isset($price_total) ? number_format($price_total, 0, ",", ".") : "" ?></td>
                             <td><?= isset($ship) ? number_format($ship, 0, ",", ".") : "" ?></td>
                             <td><?= isset($payment_price) ? number_format($payment_price, 0, ",", ".") : "" ?></td>
@@ -58,10 +54,8 @@
                                 endif; ?>
                             </td>
                             <td>
-                                <a href="<?= isset($detail) ? $detail : "" ?>" class="btn btn-primary">Chi tiết đơn hàng</a>
-                                <?php if (isset($change) && $change) : ?>
-                                    <a href='<?= $change ?>' onclick="return confirm('Bạn có muốn xóa không')" class='btn btn-danger'>Hủy đơn</a>
-                                <?php endif; ?>
+                                <a href="<?= isset($detail) ? $detail : "" ?>" class="btn btn-sm btn-primary">Chi tiết đơn hàng</a>
+                                <a href="<?= isset($edit) ? $edit : "" ?>" class="btn btn-sm btn-outline-success">Cập nhật trạng thái</a>
                             </td>
                         </tr>
                     <?php endforeach; ?>

@@ -2,7 +2,7 @@
     <div class="container">
         <nav aria-label="breadcrumb-css breadcrumb ">
             <ol class=" breadcrumb-css__wrap breadcrumb">
-                <li class="breadcrumb-css__item breadcrumb-item"><a href="index.php?act=products" class="breadcrumb-css__item-link">Trang
+                <li class="breadcrumb-css__item breadcrumb-item"><a href="index.php" class="breadcrumb-css__item-link">Trang
                         chủ</a></li>
                 <li class="breadcrumb-css__item breadcrumb-css__item--active breadcrumb-item active" aria-current="page">Giỏ hàng</li>
             </ol>

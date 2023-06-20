@@ -49,7 +49,7 @@ function createCartControl()
     }
 }
 
-function deleteOneProductCart()
+function deleteOneProductCartControl()
 {
     if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         $id = $_GET['id'];
@@ -68,7 +68,7 @@ function deleteOneProductCart()
     }
 }
 
-function updateOneProductCart()
+function updateOneProductCartControl()
 {
     if (isset($_GET['id']) && is_numeric($_GET['id']) && isset($_GET['quantity']) && is_numeric($_GET['quantity'])) {
         $id = $_GET['id'];

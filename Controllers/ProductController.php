@@ -196,8 +196,8 @@ function productUserControl()
     if (isset($_GET['product_category_id']) && is_numeric($_GET['product_category_id']) && $_GET['product_category_id'] != 0) {
         $productCategoryId = $_GET['product_category_id'];
     }
-    if (isset($_GET['sort']) && (!strcasecmp($_GET['sort'], 'price') || !strcasecmp($_GET['sort'], 'view_number') || !strcasecmp($_GET['sort'], 'created_at'))) {
-        // này sau khi có số lượng đã bán sẽ thêm vào
+    if (isset($_GET['sort']) && (!strcasecmp($_GET['sort'], 'price') || !strcasecmp($_GET['sort'], 'view_number')
+        || !strcasecmp($_GET['sort'], 'created_at') || !strcasecmp($_GET['sort'], 'sold_number'))) {
         // loại trừ name
         $sort = $_GET['sort'];
     }

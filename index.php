@@ -114,6 +114,31 @@ if (isset($_GET['act'])) {
             updateAccountControl();
             break;
 
+            // Order
+        case 'admin_orders':
+            checkRoleAdmin();
+            ordersControl();
+            break;
+
+        case 'admin_orders_edit':
+            checkRoleAdmin();
+            editOrdersControl();
+            break;
+
+        case 'admin_orders_update':
+            checkRoleAdmin();
+            updateOrdersControl();
+            break;
+
+        case 'admin_order_details':
+            checkRoleAdmin();
+            orderDetailsControl();
+            break;
+
+
+
+
+
             // comment
         case 'admin_comments':
             checkRoleAdmin();
@@ -180,16 +205,15 @@ if (isset($_GET['act'])) {
 
         case 'cart_one_delete':
             checkRoleFull();
-            deleteOneProductCart();
+            deleteOneProductCartControl();
             break;
 
         case 'cart_one_update':
             checkRoleFull();
-            updateOneProductCart();
+            updateOneProductCartControl();
             break;
 
             // Order
-
         case 'order':
             checkRoleFull();
             orderControl();
@@ -203,34 +227,25 @@ if (isset($_GET['act'])) {
 
 
 
-        case 'order_one_update':
+        case 'order_change':
             checkRoleFull();
-            // updateOneProductCart();
+            changeOrderControl();
             break;
 
 
             // order detail
-
         case 'order_detail':
             checkRoleFull();
-            orderDetailControl();
+            OrderDetailsUserControl();
             break;
 
 
-
-            // deleteOneProductCart(); sua lai
-            // updateOneProductCart();
-
-            // còn update trạng thái đơn hàng
-            // sử top bán chạy
-            // test đặt hàng acc khác
             // thống kê đơn hàng
-            // quản lý đơn hàng
-            // đơn hàng của tôi
             // validate
-            // up code
             // check ràng buộc khi xóa các thứ liên quan, chú ý chỗ order với order detail đã bị mất ràng buộc
-
+            // lọc
+            // tìm kiếm
+            // phân trang
 
 
             // account

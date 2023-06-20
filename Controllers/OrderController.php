@@ -1,11 +1,56 @@
 <?php
 include_once './Models/Order.php';
-include_once './Models/Cart.php';
+
+// admin
+function ordersControl()
+{
+    $orders = getOrders();
+
+    include "./Views/admin/layouts/header.php";
+    include "./Views/admin/order/index.php";
+    include "./Views/admin/layouts/footer.php";
+}
+
+function editOrdersControl()
+{
+    if (isset($_GET['id']) && is_numeric($_GET['id'])) {
+        $orderCode = $_GET['id'];
+        $order = getOrderWhereCode($orderCode);
+        if ($order) {
+            include "./Views/admin/layouts/header.php";
+            include "./Views/admin/order/edit.php";
+            include "./Views/admin/layouts/footer.php";
+        } else {
+            $_SESSION['notify']['error'] = "Đơn hàng không tồn tại!";
+            header("location: " . URL_ORDER_A);
+        }
+    } else {
+        $_SESSION['notify']['error'] = "Đơn hàng không tồn tại!";
+        header("location: " . URL_ORDER_A);
+    }
+}
+
+function updateOrdersControl()
+{
+    if (isset($_POST['update']) && $_POST['update']) {
+        $code = $_POST['code'];
+        $status = $_POST['status'];
+        $deliveryTime = $_POST['deliveryTime'];
+        // if (isset($_POST['deliveryTime']) && $_POST['delivery_time']) {
+        //     $deliveryTime = $_POST['deliveryTime'];
+        // }
+        putOrder($status, $deliveryTime, $code);
+        $_SESSION['notify']['success'] = 'Cập nhật thành công trạng thái đơn hàng: ' . $code;
+        header("location: " . URL_ORDER_A);
+    }
+}
+
+
+// user
 
 function orderControl()
 {
     $orders = getOrdersOneUser($_SESSION['user']['id']);
-    // var_dump($orders);
     include "./Views/user/layouts/header.php";
     include "./Views/user/order/index.php";
     include "./Views/user/layouts/footer.php";
@@ -57,5 +102,29 @@ function createOrderControl()
     } else {
         $_SESSION['notify']['error'] = "Giỏ hàng trống. Mời thêm sản phẩm để mua hàng!";
         header("location: " . URL_PR_US);
+    }
+}
+
+function changeOrderControl()
+{
+    if (isset($_GET['id']) && is_numeric($_GET['id'])) {
+        $orderCode = $_GET['id'];
+        $order = getOrderWhereCode($orderCode);
+        if ($order) {
+            if ($order['status'] == 1) {
+                putOrderUser(6, $orderCode);
+                $_SESSION['notify']['success'] = "Đơn hàng đã được HỦY!";
+                header("location: " . URL_ORDER_U);
+            } else {
+                $_SESSION['notify']['error'] = "Đơn hàng ĐÃ ĐƯỢC XỬ LÝ, KHÔNG THỂ HỦY!";
+                header("location: " . URL_ORDER_U);
+            }
+        } else {
+            $_SESSION['notify']['error'] = "Đơn hàng không tồn tại!";
+            header("location: " . URL_ORDER_U);
+        }
+    } else {
+        $_SESSION['notify']['error'] = "Đơn hàng không tồn tại!";
+        header("location: " . URL_ORDER_U);
     }
 }

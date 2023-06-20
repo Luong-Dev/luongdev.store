@@ -29,6 +29,12 @@ const URL_PROFILE = URL_WEB . 'index.php?act=profile';
 // url edit password
 const URL_ED_PW = URL_WEB . 'index.php?act=edit_password';
 
+// url order user
+const URL_ORDER_A = URL_WEB . 'index.php?act=admin_orders';
+
+// url order user
+const URL_ORDER_U = URL_WEB . 'index.php?act=order';
+
 // arr product status
 const AR_STATUS = ['Còn hàng', 'Sắp có hàng', 'Ngưng bán', 'Hết hàng'];
 // define('AR_STATUS', array('Còn hàng', 'Sắp có hàng', 'Ngưng bán', 'Hết hàng'));

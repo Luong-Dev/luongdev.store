@@ -102,23 +102,24 @@
         <div class="wrap__main mt-5 mb-5">
             <section class="wrap__main-left">
                 <div class="product-home">
-                    <h2 class="text-center fw-bold"><a href="index.php?act=products&sort=number_sold" class="fs-1 text-dark text-deco-none">#Top Bán Chạy - CẦN SỬA KHI LÀM XONG BÁN HÀNG</a>
+                    <h2 class="text-center fw-bold"><a href="index.php?act=products&sort=sold_number" class="fs-1 text-dark text-deco-none">#Top Bán Chạy</a>
                     </h2>
                     <div class="grid-col-4 mt-5">
                         <?php
-                        if (isset($top4SellingProducts) && $top4SellingProducts) :
-                            foreach ($top4SellingProducts as $key => $top4SellingProduct) :
-                                extract($top4SellingProduct);
+                        if (isset($top8SellingProducts) && $top8SellingProducts) :
+                            foreach ($top8SellingProducts as $key => $top8SellingProduct) :
+                                extract($top8SellingProduct);
                                 $url_product = 'index.php?act=product_detail&id=' . $id;
-                                if (isset($regular_price) && isset($sale_price) && $sale_price >= 0) {
-                                    $precent = ceil(($regular_price - $sale_price) / $regular_price * 100);
-                                }
+                                $percent = 0;
+                                if (isset($regular_price) && isset($sale_price) && $sale_price >= 0)
+                                    $percent = ceil(($regular_price - $sale_price) / $regular_price * 100);
+
                         ?>
                                 <div class="card border-0 shadow rounded" style="width: 100%; ">
                                     <a href="<?= (isset($url_product) && $url_product) ? $url_product : "" ?>" class="text-deco-none card__wrap-image">
                                         <img src="<?= defined('URL_WEB') && $image ? URL_WEB . $image : '' ?>" class="card-img-top" alt="Hình ảnh sản phẩm">
-                                        <?php if (isset($precent)  && $precent > 0) : ?>
-                                            <i class="card__price-sale-image">- <?= $precent ?>%</i>
+                                        <?php if (isset($percent)  && $percent > 0) : ?>
+                                            <i class="card__price-sale-image">- <?= $percent ?>%</i>
                                         <?php endif; ?>
                                     </a>
                                     <div class="card-body">
@@ -137,18 +138,27 @@
                                                 <span class="card__sold-sale-bar-text">#<?= $key + 1 ?></span>
                                             </span>
                                             <span class="card__sold-text">Đã bán
-                                                <?= (isset($number_sold) && $number_sold) ? $number_sold : ""; ?></span>
-                                            <span class="card__sold-countdown" style="width:<?= (isset($number_sold) && $number_sold && isset($quantity) && $quantity) ? ($number_sold / $quantity * 100) : ""; ?>%; max-width: 100%;"></span>
+                                                <?= (isset($sold_number) && $sold_number) ? $sold_number : ""; ?></span>
+                                            <?php
+                                            $percent_sold = 0;
+                                            if (isset($sold_number) && isset($quantity)) {
+                                                if ($quantity <= 0)
+                                                    $percent_sold = 100;
+                                                else {
+                                                    $percent_sold = $sold_number / ($quantity + $sold_number) * 100;
+                                                }
+                                            }
+                                            ?>
+                                            <span class="card__sold-countdown" style="width:<?= $percent_sold . '%' ?>; max-width: 100%;"></span>
                                         </div>
                                     </div>
                                 </div>
                         <?php endforeach;
                         endif;
                         ?>
-
                     </div>
                     <div class="text-center mt-5">
-                        <a href="index.php?act=products&sort=number_sold" class=" product-home__view-more">Xem thêm</a>
+                        <a href="index.php?act=products&sort=sold_number" class=" product-home__view-more">Xem thêm</a>
                     </div>
                 </div>
                 <div class="product-home mt-5">
@@ -160,15 +170,15 @@
                             foreach ($top8ViewProducts as $key => $top8ViewProduct) :
                                 extract($top8ViewProduct);
                                 $url_product = 'index.php?act=product_detail&id=' . $id;
-                                if (isset($regular_price) && isset($sale_price) && $sale_price >= 0) {
-                                    $precent = ceil(($regular_price - $sale_price) / $regular_price * 100);
-                                }
+                                $percent = 0;
+                                if (isset($regular_price) && isset($sale_price) && $sale_price >= 0)
+                                    $percent = ceil(($regular_price - $sale_price) / $regular_price * 100);
                         ?>
                                 <div class="card border-0 shadow rounded" style="width: 100%; ">
                                     <a href="<?= (isset($url_product) && $url_product) ? $url_product : "" ?>" class="text-deco-none card__wrap-image">
                                         <img src="<?= defined('URL_WEB') && $image ? URL_WEB . $image : '' ?>" class="card-img-top" alt="Hình ảnh sản phẩm">
-                                        <?php if (isset($precent)  && $precent > 0) : ?>
-                                            <i class="card__price-sale-image">- <?= $precent ?>%</i>
+                                        <?php if (isset($percent)  && $percent > 0) : ?>
+                                            <i class="card__price-sale-image">- <?= $percent ?>%</i>
                                         <?php endif; ?>
                                     </a>
                                     <div class="card-body">
@@ -187,8 +197,18 @@
                                                 <span class="card__sold-sale-bar-text">#<?= $key + 1 ?></span>
                                             </span>
                                             <span class="card__sold-text">Đã bán
-                                                <?= (isset($number_sold) && $number_sold) ? $number_sold : ""; ?></span>
-                                            <span class="card__sold-countdown" style="width:<?= (isset($number_sold) && $number_sold && isset($quantity) && $quantity) ? ($number_sold / $quantity * 100) : ""; ?>%; max-width: 100%;"></span>
+                                                <?= (isset($sold_number) && $sold_number) ? $sold_number : ""; ?></span>
+                                            <?php
+                                            $percent_sold = 0;
+                                            if (isset($sold_number) && isset($quantity)) {
+                                                if ($quantity <= 0)
+                                                    $percent_sold = 100;
+                                                else {
+                                                    $percent_sold = $sold_number / ($quantity + $sold_number) * 100;
+                                                }
+                                            }
+                                            ?>
+                                            <span class="card__sold-countdown" style="width:<?= $percent_sold . '%' ?>; max-width: 100%;"></span>
                                         </div>
                                     </div>
                                 </div>
@@ -211,7 +231,7 @@
                         foreach ($categories as $category) :
                             extract($category);
                     ?>
-                            <a href="index.php?act=products&category=<?= (isset($id) && $id) ? $id : ""; ?>" class="wrap-item__item-link list-group-item d-flex justify-content-between align-items-start">
+                            <a href="index.php?act=products&product_category_id=<?= (isset($id) && $id) ? $id : ""; ?>" class="wrap-item__item-link list-group-item d-flex justify-content-between align-items-start">
                                 <?= (isset($name) && $name) ? $name : ""; ?>
                                 <span class=" wrap-item__item-count badge  rounded-pill"><?= (isset($quantity_product) && $quantity_product >= 0) ? $quantity_product : ""; ?></span>
                             </a>
@@ -219,14 +239,13 @@
                     endif;
                     ?>
                 </div>
-
                 <div class="wrap-item list-group mt-5">
                     <span class="wrap-item__item-title list-group-item" aria-current="true">
                         Sản Phẩm Mới
                     </span>
                     <?php
-                    if (isset($top10NewProducts)) :
-                        foreach ($top10NewProducts as $topNewProduct) :
+                    if (isset($top16NewProducts) && $top16NewProducts) :
+                        foreach ($top16NewProducts as $topNewProduct) :
                             extract($topNewProduct);
                             $url_product = "index.php?act=product_detail&id=" . $id;
                     ?>

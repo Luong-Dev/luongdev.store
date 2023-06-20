@@ -44,7 +44,6 @@
                                 <li><a class="product-main__dropdown-item dropdown-item" href="#">Giá giảm dần</a></li>
                                 <li><a class="product-main__dropdown-item dropdown-item" href="#">Hàng mới nhất</a></li>
                                 <li><a class="product-main__dropdown-item dropdown-item" href="#">Hàng cũ nhất</a></li>
-
                             </ul>
                         </div>
                     </div>
@@ -59,11 +58,12 @@
                                 <div class="card border-0 shadow rounded" style="width: 100%; ">
                                     <a href="<?= isset($detail) ? $detail : '' ?>" class="text-deco-none card__wrap-image">
                                         <img src="<?= isset($image) ? $image : '' ?>" class="card-img-top" alt="Hình ảnh sản phẩm">
-                                        <?php if (isset($sale_price) && $sale_price >= 0) : ?>
-                                            <?php
-                                            $precent = ceil(($regular_price - $sale_price) / $regular_price * 100);
-                                            ?>
-                                            <i class="card__price-sale-image">- <?= $precent ?>%</i>
+                                        <?php
+                                        $percent = 0;
+                                        if (isset($sale_price) && $sale_price >= 0) :
+                                            $percent = ceil(($regular_price - $sale_price) / $regular_price * 100);
+                                        ?>
+                                            <i class="card__price-sale-image">- <?= $percent ?>%</i>
                                         <?php endif; ?>
                                     </a>
                                     <div class="card-body">
@@ -77,13 +77,6 @@
                                             <?php endif; ?>
                                         </p>
                                         <p class="m-0 p-0">Lượt xem: <?= isset($view_number) ? $view_number : '' ?></p>
-                                        <!-- <div class="card__sold text-center">
-                                            <span class="card__sold-sale-bar">
-                                                <span class="card__sold-sale-bar-text">#1</span>
-                                            </span>
-                                            <span class="card__sold-text">Đã bán 236</span>
-                                            <span class="card__sold-countdown" style="width: 40%;"></span>
-                                        </div> -->
                                     </div>
                                 </div>
                             <?php endforeach; ?>
@@ -143,7 +136,7 @@
                         foreach ($productCategories as $key => $productCategory) :
                             extract($productCategory);
                     ?>
-                            <a href="#" class="wrap-item__item-link list-group-item d-flex justify-content-between align-items-start">
+                            <a href="index.php?act=products&product_category_id=<?= (isset($id) && $id) ? $id : ""; ?>" class="wrap-item__item-link list-group-item d-flex justify-content-between align-items-start">
                                 <?= isset($name) ? $name : '' ?>
                                 <span class=" wrap-item__item-count badge  rounded-pill"> <?= isset($quantity_product) ? $quantity_product : '' ?></span>
                             </a>
@@ -151,6 +144,141 @@
                         endforeach;
                     endif;
                     ?>
+                </div>
+
+                <!-- <div class="filter-pro__wrap mt-5 rounded">
+                    <div class="filter-pro__wrap-item">
+                        <h3 class="filter-pro__title">CHỌN MỨC GIÁ</h3>
+                        <div class="filter-pro__item form-check">
+                            <input class="filter-pro__check form-check-input" type="checkbox" value="" id="flexCheck500">
+                            <label class="filter-pro__label form-check-label" for="flexCheck500">
+                                Dưới 500k
+                            </label>
+                        </div>
+                        <div class="filter-pro__item form-check">
+                            <input class="filter-pro__check form-check-input" type="checkbox" value="" id="flexCheck500-1000">
+                            <label class="filter-pro__label form-check-label" for="flexCheck500-1000">
+                                Từ 500k - 1 triệu
+                            </label>
+                        </div>
+                        <div class="filter-pro__item form-check">
+                            <input class="filter-pro__check form-check-input" type="checkbox" value="" id="flexCheck1000-2000">
+                            <label class="filter-pro__label form-check-label" for="flexCheck1000-2000">
+                                Từ 1 triệu - 2 triệu
+                            </label>
+                        </div>
+                        <div class="filter-pro__item form-check">
+                            <input class="filter-pro__check form-check-input" type="checkbox" value="" id="flexCheck2000-5000">
+                            <label class="filter-pro__label form-check-label" for="flexCheck2000-5000">
+                                Từ 2 triệu - 5 triệu
+                            </label>
+                        </div>
+                        <div class="filter-pro__item form-check">
+                            <input class="filter-pro__check form-check-input" type="checkbox" value="" id="flexCheck5000Min">
+                            <label class="filter-pro__label form-check-label" for="flexCheck5000Min">
+                                Trên 5 triệu
+                            </label>
+                        </div>
+                    </div>
+                    <div class="filter-pro__wrap-item">
+                        <h3 class="filter-pro__title">Màu phổ biến</h3>
+                        <div class="filter-pro__item form-check">
+                            <input class="filter-pro__check form-check-input" type="checkbox" value="" id="flexCheck500">
+                            <label class="filter-pro__label form-check-label" for="flexCheck500">
+                                Trắng
+                            </label>
+                        </div>
+                        <div class="filter-pro__item form-check">
+                            <input class="filter-pro__check form-check-input" type="checkbox" value="" id="flexCheck500-1000">
+                            <label class="filter-pro__label form-check-label" for="flexCheck500-1000">
+                                Đen
+                            </label>
+                        </div>
+                        <div class="filter-pro__item form-check">
+                            <input class="filter-pro__check form-check-input" type="checkbox" value="" id="flexCheck1000-2000">
+                            <label class="filter-pro__label form-check-label" for="flexCheck1000-2000">
+                                Hồng
+                            </label>
+                        </div>
+                        <div class="filter-pro__item form-check">
+                            <input class="filter-pro__check form-check-input" type="checkbox" value="" id="flexCheck2000-5000">
+                            <label class="filter-pro__label form-check-label" for="flexCheck2000-5000">
+                                Xanh
+                            </label>
+                        </div>
+                        <div class="filter-pro__item form-check">
+                            <input class="filter-pro__check form-check-input" type="checkbox" value="" id="flexCheck5000Min">
+                            <label class="filter-pro__label form-check-label" for="flexCheck5000Min">
+                                Cam
+                            </label>
+                        </div>
+                    </div>
+                    <div class="filter-pro__wrap-item">
+                        <h3 class="filter-pro__title">Kiểu vải</h3>
+                        <div class="filter-pro__item form-check">
+                            <input class="filter-pro__check form-check-input" type="checkbox" value="" id="flexCheck500">
+                            <label class="filter-pro__label form-check-label" for="flexCheck500">
+                                Vải cotton
+                            </label>
+                        </div>
+                        <div class="filter-pro__item form-check">
+                            <input class="filter-pro__check form-check-input" type="checkbox" value="" id="flexCheck500-1000">
+                            <label class="filter-pro__label form-check-label" for="flexCheck500-1000">
+                                Vải kaki
+                            </label>
+                        </div>
+                        <div class="filter-pro__item form-check">
+                            <input class="filter-pro__check form-check-input" type="checkbox" value="" id="flexCheck1000-2000">
+                            <label class="filter-pro__label form-check-label" for="flexCheck1000-2000">
+                                Vải jeans
+                            </label>
+                        </div>
+                        <div class="filter-pro__item form-check">
+                            <input class="filter-pro__check form-check-input" type="checkbox" value="" id="flexCheck2000-5000">
+                            <label class="filter-pro__label form-check-label" for="flexCheck2000-5000">
+                                Vải len
+                            </label>
+                        </div>
+                        <div class="filter-pro__item form-check">
+                            <input class="filter-pro__check form-check-input" type="checkbox" value="" id="flexCheck5000Min">
+                            <label class="filter-pro__label form-check-label" for="flexCheck5000Min">
+                                Vải kate
+                            </label>
+                        </div>
+                    </div>
+                </div> -->
+
+                <div class="wrap-item list-group mt-5">
+                    <span class="wrap-item__item-title list-group-item" aria-current="true">
+                        Sản Phẩm Mới
+                    </span>
+                    <?php if (isset($top10NewProducts) && $top10NewProducts) :
+                        foreach ($top10NewProducts as $key => $top10NewProduct) :
+                            extract($top10NewProduct);
+                            $url_product = 'index.php?act=product_detail&id=' . $id;
+                    ?>
+                            <a href="<?= (isset($url_product) && $url_product) ? $url_product : "" ?>" class="wrap-item__product wrap-item__item-link list-group-item d-flex justify-content-between align-items-start">
+                                <div class="">
+                                    <img class="wrap-item__product-img" src="<?= defined('URL_WEB') && $image ? URL_WEB . $image : '' ?>" alt="Hình ảnh sản phẩm">
+                                </div>
+                                <div class="wrap-item__product-content">
+                                    <h2 class="wrap-item__product-title"> <?= isset($name) ? $name : '' ?></h2>
+                                    <p class="wrap-item__product-price card__price ">
+                                        <?php if (isset($sale_price) && $sale_price >= 0) : ?>
+                                            <span class="card__price-sale"><?= number_format($sale_price, 0, ",", ".") ?><u>đ</u></span>
+                                            <span class="card__price-regular text-deco-line-th"><?= (isset($regular_price) && $regular_price >= 0) ? number_format($regular_price, 0, ",", ".")  : ""; ?><u>đ</u></span>
+                                        <?php else : ?>
+                                            <span class="card__price-sale"><?= (isset($regular_price) && $regular_price >= 0) ? number_format($regular_price, 0, ",", ".")  : ""; ?><u>đ</u></span>
+                                        <?php endif; ?>
+                                    </p>
+                                </div>
+                            </a>
+                    <?php
+                        endforeach;
+                    endif;
+                    ?>
+
+
                 </div>
 
                 <div class="filter-pro__wrap mt-5 rounded">
@@ -254,43 +382,7 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="wrap-item list-group mt-5">
-                    <span class="wrap-item__item-title list-group-item" aria-current="true">
-                        Sản Phẩm Mới
-                    </span>
-                    <?php if (isset($top10NewProducts) && $top10NewProducts) :
-                        foreach ($top10NewProducts as $key => $top10NewProduct) :
-                            extract($top10NewProduct);
-                            $url_product = 'index.php?act=product_detail&id=' . $id;
-                    ?>
-                            <a href="<?= (isset($url_product) && $url_product) ? $url_product : "" ?>" class="wrap-item__product wrap-item__item-link list-group-item d-flex justify-content-between align-items-start">
-                                <div class="">
-                                    <img class="wrap-item__product-img" src="<?= defined('URL_WEB') && $image ? URL_WEB . $image : '' ?>" alt="Hình ảnh sản phẩm">
-                                </div>
-                                <div class="wrap-item__product-content">
-                                    <h2 class="wrap-item__product-title"> <?= isset($name) ? $name : '' ?></h2>
-                                    <p class="wrap-item__product-price card__price ">
-                                        <?php if (isset($sale_price) && $sale_price >= 0) : ?>
-                                            <span class="card__price-sale"><?= number_format($sale_price, 0, ",", ".") ?><u>đ</u></span>
-                                            <span class="card__price-regular text-deco-line-th"><?= (isset($regular_price) && $regular_price >= 0) ? number_format($regular_price, 0, ",", ".")  : ""; ?><u>đ</u></span>
-                                        <?php else : ?>
-                                            <span class="card__price-sale"><?= (isset($regular_price) && $regular_price >= 0) ? number_format($regular_price, 0, ",", ".")  : ""; ?><u>đ</u></span>
-                                        <?php endif; ?>
-                                    </p>
-                                </div>
-                            </a>
-                    <?php
-                        endforeach;
-                    endif;
-                    ?>
-
-
-                </div>
             </aside>
-
         </div>
-
     </div>
-
 </main>

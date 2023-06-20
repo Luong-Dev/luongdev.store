@@ -72,21 +72,49 @@ function deleteProduct($id)
 // khi sắp xếp sản phẩm theo giá thì sẽ so sánh sản phẩm theo giá sale nếu có, còn không sẽ lấy giá gốc
 // tham khảo: SELECT *, IFNULL(sale_price, regular_price) AS sorted_price FROM products ORDER BY sorted_price ASC;
 
+// function getProductsCustom($productCategoryId = 0, $productSearch = "", $sort = "name", $limit = 12, $sortDirect = "DESC")
+// {
+//     if ($sort != 'price') {
+//         $sql = "SELECT * FROM `products` WHERE 1 ";
+//         if ($productCategoryId != 0) {
+//             $sql .= "AND `product_category_id` = $productCategoryId";
+//         }
+//         if ($productSearch != "") {
+//             $sql .= "AND `name` LIKE '%$productSearch%'";
+//         }
+//         $sql .= " ORDER BY $sort $sortDirect LIMIT $limit";
+
+//         return pdo_query($sql);
+//     } else {
+//         $sql = "SELECT *, IFNULL(sale_price, regular_price) AS $sort FROM `products` WHERE 1 ";
+//         if ($productCategoryId != 0) {
+//             $sql .= "AND `product_category_id` = $productCategoryId";
+//         }
+//         if ($productSearch != "") {
+//             $sql .= "AND `name` LIKE '%$productSearch%'";
+//         }
+//         $sql .= " ORDER BY $sort $sortDirect LIMIT $limit";
+
+//         return pdo_query($sql);
+//     }
+// }
+
 function getProductsCustom($productCategoryId = 0, $productSearch = "", $sort = "name", $limit = 12, $sortDirect = "DESC")
 {
     if ($sort != 'price') {
-        $sql = "SELECT * FROM `products` WHERE 1 ";
+        $sql = "SELECT P.id, P.module,P.name,P.image,P.short_description,P.long_description,P.regular_price,P.sale_price,P.size,P.color,
+        P.quantity,P.view_number,P.status,P.created_at,P.product_category_id,SUM(O.quantity) AS sold_number 
+        FROM `products` P
+        LEFT JOIN order_details O ON P.id = O.product_id WHERE P.status <> 3 ";
         if ($productCategoryId != 0) {
-            $sql .= "AND `product_category_id` = $productCategoryId";
+            $sql .= " AND `product_category_id` = $productCategoryId";
         }
         if ($productSearch != "") {
-            $sql .= "AND `name` LIKE '%$productSearch%'";
+            $sql .= " AND `name` LIKE '%$productSearch%'";
         }
-        $sql .= " ORDER BY $sort $sortDirect LIMIT $limit";
-
-        return pdo_query($sql);
+        $sql .= " GROUP BY P.id ORDER BY $sort $sortDirect LIMIT $limit";
     } else {
-        $sql = "SELECT *, IFNULL(sale_price, regular_price) AS $sort FROM `products` WHERE 1 ";
+        $sql = "SELECT *, IFNULL(sale_price, regular_price) AS $sort FROM `products` WHERE status <> 3 ";
         if ($productCategoryId != 0) {
             $sql .= "AND `product_category_id` = $productCategoryId";
         }
@@ -94,15 +122,15 @@ function getProductsCustom($productCategoryId = 0, $productSearch = "", $sort = 
             $sql .= "AND `name` LIKE '%$productSearch%'";
         }
         $sql .= " ORDER BY $sort $sortDirect LIMIT $limit";
-
-        return pdo_query($sql);
     }
+
+    return pdo_query($sql);
 }
 
 function get10RelatedProducts($productCategoryId, $productId)
 {
     $sql = "SELECT * FROM `products` WHERE 
-    product_category_id = ? AND id <> ?
+    product_category_id = ? AND id <> ? AND status <> 3
     ORDER BY id DESC LIMIT 10";
 
     return pdo_query($sql, $productCategoryId, $productId);
