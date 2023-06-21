@@ -38,12 +38,12 @@
                                 Sắp xếp sản phẩm
                             </button>
                             <ul class="product-main__dropdown-menu dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                <li><a class="product-main__dropdown-item dropdown-item" href="#">A -> Z</a></li>
-                                <li><a class="product-main__dropdown-item dropdown-item" href="#">Z -> A</a></li>
-                                <li><a class="product-main__dropdown-item dropdown-item" href="#">Giá tăng dần</a></li>
-                                <li><a class="product-main__dropdown-item dropdown-item" href="#">Giá giảm dần</a></li>
-                                <li><a class="product-main__dropdown-item dropdown-item" href="#">Hàng mới nhất</a></li>
-                                <li><a class="product-main__dropdown-item dropdown-item" href="#">Hàng cũ nhất</a></li>
+                                <li><span class="product-main__dropdown-item dropdown-item js-name-asc">A -> Z</span></li>
+                                <li><span class="product-main__dropdown-item dropdown-item js-name-desc">Z -> A</span></li>
+                                <li><span class="product-main__dropdown-item dropdown-item js-price-asc">Giá tăng dần</span></li>
+                                <li><span class="product-main__dropdown-item dropdown-item js-price-desc">Giá giảm dần</span></li>
+                                <li><span class="product-main__dropdown-item dropdown-item js-created_at_asc">Hàng mới nhất</span></li>
+                                <li><span class="product-main__dropdown-item dropdown-item js-created_at_desc">Hàng cũ nhất</span></li>
                             </ul>
                         </div>
                     </div>
@@ -121,7 +121,8 @@
                     ?>
                             <a href="index.php?act=products&product_category_id=<?= (isset($id) && $id) ? $id : ""; ?>" class="wrap-item__item-link list-group-item d-flex justify-content-between align-items-start">
                                 <?= isset($name) ? $name : '' ?>
-                                <span class=" wrap-item__item-count badge  rounded-pill"> <?= isset($quantity_product) ? $quantity_product : '' ?></span>
+                                <span class=" wrap-item__item-count badge  rounded-pill">
+                                    <?= isset($quantity_product) ? $quantity_product : '' ?></span>
                             </a>
                     <?php
                         endforeach;
@@ -370,12 +371,41 @@
     </div>
 </main>
 <script>
+    let url = window.location.href
+
+    // tìm kiếm
+    let nameAsc = document.querySelector('.js-name-asc')
+    let nameDesc = document.querySelector('.js-name-desc')
+    let priceAsc = document.querySelector('.js-price-asc')
+    let priceDesc = document.querySelector('.js-price-desc')
+    let createdAtAsc = document.querySelector('.js-created_at_asc')
+    let createdAtDesc = document.querySelector('.js-created_at_desc')
+    // nameAsc.addEventListener('click', e => {
+    //     url += `&sort=name&sort_direct=asc`
+    //     window.location.href = url;
+    // })
+    function itemSearch(a, b, c) {
+        a.addEventListener('click', e => {
+            url += `&sort=${b}&sort_direct=${c}&page=1`
+            window.location.href = url;
+        })
+    }
+    itemSearch(nameAsc, 'name', 'asc')
+    itemSearch(nameDesc, 'name', 'desc')
+    itemSearch(priceAsc, 'price', 'asc')
+    itemSearch(priceDesc, 'price', 'desc')
+    itemSearch(createdAtAsc, 'created_at', 'asc')
+    itemSearch(createdAtDesc, 'created_at', 'desc')
+
+    // nâng cấp thay category thẻ a thành thẻ span và add sự kiện: +categories vào tương tự tìm kiếm. nhưng phải fix lại query các loại chỉ liên quan đến tìm kiếm
+
+    // phân trang
     <?php if (isset($pageNumberTotal) && is_numeric($pageNumberTotal)) : ?>
         let pagePrevious = document.querySelector('.js-page-previous')
         let next = document.querySelector('.js-page-next')
         let page_items = document.querySelectorAll('.js-page-select')
         let a = <?= $pageNumberTotal ?>;
-        let url = window.location.href;
+        // let url = window.location.href;
         page_items.forEach(element => {
             element.addEventListener('click', e => {
                 url += `&page=${e.target.innerText}`

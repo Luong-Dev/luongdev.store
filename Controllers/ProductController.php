@@ -202,37 +202,14 @@ function productUserControl()
     if (isset($_GET['sort_direct']) && !strcasecmp($_GET['sort_direct'], 'ASC')) {
         $sortDirect = $_GET['sort_direct'];
     }
-    if (isset($_POST['searchProduct']) && $_POST['searchProduct'] != '') {
-        $productSearch = $_POST['searchProduct'];
-    }
-    if (isset($_GET['searchProduct']) && $_GET['searchProduct'] != '') {
-        $productSearch = $_GET['searchProduct'];
-    }
-    if (isset($_GET['searchProduct']) && $_GET['searchProduct'] == '') {
-        // $currentURL = $_SERVER['REQUEST_URI'];
-
-        // // Kiểm tra xem biến "search" có tồn tại trong URL hay không
-        // if (strpos($currentURL, 'searchProduct=') !== false) {
-        //     // Nếu tồn tại, thay đổi giá trị của biến "search" thành "new_value"
-        //     // $newURL = preg_replace('/(\?|\&)search=([^&]*)/', '$1search=new_value', $currentURL);
-        //     $newURL = 'index.php';
-
-        //     // Thay đổi địa chỉ URL
-        //     // header('Location: ' . $newURL);
-        //     echo "<script>
-        //                 window.Location.href = index.php?act=login
-        //             </script>";
-        // }
-
-        echo '<script>window.location.href = index.php?act=login;</script>';
-        // exit();
+    if (isset($_GET['search_product']) && $_GET['search_product'] != '') {
+        $productSearch = $_GET['search_product'];
     }
 
-    // liên quan biến search, xóa hết get serch và bên form xóa đi url là được
 
     $products =  getProductsCustom(productCategoryId: $productCategoryId, productSearch: $productSearch);
     $itemTotal = count($products);
-    $itemInPage = 8;
+    $itemInPage = 12;
     $pageNumberTotal = ceil($itemTotal / $itemInPage);
     if (isset($_GET['page']) && is_numeric($_GET['page']) && $_GET['page'] >= 1 && $_GET['page'] <= $pageNumberTotal) {
         $limitS = ($_GET['page'] - 1) * $itemInPage;

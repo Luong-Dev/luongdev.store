@@ -21,6 +21,9 @@
     <link rel="stylesheet" href="./resources/css/user/product-detail.css">
     <link rel="stylesheet" href="./resources/css/user/cart.css">
     <link rel="stylesheet" href="./resources/css/user/account.css">
+    <link rel="stylesheet" href="./resources/css/base/validate.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
     <script src="./resources/js/main.js"></script>
 
 </head>
@@ -45,8 +48,9 @@
                     <i class="menu-location__icon ti-location-pin"></i>
                     <a href="" class="menu-location__tittle">Hệ thống cửa hàng</a>
                 </div>
-                <form action="index.php?act=products&searchProduct=" method="post" class="form-search form">
-                    <input type="text" name="searchProduct" class="form-search__input" placeholder="Tìm sản phẩm...">
+                <form action="index.php" method="GET" class="form-search form">
+                    <input type="hidden" name="act" value="products">
+                    <input type="text" name="search_product" class="form-search__input" placeholder="Tìm sản phẩm...">
                     <button class="form-search__btn">
                         <i class="form-search__icon ti-search"></i>
                     </button>

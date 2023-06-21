@@ -240,13 +240,18 @@ if (isset($_GET['act'])) {
             break;
 
 
-            // hình ảnh user bình luận
             // thống kê đơn hàng
-            // validate
+            //             Số lượng đơn hàng theo ngày, tuần, tháng, năm
+            // Doanh thu ngày, tuần, tháng, năm
+
+            // validate: xử lý form đăng nhập trước
+
             // check ràng buộc khi xóa các thứ liên quan, chú ý chỗ order với order detail đã bị mất ràng buộc
-            // lọc
-            // tìm kiếm
-            // phân trang
+            // delete cate check product
+            // delete product check comment, check order details, check cart xem
+            // delete user check comment, cart, order
+
+
 
 
             // account

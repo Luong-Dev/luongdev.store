@@ -76,7 +76,7 @@ $comments = getCommentsInProduct($productId);
                         </div> -->
                         <div class="product-comment__item-image-wrap">
                             <?php if (isset($avatar) && $avatar) : ?>
-                                <img src="<?= $avatar ?>" alt="Avatar" class="product-comment__item-image">
+                                <img src="<?= '../../../' . $avatar ?>" alt="Avatar" class="product-comment__item-image">
                             <?php else : ?>
                                 <img src="https://icons.veryicon.com/png/o/miscellaneous/administration/account-25.png" alt="avatar" class="product-comment__item-image">
                             <?php endif; ?>

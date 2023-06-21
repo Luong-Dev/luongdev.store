@@ -1,0 +1,12 @@
+/* Màu cho thông báo lỗi */
+
+.error {
+    color: red;
+}
+
+
+/* Màu cho thông báo thành công */
+
+.valid {
+    color: green;
+}
