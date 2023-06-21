@@ -272,7 +272,6 @@
 
 <script>
     var cartQuantity = <?= isset($carts) ? sizeof($carts) : 0 ?>;
-    console.log(cartQuantity);
     if (cartQuantity && cartQuantity > 0) {
         for (let i = 0; i < cartQuantity; i++) {
             window['minusButton' + i] = document.getElementById(`minus-btn-${i}`);

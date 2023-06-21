@@ -183,30 +183,65 @@ function detailProductControl()
 // user
 function productUserControl()
 {
-    include "./Views/user/layouts/header.php";
 
     $productCategories = getProductCategories();
-    $top10NewProducts = getProductsCustom(sort: "created_at", limit: 10, sortDirect: 'ASC');
+    $top10NewProducts = getProductsCustom(sort: "created_at", limitCount: 10, sortDirect: 'ASC');
     $productCategoryId = 0;
-    // chỗ này cần sửa thành text sau, nếu làm search. nếu sửa thì phải sửa tất cả những link liên quan ăn theo text. ví dụ thanh menu
     $sort = 'name';
     $sortDirect = 'DESC';
-
-    // làm sắp xếp, lọc... trong trang product đọc lại code xử lý ở đoạn này và mở comment code ở link product ở home.php để test cho nhanh
+    $productSearch = '';
     if (isset($_GET['product_category_id']) && is_numeric($_GET['product_category_id']) && $_GET['product_category_id'] != 0) {
         $productCategoryId = $_GET['product_category_id'];
     }
     if (isset($_GET['sort']) && (!strcasecmp($_GET['sort'], 'price') || !strcasecmp($_GET['sort'], 'view_number')
         || !strcasecmp($_GET['sort'], 'created_at') || !strcasecmp($_GET['sort'], 'sold_number'))) {
         // loại trừ name
+        // hàm strcasecmp(chuỗi 1, chuỗi 2) sẽ trả về 0 nếu 2 chuỗi giống nhau - không phân biệt chữ hoa, thường.
         $sort = $_GET['sort'];
     }
     if (isset($_GET['sort_direct']) && !strcasecmp($_GET['sort_direct'], 'ASC')) {
         $sortDirect = $_GET['sort_direct'];
     }
-    // hàm strcasecmp(chuỗi 1, chuỗi 2) sẽ trả về 0 nếu 2 chuỗi giống nhau - không phân biệt chữ hoa, thường.
-    $products =  getProductsCustom(productCategoryId: $productCategoryId, sort: $sort, sortDirect: $sortDirect, limit: 1000);
+    if (isset($_POST['searchProduct']) && $_POST['searchProduct'] != '') {
+        $productSearch = $_POST['searchProduct'];
+    }
+    if (isset($_GET['searchProduct']) && $_GET['searchProduct'] != '') {
+        $productSearch = $_GET['searchProduct'];
+    }
+    if (isset($_GET['searchProduct']) && $_GET['searchProduct'] == '') {
+        // $currentURL = $_SERVER['REQUEST_URI'];
 
+        // // Kiểm tra xem biến "search" có tồn tại trong URL hay không
+        // if (strpos($currentURL, 'searchProduct=') !== false) {
+        //     // Nếu tồn tại, thay đổi giá trị của biến "search" thành "new_value"
+        //     // $newURL = preg_replace('/(\?|\&)search=([^&]*)/', '$1search=new_value', $currentURL);
+        //     $newURL = 'index.php';
+
+        //     // Thay đổi địa chỉ URL
+        //     // header('Location: ' . $newURL);
+        //     echo "<script>
+        //                 window.Location.href = index.php?act=login
+        //             </script>";
+        // }
+
+        echo '<script>window.location.href = index.php?act=login;</script>';
+        // exit();
+    }
+
+    // liên quan biến search, xóa hết get serch và bên form xóa đi url là được
+
+    $products =  getProductsCustom(productCategoryId: $productCategoryId, productSearch: $productSearch);
+    $itemTotal = count($products);
+    $itemInPage = 8;
+    $pageNumberTotal = ceil($itemTotal / $itemInPage);
+    if (isset($_GET['page']) && is_numeric($_GET['page']) && $_GET['page'] >= 1 && $_GET['page'] <= $pageNumberTotal) {
+        $limitS = ($_GET['page'] - 1) * $itemInPage;
+        $products =  getProductsCustom(productCategoryId: $productCategoryId, productSearch: $productSearch, sort: $sort, sortDirect: $sortDirect, limitS: $limitS, limitCount: $itemInPage);
+    } else {
+        $products =  getProductsCustom(productCategoryId: $productCategoryId, productSearch: $productSearch, sort: $sort, sortDirect: $sortDirect, limitCount: $itemInPage);
+    }
+
+    include "./Views/user/layouts/header.php";
     include "./Views/user/product/index.php";
     include "./Views/user/layouts/footer.php";
 }

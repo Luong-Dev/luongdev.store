@@ -7,11 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"
-        rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <title>Trang chủ nhớ sửa</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>LuongDev</title>
     <script src="https://kit.fontawesome.com/3bb14b2296.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <link rel="stylesheet" href="./resources/icons/themify-icons/themify-icons.css">
@@ -23,6 +21,7 @@
     <link rel="stylesheet" href="./resources/css/user/product-detail.css">
     <link rel="stylesheet" href="./resources/css/user/cart.css">
     <link rel="stylesheet" href="./resources/css/user/account.css">
+    <script src="./resources/js/main.js"></script>
 
 </head>
 
@@ -46,8 +45,8 @@
                     <i class="menu-location__icon ti-location-pin"></i>
                     <a href="" class="menu-location__tittle">Hệ thống cửa hàng</a>
                 </div>
-                <form action="" class="form-search form">
-                    <input type="text" class="form-search__input" placeholder="Tìm sản phẩm...">
+                <form action="index.php?act=products&searchProduct=" method="post" class="form-search form">
+                    <input type="text" name="searchProduct" class="form-search__input" placeholder="Tìm sản phẩm...">
                     <button class="form-search__btn">
                         <i class="form-search__icon ti-search"></i>
                     </button>
@@ -68,16 +67,14 @@
                     <!-- menu-extend -->
                     <div class="menu-extend-product menu-extend">
                         <a href="" class="menu-extend__link">
-                            <img class="menu-extend__img"
-                                src="./resources/uploads/images/product_header_footer/ss-1.jpg" alt="">
+                            <img class="menu-extend__img" src="./resources/uploads/images/product_header_footer/ss-1.jpg" alt="">
                         </a>
 
                         <div class="menu-extend__wrap">
                         </div>
 
                         <a href="" class="menu-extend__link">
-                            <img class="menu-extend__img"
-                                src="./resources/uploads/images/product_header_footer/lg-2.jpg" alt="">
+                            <img class="menu-extend__img" src="./resources/uploads/images/product_header_footer/lg-2.jpg" alt="">
                         </a>
                     </div>
                 </li>
@@ -91,16 +88,14 @@
                     <!-- menu-extend -->
                     <div class="menu-extend-men menu-extend">
                         <a href="" class="menu-extend__link">
-                            <img class="menu-extend__img"
-                                src="./resources/uploads/images/product_header_footer/lg-1.jpg" alt="">
+                            <img class="menu-extend__img" src="./resources/uploads/images/product_header_footer/lg-1.jpg" alt="">
                         </a>
 
                         <div class="menu-extend__wrap">
                         </div>
 
                         <a href="" class="menu-extend__link">
-                            <img class="menu-extend__img"
-                                src="./resources/uploads/images/product_header_footer/lg-4.jpg" alt="">
+                            <img class="menu-extend__img" src="./resources/uploads/images/product_header_footer/lg-4.jpg" alt="">
                         </a>
                     </div>
                 </li>
@@ -114,16 +109,14 @@
                     <!-- menu-extend -->
                     <div class="menu-extend-women menu-extend">
                         <a href="" class="menu-extend__link">
-                            <img class="menu-extend__img"
-                                src="./resources/uploads/images/product_header_footer/ss-1.jpg" alt="">
+                            <img class="menu-extend__img" src="./resources/uploads/images/product_header_footer/ss-1.jpg" alt="">
                         </a>
 
                         <div class="menu-extend__wrap">
                         </div>
 
                         <a href="" class="menu-extend__link">
-                            <img class="menu-extend__img"
-                                src="./resources/uploads/images/product_header_footer/ss-2.jpg" alt="">
+                            <img class="menu-extend__img" src="./resources/uploads/images/product_header_footer/ss-2.jpg" alt="">
                         </a>
                     </div>
                 </li>
@@ -137,16 +130,14 @@
                     <!-- menu-extend -->
                     <div class="menu-extend-children menu-extend">
                         <a href="" class="menu-extend__link">
-                            <img class="menu-extend__img"
-                                src="./resources/uploads/images/product_header_footer/sn-1.jpg" alt="">
+                            <img class="menu-extend__img" src="./resources/uploads/images/product_header_footer/sn-1.jpg" alt="">
                         </a>
 
                         <div class="menu-extend__wrap">
                         </div>
 
                         <a href="" class="menu-extend__link">
-                            <img class="menu-extend__img"
-                                src="./resources/uploads/images/product_header_footer/sn-2.jpg" alt="">
+                            <img class="menu-extend__img" src="./resources/uploads/images/product_header_footer/sn-2.jpg" alt="">
                         </a>
                     </div>
                 </li>
@@ -179,52 +170,51 @@
                 <?php
                 if (isset($_SESSION['user']) && !empty($_SESSION['user'])) :
                 ?>
-                <a href="index.php?act=profile" class="header__right-box-link">
-                    <div class="header-account__wrap header__right-wrap">
-                        <i class="ti-user header-account__icon header__right-icon"></i>
-                    </div>
-                    <p class="header-account__tittle text-primary header__right-tittle">xin chào!</p>
-                </a>
-                <div class="header-account__hover header-account__hover--used">
-                    <p class="header-account__hover-name">
-                        Xin chào: <span
-                            class="header-account__hover-content"><?= isset($_SESSION['user']['name']) ? $_SESSION['user']['name'] : "" ?></span>
-                    </p>
-                    <a href="index.php?act=profile" class="header-account__hover-login">
-                        <i class="header-account__hover-icon fa-solid fa-user-pen"></i> Chi tiết tài khoản
+                    <a href="index.php?act=profile" class="header__right-box-link">
+                        <div class="header-account__wrap header__right-wrap">
+                            <i class="ti-user header-account__icon header__right-icon"></i>
+                        </div>
+                        <p class="header-account__tittle text-primary header__right-tittle">xin chào!</p>
                     </a>
-                    <a href="index.php?act=edit_password" class="header-account__hover-login">
-                        <i class="header-account__hover-icon fa-solid fa-key"></i> Đổi mật khẩu
-                    </a>
-                    <a href="index.php?act=order" class="header-account__hover-login">
-                        <i class="header-account__hover-icon fa-solid fa-list-check"></i> Đơn hàng của tôi
-                    </a>
-                    <?php
+                    <div class="header-account__hover header-account__hover--used">
+                        <p class="header-account__hover-name">
+                            Xin chào: <span class="header-account__hover-content"><?= isset($_SESSION['user']['name']) ? $_SESSION['user']['name'] : "" ?></span>
+                        </p>
+                        <a href="index.php?act=profile" class="header-account__hover-login">
+                            <i class="header-account__hover-icon fa-solid fa-user-pen"></i> Chi tiết tài khoản
+                        </a>
+                        <a href="index.php?act=edit_password" class="header-account__hover-login">
+                            <i class="header-account__hover-icon fa-solid fa-key"></i> Đổi mật khẩu
+                        </a>
+                        <a href="index.php?act=order" class="header-account__hover-login">
+                            <i class="header-account__hover-icon fa-solid fa-list-check"></i> Đơn hàng của tôi
+                        </a>
+                        <?php
                         if (isset($_SESSION['user']['role']) && ($_SESSION['user']['role'] == 5 || $_SESSION['user']['role'] == 4)) :
                         ?>
-                    <a href="index.php?act=admin" class="header-account__hover-register">
-                        <i class="header-account__hover-icon fa-solid fa-screwdriver-wrench"></i> Quản trị Website
-                    </a>
-                    <?php endif; ?>
-                    <a href="index.php?act=account_logout" class="header-account__hover-login">
-                        <i class="header-account__hover-icon fa-solid fa-right-from-bracket"></i> Đăng xuất
-                    </a>
-                </div>
-                <?php else : ?>
-                <a href="index.php?act=profile" class="header__right-box-link">
-                    <div class="header-account__wrap header__right-wrap">
-                        <i class="ti-user header-account__icon header__right-icon"></i>
+                            <a href="index.php?act=admin" class="header-account__hover-register">
+                                <i class="header-account__hover-icon fa-solid fa-screwdriver-wrench"></i> Quản trị Website
+                            </a>
+                        <?php endif; ?>
+                        <a href="index.php?act=account_logout" class="header-account__hover-login">
+                            <i class="header-account__hover-icon fa-solid fa-right-from-bracket"></i> Đăng xuất
+                        </a>
                     </div>
-                    <p class="header-account__tittle header__right-tittle">TÀI KHOẢN</p>
-                </a>
-                <div class="header-account__hover">
-                    <a href="index.php?act=login" class="header-account__hover-login">
-                        <i class="header-account__hover-icon fa-solid fa-door-open"></i> Đăng nhập
+                <?php else : ?>
+                    <a href="index.php?act=profile" class="header__right-box-link">
+                        <div class="header-account__wrap header__right-wrap">
+                            <i class="ti-user header-account__icon header__right-icon"></i>
+                        </div>
+                        <p class="header-account__tittle header__right-tittle">TÀI KHOẢN</p>
                     </a>
-                    <a href="index.php?act=register" class="header-account__hover-register">
-                        <i class="header-account__hover-icon fa-solid fa-user-plus"></i> Đăng ký
-                    </a>
-                </div>
+                    <div class="header-account__hover">
+                        <a href="index.php?act=login" class="header-account__hover-login">
+                            <i class="header-account__hover-icon fa-solid fa-door-open"></i> Đăng nhập
+                        </a>
+                        <a href="index.php?act=register" class="header-account__hover-register">
+                            <i class="header-account__hover-icon fa-solid fa-user-plus"></i> Đăng ký
+                        </a>
+                    </div>
                 <?php endif; ?>
             </div>
 
@@ -245,13 +235,12 @@
                     <a class="header-cart__not-product-link" href="">Vào trang sản phẩm</a>
                 </div> -->
 
-                <div class="header-cart__have-product">
+                <!-- <div class="header-cart__have-product">
                     <h4 class="header-cart__have-product-tittle">GIỎ HÀNG</h4>
                     <div class="header-cart__have-product-list">
                         <div class="header-have-product-item">
                             <a href="" class="header-have-product-item__link">
-                                <img src="../public/img/header/cart/aocottondangomfreesizeviencoph.webp" alt=""
-                                    class="header-have-product-item__img">
+                                <img src="../public/img/header/cart/aocottondangomfreesizeviencoph.webp" alt="" class="header-have-product-item__img">
                             </a>
                             <div class="have-product-item__container">
                                 <div class="have-product-item__wrap-tittle">
@@ -272,8 +261,7 @@
                         </div>
                         <div class="header-have-product-item">
                             <a href="" class="header-have-product-item__link">
-                                <img src="../public/img/header/cart/aocottondangomfreesizeviencoph.webp" alt=""
-                                    class="header-have-product-item__img">
+                                <img src="../public/img/header/cart/aocottondangomfreesizeviencoph.webp" alt="" class="header-have-product-item__img">
                             </a>
                             <div class="have-product-item__container">
                                 <div class="have-product-item__wrap-tittle">
@@ -298,7 +286,7 @@
                         <span class="header-cart__have-product-price-number">650.000<u>đ</u></span>
                     </div>
                     <button class="header-cart__have-product-btn btn">THANH TOÁN</button>
-                </div>
+                </div> -->
             </div>
         </div>
     </header>

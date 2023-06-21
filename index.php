@@ -240,6 +240,7 @@ if (isset($_GET['act'])) {
             break;
 
 
+            // hình ảnh user bình luận
             // thống kê đơn hàng
             // validate
             // check ràng buộc khi xóa các thứ liên quan, chú ý chỗ order với order detail đã bị mất ràng buộc

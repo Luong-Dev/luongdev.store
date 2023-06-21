@@ -89,42 +89,25 @@
                         <nav aria-label="Page navigation example">
                             <ul class="pagination pagination-lg">
                                 <li class="page-item">
-                                    <a class="page-link" href="#" aria-label="Previous">
+                                    <span class="page-link js-page-previous" aria-label="Previous">
                                         <span aria-hidden="true">&laquo;</span>
-                                    </a>
+                                    </span>
                                 </li>
-                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+
+                                <?php if (isset($pageNumberTotal) && $pageNumberTotal) :
+                                    for ($i = 1; $i <= $pageNumberTotal; $i++) : ?>
+                                        <li class="page-item"><span class="js-page-select page-link"><?= $i ?></span></li>
+                                <?php endfor;
+                                endif; ?>
+
                                 <li class="page-item">
-                                    <a class="page-link" href="#" aria-label="Next">
+                                    <span class="page-link js-page-next" aria-label="Next">
                                         <span aria-hidden="true">&raquo;</span>
-                                    </a>
+                                    </span>
                                 </li>
                             </ul>
                         </nav>
                     </div>
-
-                    <!-- <div class="mt-4 pagination d-flex justify-content-center">
-                        <nav aria-label="Page navigation example">
-                            <ul class="pagination">
-                                <li class="page-item">
-                                    <a class="page-link js-prev-page" href="#" aria-label="Previous">
-                                        <span aria-hidden="true">&laquo;</span>
-                                    </a>
-                                </li>
-                                @for ($i = 0; $i < $pagi_quantity; $i++) <li class="page-item">
-                                    <a class="page-link" href="/admin/employees/{{ $i + 1 }}">{{ $i + 1 }}</a>
-                                    </li>
-                                    @endfor
-                                    <li class="page-item">
-                                        <a class="page-link js-next-page" href="#" aria-label="Next">
-                                            <span aria-hidden="true">&raquo;</span>
-                                        </a>
-                                    </li>
-                            </ul>
-                        </nav>
-                    </div> -->
                 </div>
             </section>
             <aside class="product wrap__main-right">
@@ -281,7 +264,7 @@
 
                 </div>
 
-                <div class="filter-pro__wrap mt-5 rounded">
+                <!-- <div class="filter-pro__wrap mt-5 rounded">
                     <div class="filter-pro__wrap-item">
                         <h3 class="filter-pro__title">CHỌN MỨC GIÁ</h3>
                         <div class="filter-pro__item form-check">
@@ -381,8 +364,40 @@
                             </label>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </aside>
         </div>
     </div>
 </main>
+<script>
+    <?php if (isset($pageNumberTotal) && is_numeric($pageNumberTotal)) : ?>
+        let pagePrevious = document.querySelector('.js-page-previous')
+        let next = document.querySelector('.js-page-next')
+        let page_items = document.querySelectorAll('.js-page-select')
+        let a = <?= $pageNumberTotal ?>;
+        let url = window.location.href;
+        page_items.forEach(element => {
+            element.addEventListener('click', e => {
+                url += `&page=${e.target.innerText}`
+                window.location.href = url;
+            })
+        });
+        <?php if (isset($_GET['page']) && is_numeric($_GET['page']) && $_GET['page'] >= 2 && $_GET['page'] <= $pageNumberTotal) : ?>
+            pagePrevious.addEventListener('click', e => {
+                url += `&page=<?= ($_GET['page'] - 1) ?>`;
+                window.location.href = url;
+            })
+        <?php endif; ?>
+        <?php if (isset($_GET['page']) && is_numeric($_GET['page']) && $_GET['page'] >= 1 && $_GET['page'] <= $pageNumberTotal - 1) : ?>
+            next.addEventListener('click', e => {
+                url += `&page=<?= ($_GET['page'] + 1) ?>`;
+                window.location.href = url;
+            })
+        <?php elseif (!isset($_GET['page'])) : ?>
+            next.addEventListener('click', e => {
+                url += `&page=2`;
+                window.location.href = url;
+            })
+        <?php endif; ?>
+    <?php endif; ?>
+</script>
