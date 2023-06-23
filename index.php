@@ -157,9 +157,14 @@ if (isset($_GET['act'])) {
 
             // statistical
 
-        case 'statistical':
+        case 'statistical_products_for_category':
             checkRoleAdmin();
-            statisticalControl();
+            statisticalProductsForCategoryControl();
+            break;
+
+        case 'statistical_number_order_sold':
+            checkRoleAdmin();
+            statisticalNumberOrderSoldControl();
             break;
 
 
@@ -241,7 +246,7 @@ if (isset($_GET['act'])) {
 
 
             // thống kê đơn hàng
-            //             Số lượng đơn hàng theo ngày, tuần, tháng, năm
+            // Số lượng đơn hàng theo ngày, tuần, tháng, năm
             // Doanh thu ngày, tuần, tháng, năm
 
             // validate: xử lý form đăng nhập trước

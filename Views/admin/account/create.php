@@ -51,7 +51,7 @@
             <input type="hidden" name="idData" class="form-control" value="<?= isset($id) ? $id : "" ?>">
             <input type="submit" name="add-new" value="Thêm mới" class="btn btn-primary"></input>
             <input type="reset" class="btn btn-outline-danger" value="Nhập lại"></input>
-            <a href="index.php?act=admin_products" class="btn btn-outline-success">Danh sách</a>
+            <a href="index.php?act=admin_accounts" class="btn btn-outline-success">Danh sách</a>
         </div>
     </form>
 </div>

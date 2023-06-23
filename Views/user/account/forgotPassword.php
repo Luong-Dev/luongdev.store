@@ -38,7 +38,7 @@
                 <?php unset($_SESSION['notify']['error']) ?>
             <?php endif; ?>
         </div>
-        <form action="index.php?act=confirm_email" method="post" class="register__form mt-4">
+        <form id="formConfirm" action="index.php?act=confirm_email" method="post" class="register__form mt-4">
             <div class="mb-4">
                 <input name="email" type="email" class="form-control" aria-describedby="emailHelp" placeholder="Nhập Email để lấy lại mật khẩu" required>
             </div>

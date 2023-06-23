@@ -34,9 +34,14 @@ function createProductCategoryControl()
     if (isset($_POST['add-new']) && $_POST['add-new']) {
         // xét tồn tại các post, xét điều kiện validate, nghiên cứu làm 1 file validate riêng
         $name = $_POST['name'];
-        postProductCategory($name);
-        $_SESSION['notify']['success'] = "Thêm mới thành công danh mục: $name";
-        header("location: " . URL_P_C);
+        if (getProductCategoryWhereName($name)) {
+            $_SESSION['notify']['error'] = "Danh mục này đã tồn tại, vui lòng nhập tên khác!";
+            header("location: " . URL_P_C);
+        } else {
+            postProductCategory($name);
+            $_SESSION['notify']['success'] = "Thêm mới thành công danh mục: $name";
+            header("location: " . URL_P_C);
+        }
         // exit("Test Exit");
     }
 
@@ -50,9 +55,15 @@ function deleteProductCategoryControl()
         $id = $_GET['id'];
         $check = getProductCategory($id);
         if ($check) {
-            deleteProductCategory($id);
-            $_SESSION['notify']['success'] = 'Xóa thành công danh mục: ' . $check['name'];
-            header("location: " . URL_P_C);
+            $checkPr = getProductsWherePrCr($id);
+            if ($checkPr) {
+                $_SESSION['notify']['error'] = "Danh mục đã tồn tại sản phẩm, không được xóa!";
+                header("location: " . URL_P_C);
+            } else {
+                deleteProductCategory($id);
+                $_SESSION['notify']['success'] = 'Xóa thành công danh mục: ' . $check['name'];
+                header("location: " . URL_P_C);
+            }
         } else {
             $_SESSION['notify']['error'] = "Danh mục không tồn tại";
             header("location: " . URL_P_C);
@@ -87,8 +98,13 @@ function updateProductCategoryControl()
     if (isset($_POST['update']) && $_POST['update']) {
         $id = $_POST['idData'];
         $name = $_POST['name'];
-        putProductCategory($name, $id);
-        $_SESSION['notify']['success'] = 'Cập nhật thành công danh mục: ' . $name;
-        header("location: " . URL_P_C);
+        if (checkPut($name, $id)) {
+            $_SESSION['notify']['error'] = "Danh mục này đã tồn tại, vui lòng nhập tên khác!";
+            header("location: index.php?act=admin_product_categories_edit&id=$id");
+        } else {
+            putProductCategory($name, $id);
+            $_SESSION['notify']['success'] = 'Cập nhật thành công danh mục: ' . $name;
+            header("location: " . URL_P_C);
+        }
     }
 }

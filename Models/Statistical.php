@@ -13,3 +13,13 @@ function getStatisticalWithPC()
 
     return pdo_query($sql);
 }
+
+function getStatisticalWithOrderQuantity()
+{
+    $sql = "SELECT MONTH(created_at) AS sold_month, COUNT(*) AS total_orders
+    FROM orders
+    WHERE YEAR(created_at) = 2023 AND status = 4
+    GROUP BY sold_month";
+
+    return pdo_query($sql);
+}

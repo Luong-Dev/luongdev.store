@@ -30,7 +30,7 @@
                 <?php unset($_SESSION['notify']['error']) ?>
             <?php endif; ?>
         </div>
-        <form action="index.php?act=update_password" method="post" class="register__form mt-4">
+        <form id="myForm" action="index.php?act=update_password" method="post" class="register__form mt-4">
             <div class="mb-4">
                 <input name="password" type="password" class="form-control" placeholder="Mật khẩu hiện tại" required>
             </div>

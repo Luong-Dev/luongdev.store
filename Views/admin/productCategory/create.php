@@ -8,7 +8,7 @@
             <?= (isset($message['error']) && $message['error']) ? $message['error'] : ""; ?>
         </p>
     </div>
-    <form action="index.php?act=admin_product_categories_create" class="form" method="POST">
+    <form id="formAdmin" action="index.php?act=admin_product_categories_create" class="form" method="POST">
         <div class="mb-3">
             <label for="exampleId" class="form-label">Mã loại:</label>
             <input type="text" name="id" class="form-control" id="exampleId" value="Auto" disabled>

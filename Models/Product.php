@@ -17,6 +17,13 @@ function getProducts($productCategoryId = "", $productSearch = "")
     return pdo_query($sql);
 }
 
+function getProductsWherePrCr($productCategoryId)
+{
+    $sql = "SELECT * FROM `products` WHERE product_category_id = ?";
+
+    return pdo_query($sql, $productCategoryId);
+}
+
 function getProduct($id)
 {
     $sql = "SELECT * FROM `products` WHERE id = ?";

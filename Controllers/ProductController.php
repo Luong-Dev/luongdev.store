@@ -206,7 +206,6 @@ function productUserControl()
         $productSearch = $_GET['search_product'];
     }
 
-
     $products =  getProductsCustom(productCategoryId: $productCategoryId, productSearch: $productSearch);
     $itemTotal = count($products);
     $itemInPage = 12;

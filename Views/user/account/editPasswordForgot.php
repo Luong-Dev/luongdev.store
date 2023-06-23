@@ -29,7 +29,7 @@
     </div>
     <div class="register mt-5 mb-5 container">
         <h1 class="register__title">Cập nhật mật khẩu</h1>
-        <form action="index.php?act=update_password_forgot" method="post" class="register__form mt-4">
+        <form id="myForm" action="index.php?act=update_password_forgot" method="post" class="register__form mt-4">
             <div class="mb-4">
                 <input name="passwordNew" type="password" class="form-control" placeholder="Mật khẩu mới" required>
             </div>

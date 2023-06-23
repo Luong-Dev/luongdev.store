@@ -29,7 +29,7 @@
     </div>
     <div class="register mt-5 mb-5 container">
         <h1 class="register__title">Xác nhận mã code</h1>
-        <form action="index.php?act=verification_code" method="post" class="register__form mt-4">
+        <form id="formConfirm" action="index.php?act=verification_code" method="post" class="register__form mt-4">
             <div class="mb-4">
                 <input name="code" type="text" class="form-control" aria-describedby="emailHelp" placeholder="Nhập mã code đã được gửi qua Email của bạn" required>
             </div>

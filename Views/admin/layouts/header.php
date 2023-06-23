@@ -39,8 +39,21 @@
                         <li class="nav-item">
                             <a class="nav-link" href="index.php?act=admin_comments">Bình luận</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="index.php?act=statistical">Thống kê</a>
+                        <!-- <li class="nav-item">
+                            <a class="nav-link" href="index.php?act=statistical_products_for_category">Thống kê</a>
+                        </li> -->
+                        <li class="nav-item dropdown">
+                            <span class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Thống kê
+                            </span>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="index.php?act=statistical_products_for_category">Hàng hóa theo loại</a></li>
+                                <li><a class="dropdown-item" href="index.php?act=statistical_number_order_sold">Đơn hàng theo tháng</a></li>
+                                <!-- <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="#">Something else here</a></li> -->
+                            </ul>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" aria-current="page" href="index.php?act=">Trang khách hàng</a>

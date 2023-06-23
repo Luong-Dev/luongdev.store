@@ -54,9 +54,9 @@
         </div>
         <div class="forgot-password__wrap mt-5">
             <input id="forgotPassword" type="checkbox" class="event-form-forgot-password" hidden>
-            <form action="index.php?act=confirm_email" method="post" class="forgot-password__form register__form">
+            <form id="formConfirm" action="index.php?act=confirm_email" method="post" class="forgot-password__form register__form">
                 <div class="mb-4">
-                    <input name="email" type="email" class="form-control" aria-describedby="emailHelp" placeholder="Nhập Email để lấy lại mật khẩu">
+                    <input name="email" type="email" class="form-control" aria-describedby="emailHelp" placeholder="Nhập Email để lấy lại mật khẩu" required>
                 </div>
                 <div class="register__event">
                     <input name="forgot" type="submit" class="register__btn btn" value="Lấy lại mật khẩu"></input>

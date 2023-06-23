@@ -30,6 +30,13 @@ function getProductCategory($id)
 //     return pdo_query_one($sql, $id);
 // }
 
+function getProductCategoryWhereName($name)
+{
+    $sql = "SELECT * FROM `product_categories` WHERE name = ?";
+
+    return pdo_query_one($sql, $name);
+}
+
 function postProductCategory($name)
 {
     $sql = "INSERT INTO `product_categories`(`name`) 
@@ -38,6 +45,12 @@ function postProductCategory($name)
     return  pdo_execute($sql, $name);
 }
 
+function checkPut($name, $id)
+{
+    $sql = "SELECT * FROM `product_categories` WHERE name = ? and id <> $id";
+
+    return pdo_query_one($sql, $name);
+}
 
 function putProductCategory($name, $id)
 {
